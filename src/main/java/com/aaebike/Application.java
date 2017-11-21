@@ -1,38 +1,35 @@
 package com.aaebike;
 
-import com.alipay.demo.trade.config.Configs;
-import org.apache.log4j.Logger;
+import java.io.IOException;
+
+import org.mybatis.spring.annotation.MapperScan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import java.io.IOException;
+import com.aaebike.model.UserInfo;
+import com.alipay.demo.trade.config.Configs;
 
-/**
- * 支付主控
- * 启动   java -jar ebike.jar --server.port=8886
- * linux 下 后台启动  nohup java -jar ebike.jar --server.port=8886 &
- */
-@SpringBootApplication
-@ImportResource({"classpath:spring-context-dubbo.xml"})
 @Controller
+@EnableWebMvc
+@SpringBootApplication
+@MapperScan(basePackages = "com.aaebike.mapper")
+@ImportResource({"classpath:spring-context-dubbo.xml"})
 public class Application extends WebMvcConfigurerAdapter {
-    private static final Logger logger = Logger.getLogger(Application.class);
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @RequestMapping("/")
-    public String greeting() {
-        return "index";
-    }
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/cert/**").addResourceLocations(
-                "classpath:/cert/");
-        super.addResourceHandlers(registry);
+    public String greeting(Model model) {
+        UserInfo userInfo = new UserInfo();
+        model.addAttribute("userInfo", userInfo);
+        return "user/login";
     }
 
     public static void main(String[] args) throws InterruptedException,

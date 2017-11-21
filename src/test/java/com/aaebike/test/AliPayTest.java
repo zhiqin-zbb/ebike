@@ -9,8 +9,8 @@ import org.springframework.context.annotation.ComponentScan;
 import com.alipay.demo.trade.config.Configs;
 import com.aaebike.common.constants.PayType;
 import com.aaebike.common.constants.PayWay;
-import com.aaebike.common.model.Product;
-import com.aaebike.modules.alipay.service.IAliPayService;
+import com.aaebike.model.Product;
+import com.aaebike.service.alipay.IAliPayService;
 
 @SpringBootApplication
 @ComponentScan(basePackages={"com.aaebike"})

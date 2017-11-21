@@ -27,9 +27,7 @@ public class Application extends WebMvcConfigurerAdapter {
 
     @RequestMapping("/")
     public String greeting(Model model) {
-        UserInfo userInfo = new UserInfo();
-        model.addAttribute("userInfo", userInfo);
-        return "user/login";
+        return "index";
     }
 
     public static void main(String[] args) throws InterruptedException,

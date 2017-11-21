@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+        <head>
+            <meta name="Generator" content="ECSHOP v3.6.0"/>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+            <meta name="Keywords" content="AA电单车"/>
+            <meta name="Description" content="AA电单车"/>
+
+            <title>AA电单车</title>
+
+            <link rel="shortcut icon" th:href="@{/static/ico/favicon.ico}"/>
+            <link rel="icon" th:href="@{/static/gif/animated_favicon.gif}" type="image/gif"/>
+            <link th:href="@{/static/css/style.css}" rel="stylesheet" type="text/css"/>
+            <link rel="alternate" type="application/rss+xml" title="RSS|AA电单车" th:href="feed.php"/>
+            <link rel="stylesheet" type="text/css" th:href="themes/default/images/swiper.min.css">
+            <script language='javascript' th:src="@{/static/js/swiper.min.js}" type='text/javascript' charset='utf-8'></script>
+
+            <script type="text/javascript" th:src="@{/static/js/common.js}"></script>
+            <script type="text/javascript" th:src="@{/static/js/index.js}"></script>
+        </head>
+<body>
+<script type="text/javascript" th:src="@{/static/js/jquery-1.12.0.min.js}"></script>
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/font-awesome.min.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/font-linearicons.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap-theme.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/jquery.fancybox.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/jquery-ui.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/owl.carousel.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/owl.transitions.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/owl.theme.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/settings.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/theme.css}" media="all"/>
+<script type="text/javascript">
+    var process_request = "正在处理您的请求...";
+</script>
+<div class="top-bar row" style="background: #4bae4f none repeat scroll 0 0">
+    <div class="fd_top fd_top1">
+        <div class="bar-left">
+            <div class="top_menu1">
+                <script type="text/javascript" th:src="@{/static/js/transport.js}"></script>
+                <script type="text/javascript" th:src="@{/static/js/utils.js}"></script>
+                <font id="ECS_MEMBERZONE">
+                    <div id="append_parent"></div>
+                    欢迎光临本店<a th:href="@{/static/php/user.php}">请登录 <strong></strong></a>&nbsp;|&nbsp;&nbsp;<a
+                        th:href="@{/static/php/user.php?act=register}">免费注册</a> </font></div>
+        </div>
+        <div class="bar-cart">
+            <div class="fl cart-yh">
+                <a th:href="@{/static/php/user.php}" class="">用户中心</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="header row" style="background: #4bae4f none repeat scroll 0 0;height: 80px">
+
+    <div class="container">
+        <div class="header-main">
+            <div class="row">
+                <div class="col-md-4 col-sm-3 col-xs-12">
+                    <div class="logo6">
+                        <a th:href="@{/static/php/index.php}">
+                            <img alt="" th:src="@{/static/images/logo.png}"
+                                 style="margin-top: -16px"></a>
+                        <span style="color: #fff;font-size:26px;font-weight: bold">AA电单车</span>
+                        <span style="width: 40px;margin-left: 30px">
+                            <img alt="" th:src="@{/static/images/weizhi.png}"
+                                 style="width:20px;margin-top: -12px">
+                            <span id="soloWeizhi" style="width:20px;margin-top: -12px;color: #fff;">--</span>
+                        </span>
+                    </div>
+                    <script>
+                        var province = '';
+                        var city = '';
+                        jQuery.getScript("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js", function () {
+                            province = remote_ip_info["province"];
+                            city = remote_ip_info["city"];
+                            $('#soloWeizhi').html(city);
+                        });
+                    </script>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="smart-search smart-search6">
+                        <div class="select-category">
+                            <a class="category-toggle-link" href="#"><span>所有分类</span></a>
+                            <ul class="list-category-toggle sub-menu-top" style="display: none;">
+                                <li><a th:href="@{/static/php/category.php?id=26}">绿源</a></li>
+                                <li><a th:href="@{/static/php/category.php?id=25}">新蕾</a></li>
+                                <li><a th:href="@{/static/php/category.php?id=18}">欧派</a></li>
+                                <li><a th:href="@{/static/php/category.php?id=22}">立马</a></li>
+                                <li><a th:href="@{/static/php/category.php?id=1}">绿佳</a></li>
+                                <li><a th:href="@{/static/php/category.php?id=6}">爱玛</a></li>
+                                <li><a th:href="@{/static/php/category.php?id=12}">小刀</a></li>
+                                <li><a th:href="@{/static/php/category.php?id=16}">王派</a></li>
+                                <li><a th:href="@{/static/php/category.php?id=19}">倍特</a></li>
+                                <li><a th:href="@{/static/php/category.php?id=33}">爱尔威</a></li>
+                                <li><a th:href="@{/static/php/category.php?id=34}">其他</a></li>
+                            </ul>
+                        </div>
+                        <form class="smart-search-form">
+                            <input type="text" onblur="if (this.value=='') this.value = this.defaultValue"
+                                   onfocus="if (this.value==this.defaultValue) this.value = ''" value="我正在寻找...">
+                            <input type="submit" value="">
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-3 col-xs-12 hidden-xs">
+                    <div class="mini-cart mini-cart6">
+                        <a th:href="@{/cart.html}" class="header-mini-cart">
+                            <div id="ECS_CARTINFO"><a th:href="@{flow.php}" title="查看购物车">购物车（ 0 ）</a></div>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="clear0 "></div>
+<script type="text/javascript" th:src="@{/static/js/jquery-1.12.0.min.js}"></script>
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/font-awesome.min.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/font-linearicons.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap-theme.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/jquery.fancybox.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/jquery-ui.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/owl.carousel.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/owl.transitions.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/owl.theme.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/static/js/slideshow/settings.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/theme.css}" media="all"/>
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/responsive.css}" media="all"/>
+<div class="header">
+    <div class="container">
+        <div class="header-nav6">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-11 col-sm-12 col-xs-6">
+                        <nav class="main-nav main-nav6">
+                            <ul>
+                                <li class="menu-item-has-children">
+                                    <a href="#">品牌选择</a>
+                                    <ul class="sub-menu">
+                                        <li><a th:href="@{category.php?id=26">绿源</a></li>
+                                        <li><a th:href="@{category.php?id=25">新蕾</a></li>
+                                        <li><a th:href="@{category.php?id=18">欧派</a></li>
+                                        <li><a th:href="@{category.php?id=22">立马</a></li>
+                                        <li><a th:href="@{category.php?id=1">绿佳</a></li>
+                                        <li><a th:href="@{category.php?id=6">爱玛</a></li>
+                                        <li><a th:href="@{category.php?id=12">小刀</a></li>
+                                        <li><a th:href="@{category.php?id=16">王派</a></li>
+                                        <li><a th:href="@{category.php?id=19">倍特</a></li>
+                                        <li><a th:href="@{category.php?id=33">爱尔威</a></li>
+                                        <li><a th:href="@{category.php?id=34">其他</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-mega-menu">
+                                    <a th:href="@{grid.html">信用卡分期</a>
+                                    <div class="mega-menu mega-menu-style1">
+                                    </div>
+                                </li>
+                                <li class="has-mega-menu">
+                                    <a th:href="@{list.html">新车优惠</a>
+                                    <div class="mega-menu">
+                                    </div>
+                                </li>
+                                <li class="menu-item-has-children">
+                                    <a th:href="@{grid.html">二手车转让</a>
+                                </li>
+                                <li><a th:href="@{list.html">兼职发布</a></li>
+                            </ul>
+                            <a href="#" class="toggle-mobile-menu"><span>Menu</span></a>
+                        </nav>
+
+                    </div>
+                    <div class="col-md-1 col-sm-1 col-xs-6 hidden-sm">
+                        <div class="category-dropdown category-dropdown6 hidden-dropdown right-category-dropdown">
+                            <h2 class="title-category-dropdown">&nbsp;</h2>
+                            <div class="wrap-category-dropdown">
+                                <ul class="list-category-dropdown">
+                                    <li class="has-cat-mega">
+                                        <a href="#">Mobiles &amp; Tablets</a>
+                                        <img th:src="@{themes/default/images/home1/cat1.png" alt="">
+                                        <div class="cat-mega-menu cat-mega-style1">
+                                            <div class="row">
+                                                <div class="col-md-4 col-sm-3">
+                                                    <div class="list-cat-mega-menu">
+                                                        <h2 class="title-cat-mega-menu">Women’s</h2>
+                                                        <ul>
+                                                            <li><a href="#">Dresses</a></li>
+                                                            <li><a href="#">Coats &amp; Jackets</a></li>
+                                                            <li><a href="#">Blouses &amp; Shirts</a></li>
+                                                            <li><a href="#">Tops &amp; Tees</a></li>
+                                                            <li><a href="#">Hoodies &amp; Sweatshirts</a></li>
+                                                            <li><a href="#">Intimates</a></li>
+                                                            <li><a href="#">Swimwear</a></li>
+                                                            <li><a href="#">Pants &amp; Capris</a></li>
+                                                            <li><a href="#">Sweaters</a></li>
+                                                            <li><a href="#">Accessories</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 col-sm-3">
+                                                    <div class="list-cat-mega-menu">
+                                                        <h2 class="title-cat-mega-menu">Men’s</h2>
+                                                        <ul>
+                                                            <li><a href="#">Tops &amp; Tees</a></li>
+                                                            <li><a href="#">Coats &amp; Jackets</a></li>
+                                                            <li><a href="#">Underwear</a></li>
+                                                            <li><a href="#">Shirts</a></li>
+                                                            <li><a href="#">Hoodies &amp; Sweatshirts</a></li>
+                                                            <li><a href="#">Jeans</a></li>
+                                                            <li><a href="#">Pants</a></li>
+                                                            <li><a href="#">Suits &amp; Blazer</a></li>
+                                                            <li><a href="#">Shorts</a></li>
+                                                            <li><a href="#">Accessories</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 col-sm-3">
+                                                    <div class="zoom-image-thumb">
+                                                        <a href="#"><img
+                                                                th:src="@{themes/default/images/home1/cat-mega-thumb.png"
+                                                                alt=""></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="has-cat-mega">
+                                        <a href="#">Computers</a>
+                                        <img th:src="@{themes/default/images/home1/cat2.png" alt="">
+                                        <div class="cat-mega-menu cat-mega-style2">
+                                            <h2 class="title-cat-mega-menu">Special products</h2>
+                                            <div class="row">
+                                                <div class="col-md-4 col-sm-3">
+                                                    <div class="item-category-featured-product first-item">
+                                                        <div class="product-thumb">
+                                                            <a href="#" class="product-thumb-link">
+                                                                <img class="first-thumb"
+                                                                     th:src="@{themes/default/images/photos/extras/3.jpg"
+                                                                     alt="">
+                                                                <img class="second-thumb"
+                                                                     th:src="@{themes/default/images/photos/extras/4.jpg"
+                                                                     alt="">
+                                                            </a>
+                                                            <div class="product-info-cart">
+                                                                <div class="product-extra-link">
+                                                                    <a href="#" class="wishlist-link"><i
+                                                                            class="fa fa-heart-o"></i></a>
+                                                                    <a href="#" class="compare-link"><i
+                                                                            class="fa fa-toggle-on"></i></a>
+                                                                    <a href="#" class="quickview-link"><i
+                                                                            class="fa fa-search"></i></a>
+                                                                </div>
+                                                                <a href="#" class="addcart-link"><i
+                                                                        class="fa fa-shopping-cart"></i> Add to Cart</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-info">
+                                                            <h3 class="title-product"><a href="#">Burberry Pink &amp;
+                                                                black </a></h3>
+                                                            <div class="info-price">
+                                                                <span>$59.52 </span>
+                                                                <del>$17.96</del>
+                                                            </div>
+                                                            <div class="product-rating">
+                                                                <div class="inner-rating"></div>
+                                                                <span>(3s)</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 col-sm-3">
+                                                    <div class="item-category-featured-product">
+                                                        <div class="product-thumb">
+                                                            <a href="#" class="product-thumb-link">
+                                                                <img class="first-thumb"
+                                                                     th:src="@{themes/default/images/photos/extras/21.jpg"
+                                                                     alt="">
+                                                                <img class="second-thumb"
+                                                                     th:src="@{themes/default/images/photos/extras/22.jpg"
+                                                                     alt="">
+                                                            </a>
+                                                            <div class="product-info-cart">
+                                                                <div class="product-extra-link">
+                                                                    <a href="#" class="wishlist-link"><i
+                                                                            class="fa fa-heart-o"></i></a>
+                                                                    <a href="#" class="compare-link"><i
+                                                                            class="fa fa-toggle-on"></i></a>
+                                                                    <a href="#" class="quickview-link"><i
+                                                                            class="fa fa-search"></i></a>
+                                                                </div>
+                                                                <a href="#" class="addcart-link"><i
+                                                                        class="fa fa-shopping-cart"></i> Add to Cart</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-info">
+                                                            <h3 class="title-product"><a href="#">Burberry Pink &amp;
+                                                                black </a></h3>
+                                                            <div class="info-price">
+                                                                <span>$59.52 </span>
+                                                                <del>$17.96</del>
+                                                            </div>
+                                                            <div class="product-rating">
+                                                                <div class="inner-rating"></div>
+                                                                <span>(3s)</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 col-sm-3">
+                                                    <div class="item-category-featured-product">
+                                                        <div class="product-thumb">
+                                                            <a href="#" class="product-thumb-link">
+                                                                <img class="first-thumb"
+                                                                     th:src="@{themes/default/images/photos/extras/11.jpg"
+                                                                     alt="">
+                                                                <img class="second-thumb"
+                                                                     th:src="@{themes/default/images/photos/extras/12.jpg"
+                                                                     alt="">
+                                                            </a>
+                                                            <div class="product-info-cart">
+                                                                <div class="product-extra-link">
+                                                                    <a href="#" class="wishlist-link"><i
+                                                                            class="fa fa-heart-o"></i></a>
+                                                                    <a href="#" class="compare-link"><i
+                                                                            class="fa fa-toggle-on"></i></a>
+                                                                    <a href="#" class="quickview-link"><i
+                                                                            class="fa fa-search"></i></a>
+                                                                </div>
+                                                                <a href="#" class="addcart-link"><i
+                                                                        class="fa fa-shopping-cart"></i> Add to Cart</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-info">
+                                                            <h3 class="title-product"><a href="#">Burberry Pink &amp;
+                                                                black </a></h3>
+                                                            <div class="info-price">
+                                                                <span>$59.52 </span>
+                                                                <del>$17.96</del>
+                                                            </div>
+                                                            <div class="product-rating">
+                                                                <div class="inner-rating"></div>
+                                                                <span>(3s)</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a href="#">Electronics</a>
+                                        <img th:src="@{themes/default/images/home1/cat3.png" alt="">
+                                    </li>
+                                    <li>
+                                        <a href="#">Fashion</a>
+                                        <img th:src="@{themes/default/images/home1/cat4.png" alt="">
+                                    </li>
+                                    <li>
+                                        <a href="#">Footwear</a>
+                                        <img th:src="@{themes/default/images/home1/cat5.png" alt="">
+                                    </li>
+                                    <li>
+                                        <a href="#">Jewelry &amp; Watches</a>
+                                        <img th:src="@{themes/default/images/home1/cat6.png" alt="">
+                                    </li>
+                                    <li>
+                                        <a href="#">Home &amp; Kitchen</a>
+                                        <img th:src="@{themes/default/images/home1/cat7.png" alt="">
+                                    </li>
+                                    <li>
+                                        <a href="#">Home Appliances</a>
+                                        <img th:src="@{themes/default/images/home1/cat8.png" alt="">
+                                    </li>
+                                    <li>
+                                        <a href="#">Beauty &amp; Perfumes</a>
+                                        <img th:src="@{themes/default/images/home1/cat9.png" alt="">
+                                    </li>
+                                    <li>
+                                        <a href="#">Sports &amp; Outdoors</a>
+                                        <img th:src="@{themes/default/images/home1/cat10.png" alt="">
+                                    </li>
+                                    <li style="display: none;">
+                                        <a href="#">Computers</a>
+                                        <img th:src="@{themes/default/images/home1/cat2.png" alt="">
+                                    </li>
+                                    <li style="display: none;">
+                                        <a href="#">Electronics</a>
+                                        <img th:src="@{themes/default/images/home1/cat3.png" alt="">
+                                    </li>
+                                    <li style="display: none;">
+                                        <a href="#">Fashion</a>
+                                        <img th:src="@{themes/default/images/home1/cat4.png" alt="">
+                                    </li>
+                                    <li style="display: none;">
+                                        <a href="#">Footwear</a>
+                                        <img th:src="@{themes/default/images/home1/cat5.png" alt="">
+                                    </li>
+                                    <li style="display: none;">
+                                        <a href="#">Jewelry &amp; Watches</a>
+                                        <img th:src="@{themes/default/images/home1/cat6.png" alt="">
+                                    </li>
+                                </ul>
+                                <a href="#" class="expand-category-link"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blank5"></div>
+<script>
+    //    alert('hah');
+</script>
+<script>
+    if (Object.prototype.toJSONString) {
+        var oldToJSONString = Object.toJSONString;
+        Object.prototype.toJSONString = function () {
+            if (arguments.length > 0) {
+                return false;
+            } else {
+                return oldToJSONString.apply(this, arguments);
+            }
+        }
+    }</script>
+<div class="indexpage clearfix">
+    <div class="index-banner">
+        <style>
+            .swiper-container {
+                width: 100%;
+                height: 100%;
+                background: red;
+                margin-right: 500px;
+            }
+
+            .swiper-slide {
+                text-align: center;
+                font-size: 18px;
+                background: #fff;
+                /* Center slide text vertically */
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: -webkit-flex;
+                display: flex;
+                -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                -webkit-justify-content: center;
+                justify-content: center;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                -webkit-align-items: center;
+                align-items: center;
+            }
+        </style>
+        <div class="swiper-container swiper1">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td><a href='affiche.php?ad_id=1&amp;uri='
+                                   target='_blank'><img src='data/afficheimg/1503247253304786955.png' width='970'
+                                                        height='460'
+                                                        border='0'/></a></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="swiper-slide">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td><a href='affiche.php?ad_id=2&amp;uri='
+                                   target='_blank'><img src='data/afficheimg/1503248034958471840.png' width='970'
+                                                        height='460'
+                                                        border='0'/></a></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="swiper-slide">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td><a href='affiche.php?ad_id=3&amp;uri='
+                                   target='_blank'><img src='data/afficheimg/1503247986020512423.png' width='970'
+                                                        height='460'
+                                                        border='0'/></a></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="swiper-pagination"></div>
+        </div>
+        <script>
+            var swiper = new Swiper('.swiper1', {
+                pagination: '.swiper-pagination',
+                nextButton: '.swiper-button-next',
+                prevButton: '.swiper-button-prev',
+                paginationClickable: true,
+                spaceBetween: 0,
+                centeredSlides: true,
+                autoplay: 4000,
+                loop: true,
+                autoplayDisableOnInteraction: false
+            });
+        </script>
+    </div>
+    <div class="index-logo">
+
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td><a href='affiche.php?ad_id=9&amp;uri='
+                       target='_blank'><img src='data/afficheimg/' width='220' height='460'
+                                            border='0'/></a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="indexpage clearfix index-ad">
+    <div class="ad-tg">
+
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td><a href='affiche.php?ad_id=8&amp;uri='
+                       target='_blank'><img src='data/afficheimg/1503757552542540324.png' width='230' height='206'
+                                            border='0'/></a></td>
+            </tr>
+        </table>
+    </div>
+    <div class="ad-lb">
+
+        <style>
+            .swiper-container.swiper2 {
+                width: 100%;
+                height: 200px;
+                margin-left: auto;
+                margin-right: auto;
+                overflow: hidden;
+            }
+
+            .swiper2 .swiper-slide {
+                text-align: center;
+                font-size: 18px;
+                background: #fff;
+                height: 200px;
+
+                /* Center slide text vertically */
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: -webkit-flex;
+                display: flex;
+                -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                -webkit-justify-content: center;
+                justify-content: center;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                -webkit-align-items: center;
+                align-items: center;
+            }
+        </style>
+        <div class="swiper-container swiper2">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td><a href='affiche.php?ad_id=4&amp;uri=%23'
+                                   target='_blank'><img src='data/afficheimg/1503760062261398235.png' width='210'
+                                                        height='206'
+                                                        border='0'/></a></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="swiper-slide">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td><a href='affiche.php?ad_id=5&amp;uri='
+                                   target='_blank'><img src='data/afficheimg/1503760102990720969.png' width='210'
+                                                        height='206'
+                                                        border='0'/></a></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="swiper-slide">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td><a href='affiche.php?ad_id=6&amp;uri='
+                                   target='_blank'><img src='data/afficheimg/1503760132855023692.png' width='210'
+                                                        height='206'
+                                                        border='0'/></a></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="swiper-slide">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td><a href='affiche.php?ad_id=7&amp;uri='
+                                   target='_blank'><img src='data/afficheimg/1503760146880748826.png' width='210'
+                                                        height='206'
+                                                        border='0'/></a></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="swiper-pagination"></div>
+
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+        <script>
+            var swiper = new Swiper('.swiper2', {
+                nextButton: '.swiper-button-next',
+                prevButton: '.swiper-button-prev',
+                slidesPerView: 4,
+                paginationClickable: true,
+                spaceBetween: 0,
+                loop: true
+            });
+        </script>
+    </div>
+</div>
+<div class="index-body">
+    <div class="indexpage">
+        <div class="body-goods">
+            <div class="row">
+                <div class="hot-category col-md-12 col-sm-12 col-xs-12">
+                    <div class="header-product-filter">
+                        <h2>
+                            <span>热销品牌</span>
+                            <a href="#" class="toggle-link-filter"><i class="fa fa-filter"></i> filter</a>
+                        </h2>
+                        <div class="box-product-filter">
+                            <div class="list-box-filter clearfix">
+                                <div class="item-box-filter">
+                                    <h2>Sort By</h2>
+                                    <ul>
+                                        <li><a href="#">Default</a></li>
+                                        <li><a href="#">Popularity</a></li>
+                                        <li><a href="#">Average rating</a></li>
+                                        <li><a href="#">Price: Low to High</a></li>
+                                        <li><a href="#">Price: High to Low</a></li>
+                                    </ul>
+                                </div>
+                                <div class="item-box-filter">
+                                    <h2>Price</h2>
+                                    <ul>
+                                        <li><a href="#">All</a></li>
+                                        <li><a href="#">$0.00 - $50.00</a></li>
+                                        <li><a href="#">$50.00 - $100.00</a></li>
+                                        <li><a href="#">$100.00 - $150.00</a></li>
+                                        <li><a href="#">$150.00 - $200.00</a></li>
+                                        <li><a href="#">$200.00+</a></li>
+                                    </ul>
+                                </div>
+                                <div class="item-box-filter">
+                                    <h2>Color</h2>
+                                    <ul>
+                                        <li><span class="color-filter" style="background:#386edb"></span><a href="#">Blue </a>
+                                        </li>
+                                        <li><span class="color-filter" style="background:#ef9770"></span><a href="#">Brown </a>
+                                        </li>
+                                        <li><span class="color-filter" style="background:#c4c4c4"></span><a href="#">Gray </a>
+                                        </li>
+                                        <li><span class="color-filter" style="background:#4bae4f"></span><a href="#">Green </a>
+                                        </li>
+                                        <li><span class="color-filter" style="background:#ff9c00"></span><a href="#">Orange </a>
+                                        </li>
+                                        <li><span class="color-filter" style="background:#ffffff"></span><a href="#">White </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="listcategory-hot list-shop-cat">
+                        <li><a th:href="@{category.php?id=26">绿源 <span>29</span></a></li>
+                        <li><a th:href="@{category.php?id=25">新蕾 <span>4</span></a></li>
+                        <li><a th:href="@{category.php?id=18">欧派 <span>12</span></a></li>
+                        <li><a th:href="@{category.php?id=22">立马 <span>4</span></a></li>
+                        <li><a th:href="@{category.php?id=1">绿佳 <span>10</span></a></li>
+                        <li><a th:href="@{category.php?id=6">爱玛 <span>31</span></a></li>
+                        <li><a th:href="@{category.php?id=12">小刀 <span>22</span></a></li>
+                        <li><a th:href="@{category.php?id=16">王派 <span>9</span></a></li>
+                        <li><a th:href="@{category.php?id=19">倍特 <span>0</span></a></li>
+                        <li><a th:href="@{category.php?id=33">爱尔威 <span>2</span></a></li>
+                        <li><a th:href="@{category.php?id=34">其他 <span>12</span></a></li>
+                    </ul>
+                    <div class="clearfix goods-wrap">
+                        <div class="goods-right">
+
+                            <div class="all_ms">
+                                <a class="goodsItem" th:href="@{goods.php?id=101">
+                                    <div class="img-box"><img
+                                            th:src="@{images/201708/thumb_img/101_thumb_G_1503221500871.png"
+                                            alt="FAC2-5R4820-Z1-风暴Ⅱ" class="goodsimg"/></div>
+                                    <div class="goods-brief"></div>
+                                    <div class="gos-title">FAC2-5R4820-Z1-风暴Ⅱ</div>
+                                    <div class="prices">
+                                        <font class="shop_s"><b>￥2500元</b></font>
+                                    </div>
+
+                                </a>
+                                <a class="goodsItem" th:href="@{goods.php?id=100">
+                                    <div class="img-box"><img
+                                            th:src="@{images/201708/thumb_img/100_thumb_G_1503221466021.png" alt="风萌"
+                                            class="goodsimg"/></div>
+                                    <div class="goods-brief"></div>
+                                    <div class="gos-title">风萌</div>
+                                    <div class="prices">
+                                        <font class="shop_s"><b>￥2600元</b></font>
+                                    </div>
+
+                                </a>
+                                <a class="goodsItem" th:href="@{goods.php?id=99">
+                                    <div class="img-box"><img
+                                            th:src="@{images/201708/thumb_img/99_thumb_G_1503221421304.png"
+                                            alt="FAD-4T4812-Z1" class="goodsimg"/></div>
+                                    <div class="goods-brief"></div>
+                                    <div class="gos-title">FAD-4T4812-Z1</div>
+                                    <div class="prices">
+                                        <font class="shop_s"><b>￥2560元</b></font>
+                                    </div>
+
+                                </a>
+                                <a class="goodsItem" th:href="@{goods.php?id=98">
+                                    <div class="img-box"><img
+                                            th:src="@{images/201708/thumb_img/98_thumb_G_1503221376490.png"
+                                            alt="FAV-4T4812-Z1-风行" class="goodsimg"/></div>
+                                    <div class="goods-brief"></div>
+                                    <div class="gos-title">FAV-4T4812-Z1-风行</div>
+                                    <div class="prices">
+                                        <font class="shop_s"><b>￥2300元</b></font>
+                                    </div>
+
+                                </a>
+                                <a class="goodsItem" th:href="@{goods.php?id=97">
+                                    <div class="img-box"><img
+                                            th:src="@{images/201708/thumb_img/97_thumb_G_1503221338475.png"
+                                            alt="FAW-4T4812-Z1-风尚" class="goodsimg"/></div>
+                                    <div class="goods-brief"></div>
+                                    <div class="gos-title">FAW-4T4812-Z1-风尚</div>
+                                    <div class="prices">
+                                        <font class="shop_s"><b>￥2300元</b></font>
+                                    </div>
+
+                                </a>
+                                <a class="goodsItem" th:href="@{goods.php?id=96">
+                                    <div class="img-box"><img
+                                            th:src="@{images/201708/thumb_img/96_thumb_G_1503221296092.png"
+                                            alt="FAX-5R4820-Z1-风韵" class="goodsimg"/></div>
+                                    <div class="goods-brief"></div>
+                                    <div class="gos-title">FAX-5R4820-Z1-风韵</div>
+                                    <div class="prices">
+                                        <font class="shop_s"><b>￥2490元</b></font>
+                                    </div>
+
+                                </a>
+                                <a class="goodsItem" th:href="@{goods.php?id=95">
+                                    <div class="img-box"><img
+                                            th:src="@{images/201708/thumb_img/95_thumb_G_1503221256249.png"
+                                            alt="FX2-4T4812-Z1-风汛Ⅲ" class="goodsimg"/></div>
+                                    <div class="goods-brief"></div>
+                                    <div class="gos-title">FX2-4T4812-Z1-风汛Ⅲ</div>
+                                    <div class="prices">
+                                        <font class="shop_s"><b>￥2400元</b></font>
+                                    </div>
+
+                                </a>
+                                <a class="goodsItem" th:href="@{goods.php?id=94">
+                                    <div class="img-box"><img
+                                            th:src="@{images/201708/thumb_img/94_thumb_G_1503221203627.png"
+                                            alt="JAS-3R3612-D1-羽箭" class="goodsimg"/></div>
+                                    <div class="goods-brief"></div>
+                                    <div class="gos-title">JAS-3R3612-D1-羽箭</div>
+                                    <div class="prices">
+                                        <font class="shop_s"><b>￥2300元</b></font>
+                                    </div>
+
+                                </a>
+                                <div class="clear0"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="box-adv-col1">
+                <div class="item-adv-simple">
+                    <a href="#"><img alt="" th:src="@{themes/default/images/pro_bancp.jpg"></a>
+                </div>
+            </div>
+            <div class="row">
+                <h2 class="title-home3">电瓶合作品牌</h2>
+            </div>
+
+            <div class="list-partner clearfix">
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianchi/超威.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianchi/风帆.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto;height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianchi/海宝.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto;height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianchi/理士.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto;height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianchi/骆驼.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto;height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianchi/三冠.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto;height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianchi/圣阳.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto;height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianchi/松下.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto;height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianchi/汤浅.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto;height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianchi/天能.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto;height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianchi/星恒.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto;height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianchi/风帆.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto;height: auto;"/>
+                </a>
+            </div>
+            <div class="row">
+                <h2 class="title-home3">电动车合作品牌</h2>
+            </div>
+            <div class="list-partner clearfix">
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/阿凡迪.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/阿米尼.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/爱玛.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/阿凡迪.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/奥斯.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/比德文.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/彪牌.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/大运.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/道易行.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/都市风.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/凤凰.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/华生.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/金箭.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/立马.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/利捷.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/绿能.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/绿源.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/欧派.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/三雅.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/苏杰.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/速派奇.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/台嘉.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/台铃.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/小刀.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/小鸟.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/小牛.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/新大洲.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/新蕾.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/新日.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/星月神.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/雅迪.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/雅奇.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/逸步.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/永久.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/优狐.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/真爱.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+                <a href="#" class="partner-link" style="text-align: center;height: 81px">
+                    <img th:src="@{themes/default/images/dianche/追风鸟.jpg" alt=""
+                         style="max-height: 80px;max-width:170px; width: auto; height: auto;"/>
+                </a>
+            </div>
+            <div class="goods-title">热门商品推荐</div>
+            <div class="clearfix goods-wrap hot-goods">
+
+
+                <div id="show_hot_area" class="clearfix goodsBox all_mid all_ms">
+                    <a class="goodsItem" th:href="@{goods.php?id=162">
+                        <div class="img-box"><img th:src="@{images/201708/thumb_img/162_thumb_G_1503224557263.png"
+                                                  alt="可胜" class="goodsimg"/></div>
+                        <div class="goods-brief"></div>
+                        <div class="gos-title">可胜</div>
+                        <div class="prices">
+                            <font class="shop_s"><b>￥2550元</b></font>
+                        </div>
+
+                    </a>
+                    <a class="goodsItem" th:href="@{goods.php?id=148">
+                        <div class="img-box"><img th:src="@{images/201708/thumb_img/148_thumb_G_1503224011196.png"
+                                                  alt="极酷" class="goodsimg"/></div>
+                        <div class="goods-brief"></div>
+                        <div class="gos-title">极酷</div>
+                        <div class="prices">
+                            <font class="shop_s"><b>￥2900元</b></font>
+                        </div>
+
+                    </a>
+                    <a class="goodsItem" th:href="@{goods.php?id=193">
+                        <div class="img-box"><img th:src="@{images/201708/thumb_img/193_thumb_G_1503231241618.png"
+                                                  alt="米拉" class="goodsimg"/></div>
+                        <div class="goods-brief"></div>
+                        <div class="gos-title">米拉</div>
+                        <div class="prices">
+                            <font class="shop_s"><b>￥2089元</b></font>
+                        </div>
+
+                    </a>
+                    <a class="goodsItem" th:href="@{goods.php?id=207">
+                        <div class="img-box"><img th:src="@{images/201708/thumb_img/207_thumb_G_1503231941132.png"
+                                                  alt="90后三代" class="goodsimg"/></div>
+                        <div class="goods-brief"></div>
+                        <div class="gos-title">90后三代</div>
+                        <div class="prices">
+                            <font class="shop_s"><b>￥2350元</b></font>
+                        </div>
+
+                    </a>
+                    <a class="goodsItem" th:href="@{goods.php?id=101">
+                        <div class="img-box"><img th:src="@{images/201708/thumb_img/101_thumb_G_1503221500871.png"
+                                                  alt="FAC2-5R4820-Z1-风暴Ⅱ" class="goodsimg"/></div>
+                        <div class="goods-brief"></div>
+                        <div class="gos-title">FAC2-5R4820-Z1-风暴Ⅱ</div>
+                        <div class="prices">
+                            <font class="shop_s"><b>￥2500元</b></font>
+                        </div>
+
+                    </a>
+                    <div class="clear0"></div>
+                </div>
+                <div class="clear10"></div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="foot-body">
+    <!--  <div class="bads"><img src="themes/default/images/bottom.jpg"></div>-->
+    <div class="clear10"></div>
+
+    <div class="foot-help">
+        <dl>
+            <dt class="xs-1">新手上路</dt>
+            <dd><a th:href="@{article.php?id=9" target="_blank" title="售后流程">售后流程</a></dd>
+            <dd><a th:href="@{article.php?id=10" target="_blank" title="购物流程">购物流程</a></dd>
+            <dd><a th:href="@{article.php?id=11" target="_blank" title="订购方式">订购方式</a></dd>
+        </dl>
+        <dl>
+            <dt class="xs-2">手机常识</dt>
+            <dd><a th:href="@{article.php?id=12" target="_blank" title="如何分辨原装电池">如何分辨原装电池</a></dd>
+            <dd><a th:href="@{article.php?id=13" target="_blank" title="如何分辨二手电单车">如何分辨二手电单车</a></dd>
+            <dd><a th:href="@{article.php?id=14" target="_blank" title="如何享受全国联保">如何享受全国联保</a></dd>
+        </dl>
+        <dl>
+            <dt class="xs-3">配送与支付</dt>
+            <dd><a th:href="@{article.php?id=15" target="_blank" title="货到付款区域">货到付款区域</a></dd>
+            <dd><a th:href="@{article.php?id=16" target="_blank" title="配送支付智能查询 ">配送支付智能查询</a></dd>
+            <dd><a th:href="@{article.php?id=17" target="_blank" title="支付方式说明">支付方式说明</a></dd>
+        </dl>
+        <dl>
+            <dt class="xs-4">会员中心</dt>
+            <dd><a th:href="@{article.php?id=18" target="_blank" title="资金管理">资金管理</a></dd>
+            <dd><a th:href="@{article.php?id=19" target="_blank" title="我的收藏">我的收藏</a></dd>
+            <dd><a th:href="@{article.php?id=20" target="_blank" title="我的订单">我的订单</a></dd>
+        </dl>
+        <div class="foot-weixin">
+            <div class="weixin-txt">关注AA电单车微信</div>
+            <div class="weixin-pic">
+                <img th:src="@{themes/default/images/weixin.jpg">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="blank"></div>
+
+    <div class="footer_info"> &copy; 2005-2017 AAEBIKE 版权所有，并保留所有权利。 <br/>
+        <!--      <a href="http://xyunqi.com/products/ecshop?from=nav" target="_blank" style=" font-family:Verdana; font-size:11px;">Powered&nbsp;by&nbsp;<strong><span style="color: #3366FF">ECShop</span>&nbsp;<span style="color: #FF9966">v3.6.0</span></strong></a>&nbsp;<a href="http://www.ecshop.com/license.php?product=ecshop_b2c&url=http%3A%2F%2Faaebike.com%2Fecshop%2F" target="_blank"
+        >&nbsp;&nbsp;Licensed</a><br />-->
+    </div>
+    <div class="clear10"></div>
+</div>
+
+
+</body>
+</html>
+</title>
+</head>
+<body>
+
+</body>
+</html>

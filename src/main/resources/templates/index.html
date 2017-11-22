@@ -43,30 +43,30 @@
                 <script type="text/javascript" th:src="@{/static/js/utils.js}"></script>
                 <font id="ECS_MEMBERZONE">
                     <div id="append_parent"></div>
-                    欢迎光临本店<a th:href="@{/cities/view/1}">请登录 <strong></strong></a>&nbsp;|&nbsp;&nbsp;<a
-                        href="/cities">免费注册</a> </font></div>
+                    欢迎光临本店&nbsp;&nbsp;<a th:href="@{/login}">请登录 <strong></strong></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
+                        th:href="@{/register}">免费注册</a>
+                </font>
+            </div>
         </div>
         <div class="bar-cart">
             <div class="fl cart-yh">
-                <a href="/login" class="">用户中心</a>
+                <a th:href="@{/center}">个人中心</a>
             </div>
         </div>
     </div>
 </div>
 <div id="header row" style="background: #4bae4f none repeat scroll 0 0;height: 80px">
-
     <div class="container">
         <div class="header-main">
             <div class="row">
                 <div class="col-md-4 col-sm-3 col-xs-12">
                     <div class="logo6">
-                        <a href="/login">
-                            <img alt="" th:src="@{/static/images/logo.png}"
-                                 style="margin-top: -16px"></a>
+                        <a th:href="@{/login}">
+                            <img alt="" th:src="@{/static/images/logo.png}" style="margin-top: -16px">
+                        </a>
                         <span style="color: #fff;font-size:26px;font-weight: bold">AA电单车</span>
                         <span style="width: 40px;margin-left: 30px">
-                            <img alt="" th:src="@{/static/images/weizhi.png}"
-                                 style="width:20px;margin-top: -12px">
+                            <img alt="" th:src="@{/static/images/weizhi.png}" style="width:20px;margin-top: -12px">
                             <span id="soloWeizhi" style="width:20px;margin-top: -12px;color: #fff;">--</span>
                         </span>
                     </div>
@@ -82,11 +82,6 @@
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     <div class="smart-search smart-search6">
-                        <div class="select-category">
-                            <a class="category-toggle-link" href="#"><span>所有分类</span></a>
-                            <ul class="list-category-toggle sub-menu-top" style="display: none;">
-                            </ul>
-                        </div>
                         <form class="smart-search-form">
                             <input type="text" onblur="if (this.value=='') this.value = this.defaultValue"
                                    onfocus="if (this.value==this.defaultValue) this.value = ''" value="我正在寻找...">
@@ -97,17 +92,16 @@
                 <div class="col-md-2 col-sm-3 col-xs-12 hidden-xs">
                     <div class="mini-cart mini-cart6">
                         <a th:href="@{/cart.html}" class="header-mini-cart">
-                            <div id="ECS_CARTINFO"><a href="/login" title="查看购物车">购物车（ 0 ）</a></div>
+                            <div id="ECS_CARTINFO">
+                                <a th:href="@{/cart}" title="查看购物车">购物车( 0 )</a>
+                            </div>
                         </a>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
-
 </div>
-<div class="clear0 "></div>
 <script type="text/javascript" th:src="@{/static/js/jquery-1.12.0.min.js}"></script>
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/font-awesome.min.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/font-linearicons.css}"/>
@@ -121,6 +115,38 @@
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/settings.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/theme.css}" media="all"/>
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/responsive.css}" media="all"/>
-
+<div class="header">
+    <div class="container">
+        <div class="header-nav6">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-11 col-sm-12 col-xs-6">
+                        <nav class="main-nav main-nav6">
+                            <ul>
+                                <li class="menu-item-has-children">
+                                    <a href="#">品牌选择</a>
+                                    <ul class="sub-menu">
+                                        <li><a th:href="@{/product/1}">绿源</a></li>
+                                        <li><a th:href="@{/product/2}">新蕾</a></li>
+                                        <li><a th:href="@{/product/3}">欧派</a></li>
+                                        <li><a th:href="@{/product/4}">立马</a></li>
+                                        <li><a th:href="@{/product/5}">绿佳</a></li>
+                                        <li><a th:href="@{/product/6}">爱玛</a></li>
+                                        <li><a th:href="@{/product/7}">小刀</a></li>
+                                        <li><a th:href="@{/product/8}">王派</a></li>
+                                        <li><a th:href="@{/product/9}">倍特</a></li>
+                                        <li><a th:href="@{/product/10}">爱尔威</a></li>
+                                        <li><a th:href="@{/product/11}">其他</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <a href="#" class="toggle-mobile-menu"><span>Menu</span></a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

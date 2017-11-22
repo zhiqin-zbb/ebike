@@ -1,20 +1,21 @@
 package com.aaebike.service.unionpay.impl;
 
-import com.aaebike.common.constants.Constants;
-import com.aaebike.common.constants.PayWay;
-import com.aaebike.model.Product;
-import com.aaebike.common.utils.CommonUtils;
-import com.aaebike.service.unionpay.IUnionPayService;
-import com.aaebike.common.utils.unionpay.AcpService;
-import com.aaebike.common.utils.unionpay.SDKConfig;
-import com.aaebike.common.utils.unionpay.UnionConfig;
-import com.alibaba.dubbo.config.annotation.Service;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.aaebike.common.constants.Constants;
+import com.aaebike.common.constants.PayWay;
+import com.aaebike.common.utils.CommonUtils;
+import com.aaebike.common.utils.unionpay.AcpService;
+import com.aaebike.common.utils.unionpay.SDKConfig;
+import com.aaebike.common.utils.unionpay.UnionConfig;
+import com.aaebike.model.Product;
+import com.aaebike.service.unionpay.IUnionPayService;
 
 @Service
 public class UnionPayServiceImpl implements IUnionPayService {

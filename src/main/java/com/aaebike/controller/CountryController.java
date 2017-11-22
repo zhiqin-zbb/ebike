@@ -22,7 +22,7 @@ public class CountryController {
 
     @RequestMapping
     public ModelAndView getAll(Country country) {
-        ModelAndView result = new ModelAndView("index");
+        ModelAndView result = new ModelAndView("country/index");
         List<Country> countryList = countryService.getAll(country);
         result.addObject("pageInfo", new PageInfo<>(countryList));
         result.addObject("queryParam", country);

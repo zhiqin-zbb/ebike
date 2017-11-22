@@ -1,16 +1,27 @@
 package com.aaebike.service.alipay.impl;
 
+import java.io.File;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
 import com.aaebike.common.constants.Constants;
-import com.aaebike.model.Product;
 import com.aaebike.common.utils.CommonUtils;
-import com.aaebike.service.alipay.IAliPayService;
 import com.aaebike.config.AliPayConfig;
-import com.alibaba.dubbo.config.annotation.Service;
+import com.aaebike.model.Product;
+import com.aaebike.service.alipay.IAliPayService;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.AlipayResponse;
 import com.alipay.api.domain.AlipayTradeAppPayModel;
-import com.alipay.api.request.*;
+import com.alipay.api.request.AlipayDataDataserviceBillDownloadurlQueryRequest;
+import com.alipay.api.request.AlipayTradeAppPayRequest;
+import com.alipay.api.request.AlipayTradeCloseRequest;
+import com.alipay.api.request.AlipayTradePagePayRequest;
+import com.alipay.api.request.AlipayTradeWapPayRequest;
 import com.alipay.api.response.AlipayDataDataserviceBillDownloadurlQueryResponse;
 import com.alipay.api.response.AlipayTradeAppPayResponse;
 import com.alipay.api.response.AlipayTradeCloseResponse;
@@ -22,20 +33,15 @@ import com.alipay.demo.trade.model.builder.AlipayTradeRefundRequestBuilder;
 import com.alipay.demo.trade.model.result.AlipayF2FPrecreateResult;
 import com.alipay.demo.trade.model.result.AlipayF2FRefundResult;
 import com.alipay.demo.trade.utils.ZxingUtils;
-import net.sf.json.JSONObject;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 
-import java.io.File;
+import net.sf.json.JSONObject;
 
 @Service
 public class AliPayServiceImpl implements IAliPayService {
     private static final Logger logger = LoggerFactory.getLogger(AliPayServiceImpl.class);
 
     @Value("${alipay.notify.url}")
-    private String notify_url;
+    private String notifyUrl;
 
     @Override
     public String aliPay(Product product) {
@@ -68,7 +74,7 @@ public class AliPayServiceImpl implements IAliPayService {
                 .setStoreId(storeId)
                 .setExtendParams(extendParams)
                 .setTimeoutExpress(timeoutExpress)
-                .setNotifyUrl(notify_url);//支付宝服务器主动通知商户服务器里指定的页面http路径,根据需要设置
+                .setNotifyUrl(notifyUrl);//支付宝服务器主动通知商户服务器里指定的页面http路径,根据需要设置
 
         AlipayF2FPrecreateResult result = AliPayConfig.getAlipayTradeService().tradePrecreate(builder);
         switch (result.getTradeStatus()) {
@@ -228,7 +234,7 @@ public class AliPayServiceImpl implements IAliPayService {
         AlipayTradeWapPayRequest alipayRequest = new AlipayTradeWapPayRequest();
         String returnUrl = "回调地址 http 自定义";
         alipayRequest.setReturnUrl(returnUrl);//前台通知
-        alipayRequest.setNotifyUrl(notify_url);//后台回调
+        alipayRequest.setNotifyUrl(notifyUrl);//后台回调
         JSONObject bizContent = new JSONObject();
         bizContent.put("out_trade_no", product.getOutTradeNo());
         bizContent.put("total_amount", product.getTotalFee());//订单金额:元
@@ -254,7 +260,7 @@ public class AliPayServiceImpl implements IAliPayService {
         AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
         String returnUrl = "前台回调地址 http 自定义";
         alipayRequest.setReturnUrl(returnUrl);//前台通知
-        alipayRequest.setNotifyUrl(notify_url);//后台回调
+        alipayRequest.setNotifyUrl(notifyUrl);//后台回调
         JSONObject bizContent = new JSONObject();
         bizContent.put("out_trade_no", product.getOutTradeNo());
         bizContent.put("total_amount", product.getTotalFee());//订单金额:元

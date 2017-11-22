@@ -1,24 +1,26 @@
 package com.aaebike.service.weixinpay.impl;
 
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
 import com.aaebike.common.constants.Constants;
+import com.aaebike.common.utils.CommonUtils;
 import com.aaebike.common.utils.weixinpay.ClientCustomSSL;
 import com.aaebike.common.utils.weixinpay.ConfigUtil;
 import com.aaebike.common.utils.weixinpay.HttpUtil;
 import com.aaebike.common.utils.weixinpay.PayCommonUtil;
 import com.aaebike.common.utils.weixinpay.XMLUtil;
 import com.aaebike.model.Product;
-import com.aaebike.common.utils.CommonUtils;
 import com.aaebike.service.weixinpay.IWeixinPayService;
-import com.alibaba.dubbo.config.annotation.Service;
 import com.alipay.demo.trade.utils.ZxingUtils;
-import net.sf.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 
-import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import net.sf.json.JSONObject;
 
 @Service
 public class WeixinPayServiceImpl implements IWeixinPayService {

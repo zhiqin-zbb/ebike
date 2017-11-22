@@ -21,7 +21,6 @@ import com.alipay.demo.trade.config.Configs;
 @EnableWebMvc
 @SpringBootApplication
 @MapperScan(basePackages = "com.aaebike.mapper")
-@ImportResource({"classpath:spring-context-dubbo.xml"})
 public class Application extends WebMvcConfigurerAdapter {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 

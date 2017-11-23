@@ -1,18 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
 <head lang="en">
-    <title>Your profile</title>
+    <title>登录</title>
 </head>
 <body>
-<form th:object="${userInfo}" method="post">
-    <label for="username">User Name: </label>
-    <input type="text" th:field="*{username}"/>
-    <br/>
-    <label for="password">Password: </label>
-    <input type="password" th:field="*{password}"/>
-    <br/>
-    <input type="reset"/>
-    <input type="submit"/>
-</form>
+<div class="row" layout:fragment="content">
+    <form th:object="${userInfo}" method="post">
+        <label for="username">User Name: </label>
+        <input type="text" th:field="*{username}"/>
+        <br/>
+        <label for="password">Password: </label>
+        <input type="password" th:field="*{password}"/>
+        <br/>
+        <input type="reset"/>
+        <input type="submit"/>
+    </form>
+</div>
 </body>
 </html>

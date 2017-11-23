@@ -3,15 +3,68 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initialscale=1, maximum-scale=1.0, user-scalable=no"/>
-    <title>Default title</title>
+    <title>AA电单车</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link th:href="@{/webjars/materializecss/0.100.2/css/materialize.css}" type="text/css" rel="stylesheet"
           media="screen,projection"/>
+    <link th:href="@{/static/css/style.css}" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
+<div class="navbar-fixed">
+    <nav class="white" role="navigation">
+        <div class="nav-wrapper container">
+            <a id="logo-container" th:href="@{/}" class="brand-logo">AA电单车</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a th:href="@{/register}">注册</a></li>
+                <li><a th:href="@{/login}">登录</a></li>
+                <li><a th:href="@{/center}">个人中心</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
 <section layout:fragment="content">
     <p>Page content goes here</p>
 </section>
-<script th:src="@{/webjars/jquery/3.2.1/jquery.js}" type="text/javascript"></script>
-<script th:src="@{/webjars/materializecss/0.100.2/js/materialize.js}" type="text/javascript"></script>
+<footer class="page-footer teal">
+    <div class="container">
+        <div class="row">
+            <div class="col l3 s12">
+                <h5 class="white-text">关于我们</h5>
+                <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+            </div>
+            <div class="col l3 s12">
+                <h5 class="white-text">新手上路</h5>
+                <ul>
+                    <li><a class="white-text" href="#!">售后流程</a></li>
+                    <li><a class="white-text" href="#!">购物流程</a></li>
+                    <li><a class="white-text" href="#!">订购方式</a></li>
+                </ul>
+            </div>
+            <div class="col l3 s12">
+                <h5 class="white-text">配送与支付</h5>
+                <ul>
+                    <li><a class="white-text" th:href="@{/info}">支付方式说明</a></li>
+                </ul>
+            </div>
+            <div class="col l3 s12">
+                <h5 class="white-text">会员中心</h5>
+                <ul>
+                    <li><a class="white-text" th:href="@{/center}">我的订单</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            Made by <a class="brown-text text-lighten-3" href="http://aaebike.com">AAEbike</a>
+        </div>
+    </div>
+</footer>
+<!--  Scripts-->
+<script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/materializecss/0.100.2/js/materialize.js}"></script>
+<script th:src="@{/static/js/init.js}"></script>
 </body>
 </html>

@@ -10,7 +10,8 @@
         <div class="section no-pad-bot">
             <div class="container">
                 <br><br>
-                <h2 class="header center teal-text text-lighten-2"><i class="material-icons prefix medium">assignment_ind</i>个人信息</h2>
+                <h2 class="header center teal-text text-lighten-2"><i class="material-icons prefix medium">assignment_ind</i>个人信息
+                </h2>
                 <div class="row center">
                     <form th:object="${userInfo}" method="post" class="col s12">
                         <div class="row center">
@@ -29,9 +30,23 @@
                         </div>
                         <div class="row center">
                             <div class="input-field col s6 offset-s3">
+                                <i class="material-icons prefix">person_pin</i>
+                                <input id="name" type="text" class="validate" th:field="*{name}"/>
+                                <label for="name">姓名</label>
+                            </div>
+                        </div>
+                        <div class="row center">
+                            <div class="input-field col s6 offset-s3">
+                                <i class="material-icons prefix">email</i>
+                                <input id="email" type="email" class="validate" th:field="*{email}"/>
+                                <label for="email" data-error="请输入正确的邮箱">邮箱</label>
+                            </div>
+                        </div>
+                        <div class="row center">
+                            <div class="input-field inline col s6 offset-s3">
                                 <i class="material-icons prefix">phone</i>
-                                <input id="phone" type="text"/>
-                                <label for="phone">手机号</label>
+                                <input id="tel" type="tel" class="validate" th:field="*{tel}"/>
+                                <label for="tel">手机号</label>
                             </div>
                         </div>
                         <div class="row center">

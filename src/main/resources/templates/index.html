@@ -1,150 +1,82 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/default">
 <head>
-    <meta name="Generator" content="ECSHOP v3.6.0"/>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="Keywords" content="AA电单车"/>
-    <meta name="Description" content="AA电单车"/>
-
     <title>AA电单车</title>
-
-    <link rel="shortcut icon" th:href="@{/static/ico/favicon.ico}"/>
-    <link rel="icon" th:href="@{/static/gif/animated_favicon.gif}" type="image/gif"/>
-    <link th:href="@{/static/css/style.css}" rel="stylesheet" type="text/css"/>
-    <link rel="alternate" type="application/rss+xml" title="RSS|AA电单车"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/static/css/swiper.min.css}">
-    <script language='javascript' th:src="@{/static/js/swiper.min.js}" type='text/javascript' charset='utf-8'></script>
-
-    <script type="text/javascript" th:src="@{/static/js/common.js}"></script>
-    <script type="text/javascript" th:src="@{/static/js/index.js}"></script>
 </head>
 <body>
-<script type="text/javascript" th:src="@{/static/js/jquery-1.12.0.min.js}"></script>
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/font-awesome.min.css}"/>
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/font-linearicons.css}"/>
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.css}"/>
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap-theme.css}"/>
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/jquery.fancybox.css}"/>
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/jquery-ui.css}"/>
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/owl.carousel.css}"/>
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/owl.transitions.css}"/>
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/owl.theme.css}"/>
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/settings.css}"/>
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/theme.css}" media="all"/>
-<script type="text/javascript">
-    var process_request = "正在处理您的请求...";
-</script>
-<div class="top-bar row" style="background: #4bae4f none repeat scroll 0 0">
-    <div class="fd_top fd_top1">
-        <div class="bar-left">
-            <div class="top_menu1">
-                <script type="text/javascript" th:src="@{/static/js/transport.js}"></script>
-                <script type="text/javascript" th:src="@{/static/js/utils.js}"></script>
-                <font id="ECS_MEMBERZONE">
-                    <div id="append_parent"></div>
-                    欢迎光临本店&nbsp;&nbsp;<a th:href="@{/login}">请登录 <strong></strong></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
-                        th:href="@{/register}">免费注册</a>
-                </font>
-            </div>
-        </div>
-        <div class="bar-cart">
-            <div class="fl cart-yh">
-                <a th:href="@{/center}">个人中心</a>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="header row" style="background: #4bae4f none repeat scroll 0 0;height: 80px">
-    <div class="container">
-        <div class="header-main">
-            <div class="row">
-                <div class="col-md-4 col-sm-3 col-xs-12">
-                    <div class="logo6">
-                        <a th:href="@{/login}">
-                            <img alt="" th:src="@{/static/images/logo.png}" style="margin-top: -16px">
-                        </a>
-                        <span style="color: #fff;font-size:26px;font-weight: bold">AA电单车</span>
-                        <span style="width: 40px;margin-left: 30px">
-                            <img alt="" th:src="@{/static/images/weizhi.png}" style="width:20px;margin-top: -12px">
-                            <span id="soloWeizhi" style="width:20px;margin-top: -12px;color: #fff;">--</span>
-                        </span>
-                    </div>
-                    <script>
-                        var province = '';
-                        var city = '';
-                        jQuery.getScript("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js", function () {
-                            province = remote_ip_info["province"];
-                            city = remote_ip_info["city"];
-                            $('#soloWeizhi').html(city);
-                        });
-                    </script>
-                </div>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="smart-search smart-search6">
-                        <form class="smart-search-form">
-                            <input type="text" onblur="if (this.value=='') this.value = this.defaultValue"
-                                   onfocus="if (this.value==this.defaultValue) this.value = ''" value="我正在寻找...">
-                            <input type="submit" value="">
-                        </form>
-                    </div>
-                </div>
-                <div class="col-md-2 col-sm-3 col-xs-12 hidden-xs">
-                    <div class="mini-cart mini-cart6">
-                        <a th:href="@{/cart.html}" class="header-mini-cart">
-                            <div id="ECS_CARTINFO">
-                                <a th:href="@{/cart}" title="查看购物车">购物车( 0 )</a>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<script type="text/javascript" th:src="@{/static/js/jquery-1.12.0.min.js}"></script>
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/font-awesome.min.css}"/>
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/font-linearicons.css}"/>
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.css}"/>
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap-theme.css}"/>
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/jquery.fancybox.css}"/>
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/jquery-ui.css}"/>
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/owl.carousel.css}"/>
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/owl.transitions.css}"/>
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/owl.theme.css}"/>
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/settings.css}"/>
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/theme.css}" media="all"/>
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/responsive.css}" media="all"/>
-<div class="header">
-    <div class="container">
-        <div class="header-nav6">
+<div class="row" layout:fragment="content">
+    <div id="index-banner" class="parallax-container">
+        <div class="section no-pad-bot">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-11 col-sm-12 col-xs-6">
-                        <nav class="main-nav main-nav6">
-                            <ul>
-                                <li class="menu-item-has-children">
-                                    <a href="#">品牌选择</a>
-                                    <ul class="sub-menu">
-                                        <li><a th:href="@{/product/1}">绿源</a></li>
-                                        <li><a th:href="@{/product/2}">新蕾</a></li>
-                                        <li><a th:href="@{/product/3}">欧派</a></li>
-                                        <li><a th:href="@{/product/4}">立马</a></li>
-                                        <li><a th:href="@{/product/5}">绿佳</a></li>
-                                        <li><a th:href="@{/product/6}">爱玛</a></li>
-                                        <li><a th:href="@{/product/7}">小刀</a></li>
-                                        <li><a th:href="@{/product/8}">王派</a></li>
-                                        <li><a th:href="@{/product/9}">倍特</a></li>
-                                        <li><a th:href="@{/product/10}">爱尔威</a></li>
-                                        <li><a th:href="@{/product/11}">其他</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <a href="#" class="toggle-mobile-menu"><span>Menu</span></a>
-                        </nav>
+                <br><br>
+                <h1 class="header center teal-text text-lighten-2">Parallax Template</h1>
+                <div class="row center">
+                    <h5 class="header col s12 light">A modern responsive front-end framework based on Material
+                        Design</h5>
+                </div>
+                <div class="row center">
+                    <a href="http://materializecss.com/getting-started.html" id="download-button"
+                       class="btn-large waves-effect waves-light teal lighten-1">Get Started</a>
+                </div>
+                <br><br>
+
+            </div>
+        </div>
+        <div class="parallax"><img th:src="@{/static/images/background1.jpg}" alt="Unsplashed background img 1"></div>
+    </div>
+
+    <div class="container">
+        <div class="section">
+
+            <!--   Icon Section   -->
+            <div class="row">
+                <div class="col s8 m2">
+                    <div class="collection">
+                        <a th:href="@{/product/all}" class="collection-item active">所有品牌</a>
+                        <a th:href="@{/product/1}" class="collection-item">爱玛</a>
+                        <a th:href="@{/product/2}" class="collection-item">绿源</a>
+                        <a th:href="@{/product/3}" class="collection-item">小牛</a>
                     </div>
                 </div>
+
+                <div class="col s16 m6">
+                    <ul class="collection">
+                        <li class="collection-item avatar">
+                            <i class="material-icons circle">folder</i>
+                            <span class="title">标题</span>
+                            <p>第一行 <br>
+                                第二行
+                            </p>
+                            <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                        </li>
+                        <li class="collection-item avatar">
+                            <i class="material-icons circle">folder</i>
+                            <span class="title">标题</span>
+                            <p>第一行 <br>
+                                第二行
+                            </p>
+                            <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                        </li>
+                        <li class="collection-item avatar">
+                            <i class="material-icons circle green">insert_chart</i>
+                            <span class="title">标题</span>
+                            <p>第一行 <br>
+                                第二行
+                            </p>
+                            <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                        </li>
+                        <li class="collection-item avatar">
+                            <i class="material-icons circle red">play_arrow</i>
+                            <span class="title">标题</span>
+                            <p>第一行 <br>
+                                第二行
+                            </p>
+                            <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+
         </div>
     </div>
 </div>

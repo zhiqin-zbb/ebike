@@ -29,14 +29,4 @@ public class LoginController {
         model.addAttribute("userInfo", userInfo);
         return "user/login";
     }
-
-    @RequestMapping(method = RequestMethod.POST)
-    public String login(UserInfo userInfo) {
-        Boolean validate = userInfoService.validate(userInfo);
-        if (validate) {
-            return "redirect:/result/login/successful";
-        } else {
-            return "redirect:/result/login/fail";
-        }
-    }
 }

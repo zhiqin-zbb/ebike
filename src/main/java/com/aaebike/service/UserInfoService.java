@@ -1,22 +1,37 @@
 package com.aaebike.service;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.github.pagehelper.PageHelper;
-import com.aaebike.common.utils.MD5Utils;
 import com.aaebike.mapper.UserInfoMapper;
 import com.aaebike.model.UserInfo;
+import com.github.pagehelper.PageHelper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserInfoService {
     @Autowired
     private UserInfoMapper userInfoMapper;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public void save(UserInfo user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        if (user.getId() != null) {
+            userInfoMapper.updateByPrimaryKey(user);
+        } else {
+            userInfoMapper.insert(user);
+        }
+    }
+
+    public UserInfo findByUsername(String username) {
+        UserInfo userInfoExample = new UserInfo();
+        userInfoExample.setUsername(username);
+        return userInfoMapper.selectOne(userInfoExample);
+    }
 
     public List<UserInfo> getAll(UserInfo UserInfo) {
         if (UserInfo.getPage() != null && UserInfo.getRows() != null) {
@@ -31,36 +46,5 @@ public class UserInfoService {
 
     public void deleteById(Integer id) {
         userInfoMapper.deleteByPrimaryKey(id);
-    }
-
-    public void save(UserInfo user) {
-        String encodedPassword = MD5Utils.sign(user.getPassword());
-        user.setPassword(encodedPassword);
-
-        if (user.getId() != null) {
-            userInfoMapper.updateByPrimaryKey(user);
-        } else {
-            userInfoMapper.insert(user);
-        }
-    }
-
-    public Boolean validate(UserInfo userInfo) {
-        UserInfo user = new UserInfo();
-        user.setUsername(userInfo.getUsername());
-        UserInfo userInDb = userInfoMapper.selectOne(user);
-
-        return MD5Utils.verify(userInfo.getPassword(), userInDb.getPassword());
-    }
-
-    private String creatMD5(String password) {
-        // 生成一个MD5加密计算摘要
-        MessageDigest md = null;
-        try {
-            md = MessageDigest.getInstance("MD5");
-            md.update(password.getBytes());
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return new BigInteger(1, md.digest()).toString(16);
     }
 }

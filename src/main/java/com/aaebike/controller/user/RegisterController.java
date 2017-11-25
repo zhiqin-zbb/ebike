@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.aaebike.model.UserInfo;
 import com.aaebike.service.UserInfoService;
 
+import java.util.Date;
+
 /**
  * @author zhangbinbin
  * @version 2017/11/17
@@ -32,7 +34,8 @@ public class RegisterController {
 
     @RequestMapping(method = RequestMethod.POST)
     public String register(UserInfo userInfo) {
+        userInfo.setCreateTime(new Date());
         userInfoService.save(userInfo);
-        return "redirect:/result/user/successful";
+        return "index";
     }
 }

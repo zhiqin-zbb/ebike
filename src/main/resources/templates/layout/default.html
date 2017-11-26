@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initialscale=1, maximum-scale=1.0, user-scalable=no"/>
@@ -16,10 +17,15 @@
     <nav class="white" role="navigation">
         <div class="nav-wrapper container">
             <a id="logo-container" th:href="@{/}" class="brand-logo">AA电单车</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <ul th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" id="nav-mobile"
+                class="right hide-on-med-and-down">
+                <li><a class="text">欢迎你，<b sec:authentication="name"/>！</a></li>
+                <li><a th:href="@{/user/center}">个人中心</a></li>
+            </ul>
+            <ul th:unless="${#authorization.expression('hasRole(''ROLE_USER'')')}" id="nav-mobile"
+                class="right hide-on-med-and-down">
                 <li><a th:href="@{/register}">注册</a></li>
                 <li><a th:href="@{/login}">登录</a></li>
-                <li><a th:href="@{/center}">个人中心</a></li>
             </ul>
         </div>
     </nav>
@@ -32,7 +38,8 @@
         <div class="row">
             <div class="col l3 s12">
                 <h5 class="white-text">关于我们</h5>
-                <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job.</p>
+                <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's
+                    our full time job.</p>
             </div>
             <div class="col l3 s12">
                 <h5 class="white-text">新手上路</h5>

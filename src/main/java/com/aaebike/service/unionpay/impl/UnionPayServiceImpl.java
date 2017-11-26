@@ -14,7 +14,7 @@ import com.aaebike.common.utils.CommonUtils;
 import com.aaebike.common.utils.unionpay.AcpService;
 import com.aaebike.common.utils.unionpay.SDKConfig;
 import com.aaebike.common.utils.unionpay.UnionConfig;
-import com.aaebike.model.Product;
+import com.aaebike.model.pay.PayProduct;
 import com.aaebike.service.unionpay.IUnionPayService;
 
 @Service
@@ -28,7 +28,7 @@ public class UnionPayServiceImpl implements IUnionPayService {
      * 银联支付返回一个form表单
      */
     @Override
-    public String unionPay(Product product) {
+    public String unionPay(PayProduct payProduct) {
         Map<String, String> requestData = new HashMap<String, String>();
         /***银联全渠道系统，产品参数，除了encoding自行选择外其他不需修改***/
         requestData.put("version", UnionConfig.version);              //版本号，全渠道默认值
@@ -38,7 +38,7 @@ public class UnionPayServiceImpl implements IUnionPayService {
         requestData.put("txnSubType", "01");                          //交易子类型， 01：自助消费
         requestData.put("bizType", "000201");                      //业务类型，B2C网关支付，手机wap支付
         //渠道类型，这个字段区分B2C网关支付和手机wap支付；07：PC,平板  08：手机
-        if (product.getPayWay() == PayWay.MOBILE.getCode()) {//手机支付
+        if (payProduct.getPayWay() == PayWay.MOBILE.getCode()) {//手机支付
             requestData.put("channelType", "08");
         } else {//PC支付
             requestData.put("channelType", "07");
@@ -49,10 +49,10 @@ public class UnionPayServiceImpl implements IUnionPayService {
         /***商户接入参数 测试账号***/
         requestData.put("merId", UnionConfig.merId);                  //商户号码，请改成自己申请的正式商户号或者open上注册得来的777测试商户号
         requestData.put("accessType", "0");                          //接入类型，0：直连商户
-        requestData.put("orderId", product.getOutTradeNo());          //商户订单号，8-40位数字字母，不能含“-”或“_”，可以自行定制规则
+        requestData.put("orderId", payProduct.getOutTradeNo());          //商户订单号，8-40位数字字母，不能含“-”或“_”，可以自行定制规则
         requestData.put("txnTime", UnionConfig.getCurrentTime());     //订单发送时间，取系统时间，格式为YYYYMMDDhhmmss，必须取当前时间，否则会报txnTime无效
         requestData.put("currencyCode", "156");                      //交易币种（境内商户一般是156 人民币）
-        requestData.put("txnAmt", CommonUtils.subZeroAndDot(product.getTotalFee()));             //交易金额，单位分，不要带小数点
+        requestData.put("txnAmt", CommonUtils.subZeroAndDot(payProduct.getTotalFee()));             //交易金额，单位分，不要带小数点
         //这里组织穿透数据 业务以及交易类型(使用json数据报错)
         requestData.put("reqReserved", "自定义参数");          //请求方保留域，如需使用请启用即可；透传字段（可以实现商户自定义参数的追踪）本交易的后台通知,对本交易的交易状态查询交易、对账文件中均会原样返回，商户可以按需上传，长度为1-1024个字节
 

@@ -1,6 +1,7 @@
 package com.aaebike.controller.user;
 
-import com.aaebike.service.UserInfoService;
+import com.aaebike.model.UserInfo;
+import com.aaebike.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,17 @@ public class UserController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private UserInfoService userInfoService;
+    private UserService userService;
 
-    @RequestMapping("/1")
-    public String test1() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(principal);
+    @RequestMapping("/center")
+    public String center() {
+        UserInfo userInfo = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println(userInfo);
         return "test1";
+    }
+
+    @RequestMapping("/order")
+    public String order() {
+        return "index";
     }
 }

@@ -1,6 +1,6 @@
 package com.aaebike.service.unionpay;
 
-import com.aaebike.model.Product;
+import com.aaebike.model.pay.PayProduct;
 
 import java.util.Map;
 
@@ -8,7 +8,7 @@ public interface IUnionPayService {
     /**
      * 银联支付
      */
-    String unionPay(Product product);
+    String unionPay(PayProduct payProduct);
 
     /**
      * 前台回调验证

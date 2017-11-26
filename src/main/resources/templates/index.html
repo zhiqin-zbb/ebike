@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/default">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
 <head>
     <title>AA电单车</title>
 </head>
@@ -25,58 +26,45 @@
         <div class="parallax"><img th:src="@{/static/images/background1.jpg}" alt="Unsplashed background img 1"></div>
     </div>
 
-    <div class="container">
-        <div class="section">
-
-            <!--   Icon Section   -->
-            <div class="row">
-                <div class="col s8 m2">
-                    <div class="collection">
-                        <a th:href="@{/product/all}" class="collection-item active">所有品牌</a>
-                        <a th:href="@{/product/1}" class="collection-item">爱玛</a>
-                        <a th:href="@{/product/2}" class="collection-item">绿源</a>
-                        <a th:href="@{/product/3}" class="collection-item">小牛</a>
-                    </div>
-                </div>
-
-                <div class="col s16 m6">
-                    <ul class="collection">
-                        <li class="collection-item avatar">
-                            <i class="material-icons circle">folder</i>
-                            <span class="title">标题</span>
-                            <p>第一行 <br>
-                                第二行
-                            </p>
-                            <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                        </li>
-                        <li class="collection-item avatar">
-                            <i class="material-icons circle">folder</i>
-                            <span class="title">标题</span>
-                            <p>第一行 <br>
-                                第二行
-                            </p>
-                            <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                        </li>
-                        <li class="collection-item avatar">
-                            <i class="material-icons circle green">insert_chart</i>
-                            <span class="title">标题</span>
-                            <p>第一行 <br>
-                                第二行
-                            </p>
-                            <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                        </li>
-                        <li class="collection-item avatar">
-                            <i class="material-icons circle red">play_arrow</i>
-                            <span class="title">标题</span>
-                            <p>第一行 <br>
-                                第二行
-                            </p>
-                            <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                        </li>
-                    </ul>
+    <div class="section">
+        <!--   Icon Section   -->
+        <div class="row">
+            <div class="col s8 m2">
+                <div class="collection">
+                    <a th:href="@{/product/0}" class="collection-item active">所有品牌</a>
+                    <a th:href="@{/product/1}" class="collection-item">爱玛</a>
+                    <a th:href="@{/product/2}" class="collection-item">绿源</a>
+                    <a th:href="@{/product/3}" class="collection-item">小牛</a>
                 </div>
             </div>
-
+            <div class="col s16 m6">
+                <table>
+                    <div th:if="${#lists.size(productList.list)} == 0">
+                        <span>抱歉，没有找到相关商品</span>
+                    </div>
+                    <div th:if="${#lists.size(productList.list)} != 0"
+                         th:with="size=${#lists.size(productList.list)}, rows=${size/4}, remain=${size-rows*4}">
+                        <div th:if="${rows} gt 0">
+                            <tr th:each="row : ${#numbers.sequence(0, rows - 1, 1)}">
+                                <td th:each="col : ${#numbers.sequence(0, 3, 1)}">
+                                    <div th:with="product=${productList.list[row*4+col]}">
+                                        <span th:text="${product.name}"></span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </div>
+                        <div th:if="${remain} gt 0">
+                            <tr>
+                                <td th:each="col : ${#numbers.sequence(0, remain - 1, 1)}">
+                                    <div th:with="product=${productList.list[rows*4+col]}">
+                                        <span th:text="${product.name}"></span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </div>
+                    </div>
+                </table>
+            </div>
         </div>
     </div>
 </div>

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.aaebike.common.constants.Constants;
-import com.aaebike.model.Product;
+import com.aaebike.model.pay.PayProduct;
 import com.aaebike.service.alipay.IAliPayService;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.internal.util.AlipaySignature;
@@ -46,29 +46,29 @@ public class AliPayController {
 
     @ApiOperation(value = "电脑支付")
     @RequestMapping(value = "pcPay", method = RequestMethod.POST)
-    public String pcPay(Product product, ModelMap map) {
+    public String pcPay(PayProduct payProduct, ModelMap map) {
         logger.info("电脑支付");
-        String form = aliPayService.aliPayPc(product);
+        String form = aliPayService.aliPayPc(payProduct);
         map.addAttribute("form", form);
         return "alipay/alipay";
     }
 
     @ApiOperation(value = "手机H5支付")
     @RequestMapping(value = "mobilePay", method = RequestMethod.POST)
-    public String mobilePay(Product product, ModelMap map) {
+    public String mobilePay(PayProduct payProduct, ModelMap map) {
         logger.info("手机H5支付");
-        String form = aliPayService.aliPayMobile(product);
+        String form = aliPayService.aliPayMobile(payProduct);
         map.addAttribute("form", form);
         return "alipay/alipay";
     }
 
     @ApiOperation(value = "二维码支付")
     @RequestMapping(value = "qcPay", method = RequestMethod.POST)
-    public String qcPay(Product product, ModelMap map) {
+    public String qcPay(PayProduct payProduct, ModelMap map) {
         logger.info("二维码支付");
-        String message = aliPayService.aliPay(product);
+        String message = aliPayService.aliPay(payProduct);
         if (Constants.SUCCESS.equals(message)) {
-            String img = "../qrcode/" + product.getOutTradeNo() + ".png";
+            String img = "../qrcode/" + payProduct.getOutTradeNo() + ".png";
             map.addAttribute("img", img);
         } else {
             // 失败
@@ -78,9 +78,9 @@ public class AliPayController {
 
     @ApiOperation(value = "app支付服务端")
     @RequestMapping(value = "appPay", method = RequestMethod.POST)
-    public String appPay(Product product, ModelMap map) {
+    public String appPay(PayProduct payProduct, ModelMap map) {
         logger.info("app支付服务端");
-        String orderString = aliPayService.appPay(product);
+        String orderString = aliPayService.appPay(payProduct);
         map.addAttribute("orderString", orderString);
         return "alipay/alipay";
     }

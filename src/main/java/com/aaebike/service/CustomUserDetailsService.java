@@ -1,10 +1,9 @@
 package com.aaebike.service;
 
+import com.aaebike.model.User;
 import com.aaebike.model.UserInfo;
-import com.aaebike.model.UserInfoExt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,11 +15,11 @@ import java.util.List;
 @Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
-    UserInfoService userInfoService;
+    UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserInfo user = userInfoService.findByUsername(username);
+        User user = userService.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("用户名不存在");
         }
@@ -28,6 +27,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
-        return new UserInfoExt(user.getId(), user.getUsername(), user.getPassword(), authorities);
+        return new UserInfo(user.getId(), user.getUsername(), user.getPassword(), user.getName(), authorities);
     }
 }

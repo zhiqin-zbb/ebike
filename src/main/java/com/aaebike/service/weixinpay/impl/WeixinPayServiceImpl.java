@@ -16,7 +16,7 @@ import com.aaebike.common.utils.weixinpay.ConfigUtil;
 import com.aaebike.common.utils.weixinpay.HttpUtil;
 import com.aaebike.common.utils.weixinpay.PayCommonUtil;
 import com.aaebike.common.utils.weixinpay.XMLUtil;
-import com.aaebike.model.Product;
+import com.aaebike.model.pay.PayProduct;
 import com.aaebike.service.weixinpay.IWeixinPayService;
 import com.alipay.demo.trade.utils.ZxingUtils;
 
@@ -33,23 +33,23 @@ public class WeixinPayServiceImpl implements IWeixinPayService {
 
     @SuppressWarnings("rawtypes")
     @Override
-    public String weixinPay2(Product product) {
-        logger.info("订单号：{}生成微信支付码", product.getOutTradeNo());
+    public String weixinPay2(PayProduct payProduct) {
+        logger.info("订单号：{}生成微信支付码", payProduct.getOutTradeNo());
         String message = Constants.SUCCESS;
         try {
-            String imgPath = Constants.QRCODE_PATH + Constants.SF_FILE_SEPARATOR + product.getOutTradeNo() + ".png";
+            String imgPath = Constants.QRCODE_PATH + Constants.SF_FILE_SEPARATOR + payProduct.getOutTradeNo() + ".png";
             // 账号信息
             String key = ConfigUtil.API_KEY; // key
             String trade_type = "NATIVE";// 交易类型 原生扫码支付
             SortedMap<Object, Object> packageParams = new TreeMap<Object, Object>();
             ConfigUtil.commonParams(packageParams);
-            packageParams.put("product_id", product.getProductId());// 商品ID
-            packageParams.put("body", product.getBody());// 商品描述
-            packageParams.put("out_trade_no", product.getOutTradeNo());// 商户订单号
-            String totalFee = product.getTotalFee();
+            packageParams.put("product_id", payProduct.getProductId());// 商品ID
+            packageParams.put("body", payProduct.getBody());// 商品描述
+            packageParams.put("out_trade_no", payProduct.getOutTradeNo());// 商户订单号
+            String totalFee = payProduct.getTotalFee();
             totalFee = CommonUtils.subZeroAndDot(totalFee);
             packageParams.put("total_fee", totalFee);// 总金额
-            packageParams.put("spbill_create_ip", product.getSpbillCreateIp());// 发起人IP地址
+            packageParams.put("spbill_create_ip", payProduct.getSpbillCreateIp());// 发起人IP地址
             packageParams.put("notify_url", notify_url);// 回调地址
             packageParams.put("trade_type", trade_type);// 交易类型
             String sign = PayCommonUtil.createSign("UTF-8", packageParams, key);
@@ -62,35 +62,35 @@ public class WeixinPayServiceImpl implements IWeixinPayService {
             if ("SUCCESS".equals(returnCode)) {
                 String resultCode = (String) map.get("result_code");
                 if ("SUCCESS".equals(resultCode)) {
-                    logger.info("订单号：{}生成微信支付码成功", product.getOutTradeNo());
+                    logger.info("订单号：{}生成微信支付码成功", payProduct.getOutTradeNo());
                     String urlCode = (String) map.get("code_url");
                     ConfigUtil.shorturl(urlCode);//转换为短链接
                     ZxingUtils.getQRCodeImge(urlCode, 256, imgPath);// 生成二维码
                 } else {
                     String errCodeDes = (String) map.get("err_code_des");
-                    logger.info("订单号：{}生成微信支付码(系统)失败:{}", product.getOutTradeNo(), errCodeDes);
+                    logger.info("订单号：{}生成微信支付码(系统)失败:{}", payProduct.getOutTradeNo(), errCodeDes);
                     message = Constants.FAIL;
                 }
             } else {
                 String returnMsg = (String) map.get("return_msg");
-                logger.info("(订单号：{}生成微信支付码(通信)失败:{}", product.getOutTradeNo(), returnMsg);
+                logger.info("(订单号：{}生成微信支付码(通信)失败:{}", payProduct.getOutTradeNo(), returnMsg);
                 message = Constants.FAIL;
             }
         } catch (Exception e) {
-            logger.error("订单号：{}生成微信支付码失败(系统异常))", product.getOutTradeNo(), e);
+            logger.error("订单号：{}生成微信支付码失败(系统异常))", payProduct.getOutTradeNo(), e);
             message = Constants.FAIL;
         }
         return message;
     }
 
     @Override
-    public void weixinPay1(Product product) {
+    public void weixinPay1(PayProduct payProduct) {
         //商户支付回调URL设置指引：进入公众平台-->微信支付-->开发配置-->扫码支付-->修改 加入回调URL
         //注意参数初始化 这只是个Demo
         SortedMap<Object, Object> packageParams = new TreeMap<Object, Object>();
         //封装通用参数
         ConfigUtil.commonParams(packageParams);
-        packageParams.put("product_id", product.getProductId());//真实商品ID
+        packageParams.put("product_id", payProduct.getProductId());//真实商品ID
         packageParams.put("time_stamp", PayCommonUtil.getCurrTime());
         //生成签名
         String sign = PayCommonUtil.createSign("UTF-8", packageParams, ConfigUtil.API_KEY);
@@ -100,18 +100,18 @@ public class WeixinPayServiceImpl implements IWeixinPayService {
         qrCode.append("appid=" + ConfigUtil.APP_ID);
         qrCode.append("&mch_id=" + ConfigUtil.MCH_ID);
         qrCode.append("&nonce_str=" + packageParams.get("nonce_str"));
-        qrCode.append("&product_id=" + product.getProductId());
+        qrCode.append("&product_id=" + payProduct.getProductId());
         qrCode.append("&time_stamp=" + packageParams.get("time_stamp"));
         qrCode.append("&sign=" + sign);
-        String imgPath = Constants.QRCODE_PATH + Constants.SF_FILE_SEPARATOR + product.getProductId() + ".png";
+        String imgPath = Constants.QRCODE_PATH + Constants.SF_FILE_SEPARATOR + payProduct.getProductId() + ".png";
         //生成二维码
         ZxingUtils.getQRCodeImge(qrCode.toString(), 256, imgPath);
     }
 
     @SuppressWarnings("rawtypes")
     @Override
-    public String weixinRefund(Product product) {
-        logger.info("订单号：{}微信退款", product.getOutTradeNo());
+    public String weixinRefund(PayProduct payProduct) {
+        logger.info("订单号：{}微信退款", payProduct.getOutTradeNo());
         String message = Constants.SUCCESS;
         try {
             // 账号信息
@@ -120,9 +120,9 @@ public class WeixinPayServiceImpl implements IWeixinPayService {
 
             SortedMap<Object, Object> packageParams = new TreeMap<Object, Object>();
             ConfigUtil.commonParams(packageParams);
-            packageParams.put("out_trade_no", product.getOutTradeNo());// 商户订单号
-            packageParams.put("out_refund_no", product.getOutTradeNo());//商户退款单号
-            String totalFee = product.getTotalFee();
+            packageParams.put("out_trade_no", payProduct.getOutTradeNo());// 商户订单号
+            packageParams.put("out_refund_no", payProduct.getOutTradeNo());//商户退款单号
+            String totalFee = payProduct.getTotalFee();
             totalFee = CommonUtils.subZeroAndDot(totalFee);
             packageParams.put("total_fee", totalFee);// 总金额
             packageParams.put("refund_fee", totalFee);//退款金额
@@ -136,19 +136,19 @@ public class WeixinPayServiceImpl implements IWeixinPayService {
             if ("SUCCESS".equals(returnCode)) {
                 String resultCode = (String) map.get("result_code");
                 if ("SUCCESS".equals(resultCode)) {
-                    logger.info("订单号：{}微信退款成功并删除二维码", product.getOutTradeNo());
+                    logger.info("订单号：{}微信退款成功并删除二维码", payProduct.getOutTradeNo());
                 } else {
                     String errCodeDes = (String) map.get("err_code_des");
-                    logger.info("订单号：{}微信退款失败:{}", product.getOutTradeNo(), errCodeDes);
+                    logger.info("订单号：{}微信退款失败:{}", payProduct.getOutTradeNo(), errCodeDes);
                     message = Constants.FAIL;
                 }
             } else {
                 String returnMsg = (String) map.get("return_msg");
-                logger.info("订单号：{}微信退款失败:{}", product.getOutTradeNo(), returnMsg);
+                logger.info("订单号：{}微信退款失败:{}", payProduct.getOutTradeNo(), returnMsg);
                 message = Constants.FAIL;
             }
         } catch (Exception e) {
-            logger.error("订单号：{}微信支付失败(系统异常)", product.getOutTradeNo(), e);
+            logger.error("订单号：{}微信支付失败(系统异常)", payProduct.getOutTradeNo(), e);
             message = Constants.FAIL;
         }
         return message;
@@ -156,14 +156,14 @@ public class WeixinPayServiceImpl implements IWeixinPayService {
 
     @SuppressWarnings("rawtypes")
     @Override
-    public String weixinCloseorder(Product product) {
-        logger.info("订单号：{}微信关闭订单", product.getOutTradeNo());
+    public String weixinCloseorder(PayProduct payProduct) {
+        logger.info("订单号：{}微信关闭订单", payProduct.getOutTradeNo());
         String message = Constants.SUCCESS;
         try {
             String key = ConfigUtil.API_KEY; // key
             SortedMap<Object, Object> packageParams = new TreeMap<Object, Object>();
             ConfigUtil.commonParams(packageParams);
-            packageParams.put("out_trade_no", product.getOutTradeNo());// 商户订单号
+            packageParams.put("out_trade_no", payProduct.getOutTradeNo());// 商户订单号
             String sign = PayCommonUtil.createSign("UTF-8", packageParams, key);
             packageParams.put("sign", sign);// 签名
             String requestXML = PayCommonUtil.getRequestXml(packageParams);
@@ -173,24 +173,24 @@ public class WeixinPayServiceImpl implements IWeixinPayService {
             if ("SUCCESS".equals(returnCode)) {
                 String resultCode = (String) map.get("result_code");
                 if ("SUCCESS".equals(resultCode)) {
-                    logger.info("订单号：{}微信关闭订单成功", product.getOutTradeNo());
+                    logger.info("订单号：{}微信关闭订单成功", payProduct.getOutTradeNo());
                 } else {
                     String errCode = (String) map.get("err_code");
                     String errCodeDes = (String) map.get("err_code_des");
                     if ("ORDERNOTEXIST".equals(errCode) || "ORDERCLOSED".equals(errCode)) {//订单不存在或者已经关闭
-                        logger.info("订单号：{}微信关闭订单:{}", product.getOutTradeNo(), errCodeDes);
+                        logger.info("订单号：{}微信关闭订单:{}", payProduct.getOutTradeNo(), errCodeDes);
                     } else {
-                        logger.info("订单号：{}微信关闭订单失败:{}", product.getOutTradeNo(), errCodeDes);
+                        logger.info("订单号：{}微信关闭订单失败:{}", payProduct.getOutTradeNo(), errCodeDes);
                         message = Constants.FAIL;
                     }
                 }
             } else {
                 String returnMsg = (String) map.get("return_msg");
-                logger.info("订单号：{}微信关闭订单失败:{}", product.getOutTradeNo(), returnMsg);
+                logger.info("订单号：{}微信关闭订单失败:{}", payProduct.getOutTradeNo(), returnMsg);
                 message = Constants.FAIL;
             }
         } catch (Exception e) {
-            logger.error("订单号：{}微信关闭订单失败(系统异常)", product.getOutTradeNo(), e);
+            logger.error("订单号：{}微信关闭订单失败(系统异常)", payProduct.getOutTradeNo(), e);
             message = Constants.FAIL;
         }
         return message;
@@ -235,15 +235,15 @@ public class WeixinPayServiceImpl implements IWeixinPayService {
     }
 
     @Override
-    public String weixinPayMobile(Product product) {
+    public String weixinPayMobile(PayProduct payProduct) {
         StringBuffer url = new StringBuffer();
-        String totalFee = product.getTotalFee();
+        String totalFee = payProduct.getTotalFee();
         //redirect_uri 需要在微信支付端添加认证网址
         totalFee = CommonUtils.subZeroAndDot(totalFee);
         url.append("http://open.weixin.qq.com/connect/oauth2/authorize?");
         url.append("appid=" + ConfigUtil.APP_ID);
         url.append("&redirect_uri=" + server_url + "weixinMobile/dopay?");
-        url.append("outTradeNo=" + product.getOutTradeNo() + "&totalFee=" + totalFee);
+        url.append("outTradeNo=" + payProduct.getOutTradeNo() + "&totalFee=" + totalFee);
         url.append("&response_type=code&scope=snsapi_base&state=");
         url.append("#wechat_redirect");
         return url.toString();
@@ -251,8 +251,8 @@ public class WeixinPayServiceImpl implements IWeixinPayService {
 
     @SuppressWarnings("rawtypes")
     @Override
-    public String weixinPayH5(Product product) {
-        logger.info("订单号：{}发起H5支付", product.getOutTradeNo());
+    public String weixinPayH5(PayProduct payProduct) {
+        logger.info("订单号：{}发起H5支付", payProduct.getOutTradeNo());
         String mweb_url = "";
         try {
             // 账号信息
@@ -260,14 +260,14 @@ public class WeixinPayServiceImpl implements IWeixinPayService {
             String trade_type = "MWEB";//交易类型 H5 支付
             SortedMap<Object, Object> packageParams = new TreeMap<Object, Object>();
             ConfigUtil.commonParams(packageParams);
-            packageParams.put("product_id", product.getProductId());// 商品ID
-            packageParams.put("body", product.getBody());// 商品描述
-            packageParams.put("out_trade_no", product.getOutTradeNo());// 商户订单号
-            String totalFee = product.getTotalFee();
+            packageParams.put("product_id", payProduct.getProductId());// 商品ID
+            packageParams.put("body", payProduct.getBody());// 商品描述
+            packageParams.put("out_trade_no", payProduct.getOutTradeNo());// 商户订单号
+            String totalFee = payProduct.getTotalFee();
             totalFee = CommonUtils.subZeroAndDot(totalFee);
             packageParams.put("total_fee", totalFee);// 总金额
             //H5支付要求商户在统一下单接口中上传用户真实ip地址 spbill_create_ip
-            packageParams.put("spbill_create_ip", product.getSpbillCreateIp());// 发起人IP地址
+            packageParams.put("spbill_create_ip", payProduct.getSpbillCreateIp());// 发起人IP地址
             packageParams.put("notify_url", notify_url);// 回调地址
             packageParams.put("trade_type", trade_type);// 交易类型
             //H5支付专用
@@ -289,18 +289,18 @@ public class WeixinPayServiceImpl implements IWeixinPayService {
             if ("SUCCESS".equals(returnCode)) {
                 String resultCode = (String) map.get("result_code");
                 if ("SUCCESS".equals(resultCode)) {
-                    logger.info("订单号：{}发起H5支付成功", product.getOutTradeNo());
+                    logger.info("订单号：{}发起H5支付成功", payProduct.getOutTradeNo());
                     mweb_url = (String) map.get("mweb_url");
                 } else {
                     String errCodeDes = (String) map.get("err_code_des");
-                    logger.info("订单号：{}发起H5支付(系统)失败:{}", product.getOutTradeNo(), errCodeDes);
+                    logger.info("订单号：{}发起H5支付(系统)失败:{}", payProduct.getOutTradeNo(), errCodeDes);
                 }
             } else {
                 String returnMsg = (String) map.get("return_msg");
-                logger.info("(订单号：{}发起H5支付(通信)失败:{}", product.getOutTradeNo(), returnMsg);
+                logger.info("(订单号：{}发起H5支付(通信)失败:{}", payProduct.getOutTradeNo(), returnMsg);
             }
         } catch (Exception e) {
-            logger.error("订单号：{}发起H5支付失败(系统异常))", product.getOutTradeNo(), e);
+            logger.error("订单号：{}发起H5支付失败(系统异常))", payProduct.getOutTradeNo(), e);
         }
         return mweb_url;
     }

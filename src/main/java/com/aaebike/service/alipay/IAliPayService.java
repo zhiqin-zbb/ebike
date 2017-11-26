@@ -1,6 +1,6 @@
 package com.aaebike.service.alipay;
 
-import com.aaebike.model.Product;
+import com.aaebike.model.pay.PayProduct;
 
 /**
  * 扫码支付以及手机H5支付
@@ -12,17 +12,17 @@ public interface IAliPayService {
      * 预下单并没有创建订单，所以根据商户订单号操作订单，比如查询或者关闭，会报错订单不存在。
      * 当用户扫码后订单才会创建，用户扫码之前二维码有效期2小时，扫码之后有效期根据timeout_express时间指定。
      */
-    String aliPay(Product product);
+    String aliPay(PayProduct payProduct);
 
     /**
      * 阿里支付退款
      */
-    String aliRefund(Product product);
+    String aliRefund(PayProduct payProduct);
 
     /**
      * 关闭订单
      */
-    String aliCloseorder(Product product);
+    String aliCloseorder(PayProduct payProduct);
 
     /**
      * 下载对账单
@@ -43,15 +43,15 @@ public interface IAliPayService {
      * 备注：人民币单位为分
      * attach 附件参数 使用json格式传递 用于回调区分
      */
-    String aliPayMobile(Product product);
+    String aliPayMobile(PayProduct payProduct);
 
     /**
      * 网站支付
      */
-    String aliPayPc(Product product);
+    String aliPayPc(PayProduct payProduct);
 
     /**
      * APP支付
      */
-    String appPay(Product product);
+    String appPay(PayProduct payProduct);
 }

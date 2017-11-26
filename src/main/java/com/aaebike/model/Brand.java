@@ -5,16 +5,8 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class Product extends BaseEntity {
+public class Brand extends BaseEntity {
     private String name;
-
-    private String description;
-
-    private Integer brandId;
-
-    private Double price;
-
-    private String imgUrl;
 
     private Date createTime;
 

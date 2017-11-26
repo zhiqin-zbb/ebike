@@ -27,7 +27,7 @@ import com.aaebike.common.utils.weixinpay.ConfigUtil;
 import com.aaebike.common.utils.weixinpay.HttpUtil;
 import com.aaebike.common.utils.weixinpay.PayCommonUtil;
 import com.aaebike.common.utils.weixinpay.XMLUtil;
-import com.aaebike.model.Product;
+import com.aaebike.model.pay.PayProduct;
 import com.aaebike.service.weixinpay.IWeixinPayService;
 
 import io.swagger.annotations.Api;
@@ -55,25 +55,25 @@ public class WeixinPayController {
 
     @ApiOperation(value = "二维码支付(模式一)根据商品ID预先生成二维码")
     @RequestMapping(value = "qcPay1", method = RequestMethod.POST)
-    public String qcPay1(Product product, ModelMap map) {
+    public String qcPay1(PayProduct payProduct, ModelMap map) {
         logger.info("二维码支付(模式一)");
-        weixinPayService.weixinPay1(product);
-        String img = "../qrcode/" + product.getProductId() + ".png";
+        weixinPayService.weixinPay1(payProduct);
+        String img = "../qrcode/" + payProduct.getProductId() + ".png";
         map.addAttribute("img", img);
         return "weixinpay/qcpay";
     }
 
     @ApiOperation(value = "二维码支付(模式二)下单并生成二维码")
     @RequestMapping(value = "qcPay2", method = RequestMethod.POST)
-    public String qcPay2(Product product, ModelMap map) {
+    public String qcPay2(PayProduct payProduct, ModelMap map) {
         logger.info("二维码支付(模式二)");
         //参数自定义  这只是个Demo
-        product.setProductId("20170721");
-        product.setBody("两个苹果八毛钱 ");
-        product.setSpbillCreateIp("192.168.1.66");
-        String message = weixinPayService.weixinPay2(product);
+        payProduct.setProductId("20170721");
+        payProduct.setBody("两个苹果八毛钱 ");
+        payProduct.setSpbillCreateIp("192.168.1.66");
+        String message = weixinPayService.weixinPay2(payProduct);
         if (Constants.SUCCESS.equals(message)) {
-            String img = "../qrcode/" + product.getOutTradeNo() + ".png";
+            String img = "../qrcode/" + payProduct.getOutTradeNo() + ".png";
             map.addAttribute("img", img);
         } else {
             //失败

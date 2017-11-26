@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.aaebike.model.pay.PayProduct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,6 @@ import com.aaebike.common.constants.PayWay;
 import com.aaebike.common.utils.unionpay.AcpService;
 import com.aaebike.common.utils.unionpay.SDKConstants;
 import com.aaebike.controller.alipay.AliPayController;
-import com.aaebike.model.Product;
 import com.aaebike.service.unionpay.IUnionPayService;
 
 import io.swagger.annotations.Api;
@@ -48,20 +48,20 @@ public class UnionPayController {
 
     @ApiOperation(value = "电脑支付")
     @RequestMapping(value = "pcPay", method = RequestMethod.POST)
-    public String pcPay(Product product, ModelMap map) {
+    public String pcPay(PayProduct payProduct, ModelMap map) {
         logger.info("电脑支付");
-        product.setPayWay(PayWay.PC.getCode());
-        String form = unionPayService.unionPay(product);
+        payProduct.setPayWay(PayWay.PC.getCode());
+        String form = unionPayService.unionPay(payProduct);
         map.addAttribute("form", form);
         return "unionpay/alipay";
     }
 
     @ApiOperation(value = "手机H5支付")
     @RequestMapping(value = "mobilePay", method = RequestMethod.POST)
-    public String mobilePay(Product product, ModelMap map) {
+    public String mobilePay(PayProduct payProduct, ModelMap map) {
         logger.info("手机H5支付");
-        product.setPayWay(PayWay.MOBILE.getCode());
-        String form = unionPayService.unionPay(product);
+        payProduct.setPayWay(PayWay.MOBILE.getCode());
+        String form = unionPayService.unionPay(payProduct);
         map.addAttribute("form", form);
         return "unionpay/alipay";
     }

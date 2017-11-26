@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 import com.alipay.demo.trade.config.Configs;
 import com.aaebike.common.constants.PayType;
 import com.aaebike.common.constants.PayWay;
-import com.aaebike.model.Product;
+import com.aaebike.model.pay.PayProduct;
 import com.aaebike.service.alipay.IAliPayService;
 
 @SpringBootApplication
@@ -26,16 +26,16 @@ public class AliPayTest implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		try {
 			Configs.init("zfbinfo.properties");
-			Product product = new Product();
-			product.setAttach("测试");
-			product.setBody("两个苹果八毛钱");
-			product.setFrontUrl("https");
-			product.setOutTradeNo("20170730");
-			product.setPayType(PayType.ALI.getCode());
-			product.setPayWay(PayWay.PC.getCode());
-			product.setProductId("111111");
-			product.setTotalFee("10");
-			aliPayService.aliPay(product);
+			PayProduct payProduct = new PayProduct();
+			payProduct.setAttach("测试");
+			payProduct.setBody("两个苹果八毛钱");
+			payProduct.setFrontUrl("https");
+			payProduct.setOutTradeNo("20170730");
+			payProduct.setPayType(PayType.ALI.getCode());
+			payProduct.setPayWay(PayWay.PC.getCode());
+			payProduct.setProductId("111111");
+			payProduct.setTotalFee("10");
+			aliPayService.aliPay(payProduct);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

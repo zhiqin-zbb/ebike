@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.aaebike.common.constants.Constants;
 import com.aaebike.common.utils.CommonUtils;
 import com.aaebike.config.AliPayConfig;
-import com.aaebike.model.Product;
+import com.aaebike.model.pay.PayProduct;
 import com.aaebike.service.alipay.IAliPayService;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
@@ -44,15 +44,15 @@ public class AliPayServiceImpl implements IAliPayService {
     private String notifyUrl;
 
     @Override
-    public String aliPay(Product product) {
-        logger.info("订单号：{}生成支付宝支付码", product.getOutTradeNo());
+    public String aliPay(PayProduct payProduct) {
+        logger.info("订单号：{}生成支付宝支付码", payProduct.getOutTradeNo());
         String message = Constants.SUCCESS;
         //二维码存放路径
         System.out.println(Constants.QRCODE_PATH);
-        String imgPath = Constants.QRCODE_PATH + Constants.SF_FILE_SEPARATOR + product.getOutTradeNo() + ".png";
-        String outTradeNo = product.getOutTradeNo();
-        String subject = product.getSubject();
-        String totalAmount = CommonUtils.divide(product.getTotalFee(), "100").toString();
+        String imgPath = Constants.QRCODE_PATH + Constants.SF_FILE_SEPARATOR + payProduct.getOutTradeNo() + ".png";
+        String outTradeNo = payProduct.getOutTradeNo();
+        String subject = payProduct.getSubject();
+        String totalAmount = CommonUtils.divide(payProduct.getTotalFee(), "100").toString();
         // 如果该字段为空，则默认为与支付宝签约的商户的PID，也就是appid对应的PID
         String sellerId = "";
         // (必填) 商户门店编号，通过门店号和商家后台可以配置精准到门店的折扣信息，详询支付宝技术支持
@@ -61,7 +61,7 @@ public class AliPayServiceImpl implements IAliPayService {
         ExtendParams extendParams = new ExtendParams();
         extendParams.setSysServiceProviderId("2088100200300400500");
         // 订单描述，可以对交易或商品进行一个详细地描述，比如填写"购买商品2件共15.00元"
-        String body = product.getBody();
+        String body = payProduct.getBody();
         // 支付超时，定义为120分钟
         String timeoutExpress = "120m";
         // 创建扫码支付请求builder，设置请求参数
@@ -116,13 +116,13 @@ public class AliPayServiceImpl implements IAliPayService {
     }
 
     @Override
-    public String aliRefund(Product product) {
-        logger.info("订单号：" + product.getOutTradeNo() + "支付宝退款");
+    public String aliRefund(PayProduct payProduct) {
+        logger.info("订单号：" + payProduct.getOutTradeNo() + "支付宝退款");
         String message = Constants.SUCCESS;
         // (必填) 外部订单号，需要退款交易的商户外部订单号
-        String outTradeNo = product.getOutTradeNo();
+        String outTradeNo = payProduct.getOutTradeNo();
         // (必填) 退款金额，该金额必须小于等于订单的支付金额，单位为元
-        String refundAmount = CommonUtils.divide(product.getTotalFee(), "100").toString();
+        String refundAmount = CommonUtils.divide(payProduct.getTotalFee(), "100").toString();
 
         // (必填) 退款原因，可以说明用户退款原因，方便为商家后台提供统计
         String refundReason = "正常退款，用户买多了";
@@ -169,29 +169,29 @@ public class AliPayServiceImpl implements IAliPayService {
      * =====只有支付成功后 调用此订单才可以=====
      */
     @Override
-    public String aliCloseorder(Product product) {
-        logger.info("订单号：" + product.getOutTradeNo() + "支付宝关闭订单");
+    public String aliCloseorder(PayProduct payProduct) {
+        logger.info("订单号：" + payProduct.getOutTradeNo() + "支付宝关闭订单");
         String message = Constants.SUCCESS;
         try {
-            String imgPath = Constants.QRCODE_PATH + Constants.SF_FILE_SEPARATOR + "alipay_" + product.getOutTradeNo() + ".png";
+            String imgPath = Constants.QRCODE_PATH + Constants.SF_FILE_SEPARATOR + "alipay_" + payProduct.getOutTradeNo() + ".png";
             File file = new File(imgPath);
             if (file.exists()) {
                 AlipayClient alipayClient = AliPayConfig.getAlipayClient();
                 AlipayTradeCloseRequest request = new AlipayTradeCloseRequest();
                 request.setBizContent("{" +
-                        "    \"out_trade_no\":\"" + product.getOutTradeNo() + "\"" +
+                        "    \"out_trade_no\":\"" + payProduct.getOutTradeNo() + "\"" +
                         "  }");
                 AlipayTradeCloseResponse response = alipayClient.execute(request);
                 if (response.isSuccess()) {//扫码未支付的情况
-                    logger.info("订单号：" + product.getOutTradeNo() + "支付宝关闭订单成功并删除支付二维码");
+                    logger.info("订单号：" + payProduct.getOutTradeNo() + "支付宝关闭订单成功并删除支付二维码");
                     file.delete();
                 } else {
                     if ("ACQ.TRADE_NOT_EXIST".equals(response.getSubCode())) {
-                        logger.info("订单号：" + product.getOutTradeNo() + response.getSubMsg() + "(预下单 未扫码的情况)");
+                        logger.info("订单号：" + payProduct.getOutTradeNo() + response.getSubMsg() + "(预下单 未扫码的情况)");
                     } else if ("ACQ.TRADE_STATUS_ERROR".equals(response.getSubCode())) {
-                        logger.info("订单号：" + product.getOutTradeNo() + response.getSubMsg());
+                        logger.info("订单号：" + payProduct.getOutTradeNo() + response.getSubMsg());
                     } else {
-                        logger.info("订单号：" + product.getOutTradeNo() + "支付宝关闭订单失败" + response.getSubCode() + response.getSubMsg());
+                        logger.info("订单号：" + payProduct.getOutTradeNo() + "支付宝关闭订单失败" + response.getSubCode() + response.getSubMsg());
                         message = Constants.FAIL;
                     }
                 }
@@ -199,7 +199,7 @@ public class AliPayServiceImpl implements IAliPayService {
         } catch (Exception e) {
             e.printStackTrace();
             message = Constants.FAIL;
-            logger.info("订单号：" + product.getOutTradeNo() + "支付宝关闭订单异常");
+            logger.info("订单号：" + payProduct.getOutTradeNo() + "支付宝关闭订单异常");
         }
         return message;
     }
@@ -229,16 +229,16 @@ public class AliPayServiceImpl implements IAliPayService {
     }
 
     @Override
-    public String aliPayMobile(Product product) {
+    public String aliPayMobile(PayProduct payProduct) {
         logger.info("支付宝手机支付下单");
         AlipayTradeWapPayRequest alipayRequest = new AlipayTradeWapPayRequest();
         String returnUrl = "回调地址 http 自定义";
         alipayRequest.setReturnUrl(returnUrl);//前台通知
         alipayRequest.setNotifyUrl(notifyUrl);//后台回调
         JSONObject bizContent = new JSONObject();
-        bizContent.put("out_trade_no", product.getOutTradeNo());
-        bizContent.put("total_amount", product.getTotalFee());//订单金额:元
-        bizContent.put("subject", product.getSubject());//订单标题
+        bizContent.put("out_trade_no", payProduct.getOutTradeNo());
+        bizContent.put("total_amount", payProduct.getTotalFee());//订单金额:元
+        bizContent.put("subject", payProduct.getSubject());//订单标题
         bizContent.put("seller_id", Configs.getPid());//实际收款账号，一般填写商户PID即可
         bizContent.put("product_code", "QUICK_WAP_PAY");//手机网页支付
         bizContent.put("body", "两个苹果五毛钱");
@@ -255,16 +255,16 @@ public class AliPayServiceImpl implements IAliPayService {
     }
 
     @Override
-    public String aliPayPc(Product product) {
+    public String aliPayPc(PayProduct payProduct) {
         logger.info("支付宝PC支付下单");
         AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
         String returnUrl = "前台回调地址 http 自定义";
         alipayRequest.setReturnUrl(returnUrl);//前台通知
         alipayRequest.setNotifyUrl(notifyUrl);//后台回调
         JSONObject bizContent = new JSONObject();
-        bizContent.put("out_trade_no", product.getOutTradeNo());
-        bizContent.put("total_amount", product.getTotalFee());//订单金额:元
-        bizContent.put("subject", product.getSubject());//订单标题
+        bizContent.put("out_trade_no", payProduct.getOutTradeNo());
+        bizContent.put("total_amount", payProduct.getTotalFee());//订单金额:元
+        bizContent.put("subject", payProduct.getSubject());//订单标题
         bizContent.put("seller_id", Configs.getPid());//实际收款账号，一般填写商户PID即可
         bizContent.put("product_code", "FAST_INSTANT_TRADE_PAY");//电脑网站支付
         bizContent.put("body", "两个苹果五毛钱");
@@ -281,7 +281,7 @@ public class AliPayServiceImpl implements IAliPayService {
     }
 
     @Override
-    public String appPay(Product product) {
+    public String appPay(PayProduct payProduct) {
         String orderString = Constants.FAIL;
         // 实例化客户端
         AlipayClient alipayClient = AliPayConfig.getAlipayClient();
@@ -289,11 +289,11 @@ public class AliPayServiceImpl implements IAliPayService {
         AlipayTradeAppPayRequest request = new AlipayTradeAppPayRequest();
         // SDK已经封装掉了公共参数，这里只需要传入业务参数。以下方法为sdk的model入参方式(model和biz_content同时存在的情况下取biz_content)。
         AlipayTradeAppPayModel model = new AlipayTradeAppPayModel();
-        model.setBody(product.getBody());
-        model.setSubject(product.getSubject());
-        model.setOutTradeNo(product.getOutTradeNo());
+        model.setBody(payProduct.getBody());
+        model.setSubject(payProduct.getSubject());
+        model.setOutTradeNo(payProduct.getOutTradeNo());
         model.setTimeoutExpress("30m");
-        model.setTotalAmount(product.getTotalFee());
+        model.setTotalAmount(payProduct.getTotalFee());
         model.setProductCode("QUICK_MSECURITY_PAY");
         request.setBizModel(model);
         request.setNotifyUrl("商户外网可以访问的异步地址");

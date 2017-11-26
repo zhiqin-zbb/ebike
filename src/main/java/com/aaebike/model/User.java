@@ -20,5 +20,5 @@ public class User extends BaseEntity {
 
     private Date updateTime;
 
-    private Integer delFlag;
+    private int delFlag;
 }

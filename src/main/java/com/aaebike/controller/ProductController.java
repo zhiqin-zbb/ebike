@@ -23,9 +23,9 @@ public class ProductController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ModelAndView getProductList(Product product) {
-        ModelAndView result = new ModelAndView("index");
-
         List<Product> productList = productService.getProductList(product);
+
+        ModelAndView result = new ModelAndView("index");
         result.addObject("productList", new PageInfo<>(productList));
         result.addObject("queryParam", product);
         result.addObject("page", product.getPage());

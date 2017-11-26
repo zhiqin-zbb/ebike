@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
+<head lang="en">
+    <title>我的订单</title>
+</head>
+<body>
+<div class="row" layout:fragment="content">
+    <div id="index-banner" class="parallax-container">
+        <div class="section no-pad-bot">
+            <div class="section">
+                <div class="row">
+                    <div class="col s20 m10">
+                        <table>
+                            <div>
+                                <span>抱歉，没有找到相关商品</span>
+                            </div>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="parallax"><img th:src="@{/static/images/background1.jpg}" alt="Unsplashed background img 1"></div>
+    </div>
+</div>
+</body>
+</html>

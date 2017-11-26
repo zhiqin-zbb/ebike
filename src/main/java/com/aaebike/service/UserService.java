@@ -33,6 +33,10 @@ public class UserService {
         return userMapper.selectOne(userExample);
     }
 
+    public int update(User user) {
+        return userMapper.updateByPrimaryKeySelective(user);
+    }
+
     public List<User> getAll(User User) {
         if (User.getPage() != null && User.getRows() != null) {
             PageHelper.startPage(User.getPage(), User.getRows());

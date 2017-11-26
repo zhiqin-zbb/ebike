@@ -14,6 +14,12 @@ public class ProductService {
     @Autowired
     private ProductMapper productMapper;
 
+    public Product getProductById(Integer productId) {
+        Product product = new Product();
+        product.setId(productId);
+        return productMapper.selectByPrimaryKey(product);
+    }
+
     public List<Product> getProductList(Product product) {
         if (product.getPage() != null && product.getRows() != null) {
             PageHelper.startPage(product.getPage(), product.getRows());

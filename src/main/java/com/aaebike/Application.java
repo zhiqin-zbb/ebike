@@ -1,6 +1,8 @@
 package com.aaebike;
 
+import com.aaebike.model.Brand;
 import com.aaebike.model.Product;
+import com.aaebike.service.BrandService;
 import com.aaebike.service.ProductService;
 import com.github.pagehelper.PageInfo;
 import org.mybatis.spring.annotation.MapperScan;
@@ -27,15 +29,27 @@ public class Application extends WebMvcConfigurerAdapter {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
+    private BrandService brandService;
+
+    @Autowired
     private ProductService productService;
 
     @RequestMapping("/")
     public ModelAndView greeting(Model model) {
+        /**
+         * 品牌列表
+         */
+        List<Brand> activeBrandList = brandService.getActiveBrandList();
+
+        /**
+         * 产品列表
+         */
         Product product = new Product();
         product.setRows(12);
         List<Product> productList = productService.getProductList(product);
 
         ModelAndView result = new ModelAndView("index");
+        result.addObject("brandList", activeBrandList);
         result.addObject("productList", new PageInfo<>(productList));
         result.addObject("queryParam", product);
         result.addObject("page", product.getPage());

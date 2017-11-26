@@ -32,12 +32,10 @@
             <div class="col s8 m2">
                 <div class="collection">
                     <a th:href="@{/product/0}" class="collection-item active">所有品牌</a>
-                    <a th:href="@{/product/1}" class="collection-item">爱玛</a>
-                    <a th:href="@{/product/2}" class="collection-item">绿源</a>
-                    <a th:href="@{/product/3}" class="collection-item">小牛</a>
+                    <a th:each="brand : ${brandList}" th:href="@{'/product/list/' + ${brand.id}}" th:text="${brand.name}" class="collection-item">品牌名称</a>
                 </div>
             </div>
-            <div class="col s16 m6">
+            <div class="col s20 m10">
                 <table>
                     <div th:if="${#lists.size(productList.list)} == 0">
                         <span>抱歉，没有找到相关商品</span>
@@ -46,18 +44,44 @@
                          th:with="size=${#lists.size(productList.list)}, rows=${size/4}, remain=${size-rows*4}">
                         <div th:if="${rows} gt 0">
                             <tr th:each="row : ${#numbers.sequence(0, rows - 1, 1)}">
-                                <td th:each="col : ${#numbers.sequence(0, 3, 1)}">
+                                <td th:each="col : ${#numbers.sequence(0, 3, 1)}" class="col s10 m3">
                                     <div th:with="product=${productList.list[row*4+col]}">
-                                        <span th:text="${product.name}"></span>
+                                        <div class="card hoverable small">
+                                            <div class="card-image">
+                                                <img th:src="@{'/static/images/' + ${product.imgUrl}}" height="170"
+                                                     width="210">
+                                            </div>
+                                            <div class="card-content" style="padding-top: 5px">
+                                                <a style="font-size: 14px;" th:href="@{'/product/' + ${product.id}}" th:text="${product.name}">商品名称</a>
+                                            </div>
+                                            <div class="card-action">
+                                                <span style="color: #C5C1AA;font-size: 12px;">市场价<del th:text="${product.marketPrice}"></del></span>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #CD0000;font-size: 12px;" th:text="'特价' + ${product.salePrice}"></span><br/>
+                                                <a th:href="@{'/user/buy/' + ${product.id}}">立即购买</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
                         </div>
                         <div th:if="${remain} gt 0">
                             <tr>
-                                <td th:each="col : ${#numbers.sequence(0, remain - 1, 1)}">
+                                <td th:each="col : ${#numbers.sequence(0, remain - 1, 1)}" class="col s10 m3">
                                     <div th:with="product=${productList.list[rows*4+col]}">
-                                        <span th:text="${product.name}"></span>
+                                        <div class="card hoverable small">
+                                            <div class="card-image">
+                                                <img th:src="@{'/static/images/' + ${product.imgUrl}}" height="170"
+                                                     width="210">
+                                            </div>
+                                            <div class="card-content" style="padding-top: 5px">
+                                                <a style="font-size: 14px;" th:href="@{'/product/' + ${product.id}}" th:text="${product.name}">商品名称</a>
+                                            </div>
+                                            <div class="card-action">
+                                                <span style="color: #C5C1AA;font-size: 12px;">市场价<del th:text="${product.marketPrice}"></del></span>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #CD0000;font-size: 12px;" th:text="'特价' + ${product.salePrice}"></span><br/>
+                                                <a th:href="@{'/user/buy/' + ${product.id}}">立即购买</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>

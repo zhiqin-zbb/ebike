@@ -35,7 +35,7 @@ public class Application extends WebMvcConfigurerAdapter {
     private ProductService productService;
 
     @RequestMapping("/")
-    public ModelAndView greeting(Model model) {
+    public ModelAndView greeting(Product product) {
         /**
          * 品牌列表
          */
@@ -44,14 +44,12 @@ public class Application extends WebMvcConfigurerAdapter {
         /**
          * 产品列表
          */
-        Product product = new Product();
-        product.setRows(12);
         List<Product> productList = productService.getProductList(product);
 
         ModelAndView result = new ModelAndView("index");
         result.addObject("brandList", activeBrandList);
         result.addObject("productList", new PageInfo<>(productList));
-        result.addObject("queryParam", product);
+        result.addObject("product", product);
         result.addObject("page", product.getPage());
         result.addObject("rows", product.getRows());
         return result;

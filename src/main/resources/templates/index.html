@@ -28,14 +28,26 @@
 
     <div class="section">
         <!--   Icon Section   -->
-        <div class="row">
-            <div class="col s8 m2">
+        <div>
+            <div class="col s2 m2 l2">
                 <div class="collection">
-                    <a th:href="@{/product/0}" class="collection-item active">所有品牌</a>
-                    <a th:each="brand : ${brandList}" th:href="@{'/product/list/' + ${brand.id}}" th:text="${brand.name}" class="collection-item">品牌名称</a>
+                    <div th:if="${product.brandId == null}">
+                        <a th:href="@{${'/'}(page=1)}" class="collection-item active">所有品牌</a>
+                    </div>
+                    <div th:if="${product.brandId != null}">
+                        <a th:href="@{${'/'}(page=1)}" class="collection-item">所有品牌</a>
+                    </div>
+                    <div th:each="brand : ${brandList}">
+                        <a th:if="${product.brandId eq brand.id}"
+                           th:href="@{${'/'}(page=1,brandId=${brand.id})}"
+                           th:text="${brand.name}" class="collection-item active">品牌名称</a>
+                        <a th:if="${not (product.brandId eq brand.id)}"
+                           th:href="@{${'/'}(page=1,brandId=${brand.id})}"
+                           th:text="${brand.name}" class="collection-item">品牌名称</a>
+                    </div>
                 </div>
             </div>
-            <div class="col s20 m10">
+            <div class="col s10 m10 l10">
                 <table>
                     <div th:if="${#lists.size(productList.list)} == 0">
                         <span>抱歉，没有找到相关商品</span>
@@ -44,20 +56,28 @@
                          th:with="size=${#lists.size(productList.list)}, rows=${size/4}, remain=${size-rows*4}">
                         <div th:if="${rows} gt 0">
                             <tr th:each="row : ${#numbers.sequence(0, rows - 1, 1)}">
-                                <td th:each="col : ${#numbers.sequence(0, 3, 1)}" class="col s10 m3">
+                                <td th:each="col : ${#numbers.sequence(0, 3, 1)}" class="col s3 m3 l3">
                                     <div th:with="product=${productList.list[row*4+col]}">
-                                        <div class="card hoverable small">
-                                            <div class="card-image">
-                                                <img th:src="@{'/static/images/' + ${product.imgUrl}}" height="170"
-                                                     width="210">
-                                            </div>
-                                            <div class="card-content" style="padding-top: 5px">
-                                                <a style="font-size: 14px;" th:href="@{'/product/' + ${product.id}}" th:text="${product.name}">商品名称</a>
-                                            </div>
-                                            <div class="card-action">
-                                                <span style="color: #C5C1AA;font-size: 12px;">市场价<del th:text="${product.marketPrice}"></del></span>
-                                                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #CD0000;font-size: 12px;" th:text="'特价' + ${product.salePrice}"></span><br/>
-                                                <a th:href="@{'/user/buy/' + ${product.id}}">立即购买</a>
+                                        <div class="row">
+                                            <div class="col s12 m12 l12">
+                                                <div class="card hoverable medium">
+                                                    <div class="card-image">
+                                                        <img th:src="@{'/static/images/' + ${product.imgUrl}}">
+                                                    </div>
+                                                    <div class="card-content">
+                                                        <a style="font-size: 14px;"
+                                                           th:href="@{'/product/' + ${product.id}}"
+                                                           th:text="${product.name}">商品名称</a>
+                                                    </div>
+                                                    <div class="card-action">
+                                                <span style="color: #C5C1AA;font-size: 12px;">市场价<del
+                                                        th:text="${product.marketPrice}"></del></span>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;<span
+                                                            style="color: #CD0000;font-size: 12px;"
+                                                            th:text="'特价' + ${product.salePrice}"></span><br/>
+                                                        <a th:href="@{'/user/buy/' + ${product.id}}">立即购买</a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -66,20 +86,28 @@
                         </div>
                         <div th:if="${remain} gt 0">
                             <tr>
-                                <td th:each="col : ${#numbers.sequence(0, remain - 1, 1)}" class="col s10 m3">
+                                <td th:each="col : ${#numbers.sequence(0, remain - 1, 1)}" class="col s3 m3 l3">
                                     <div th:with="product=${productList.list[rows*4+col]}">
-                                        <div class="card hoverable small">
-                                            <div class="card-image">
-                                                <img th:src="@{'/static/images/' + ${product.imgUrl}}" height="170"
-                                                     width="210">
-                                            </div>
-                                            <div class="card-content" style="padding-top: 5px">
-                                                <a style="font-size: 14px;" th:href="@{'/product/' + ${product.id}}" th:text="${product.name}">商品名称</a>
-                                            </div>
-                                            <div class="card-action">
-                                                <span style="color: #C5C1AA;font-size: 12px;">市场价<del th:text="${product.marketPrice}"></del></span>
-                                                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #CD0000;font-size: 12px;" th:text="'特价' + ${product.salePrice}"></span><br/>
-                                                <a th:href="@{'/user/buy/' + ${product.id}}">立即购买</a>
+                                        <div class="row">
+                                            <div class="col s12 m12 l12">
+                                                <div class="card hoverable medium">
+                                                    <div class="card-image">
+                                                        <img th:src="@{'/static/images/' + ${product.imgUrl}}">
+                                                    </div>
+                                                    <div class="card-content">
+                                                        <a style="font-size: 14px;"
+                                                           th:href="@{'/product/' + ${product.id}}"
+                                                           th:text="${product.name}">商品名称</a>
+                                                    </div>
+                                                    <div class="card-action">
+                                                <span style="color: #C5C1AA;font-size: 12px;">市场价<del
+                                                        th:text="${product.marketPrice}"></del></span>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;<span
+                                                            style="color: #CD0000;font-size: 12px;"
+                                                            th:text="'特价' + ${product.salePrice}"></span><br/>
+                                                        <a th:href="@{'/user/buy/' + ${product.id}}">立即购买</a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -88,6 +116,31 @@
                         </div>
                     </div>
                 </table>
+                <ul class="pagination">
+                    <li th:if="${productList.hasPreviousPage}" class="wave-effect">
+                        <a th:href="@{${'/'}(page=1,brandId=${product.brandId})}">首页</a>
+                    </li>
+                    <li th:if="${productList.hasPreviousPage}" class="wave-effect">
+                        <a th:href="@{${'/'}(page=${productList.prePage},brandId=${product.brandId})}"><i
+                                class="material-icons">chevron_left</i></a>
+                    </li>
+                    <li class="wave-effect" th:each="pageNo : ${#numbers.sequence(1, productList.pages)}">
+                        <a th:if="${productList.pageNum eq pageNo}" href="javascript:void(0);" class="active disabled">
+                            <span th:text="${pageNo}" style="font-weight: bold; font-size: 1.5rem"></span>
+                        </a>
+                        <a th:if="${not (productList.pageNum eq pageNo)}"
+                           th:href="@{${'/'}(page=${pageNo},brandId=${product.brandId})}">
+                            <span th:text="${pageNo}"></span>
+                        </a>
+                    </li>
+                    <li th:if="${productList.hasNextPage}" class="waves-effect">
+                        <a th:href="@{${'/'}(page=${productList.nextPage},brandId=${product.brandId})}">
+                            <i class="material-icons">chevron_right</i></a>
+                    </li>
+                    <li th:if="${productList.hasNextPage}" class="waves-effect">
+                        <a th:href="@{${'/'}(page=${productList.pages},brandId=${product.brandId})}">尾页</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

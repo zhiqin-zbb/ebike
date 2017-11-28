@@ -6,28 +6,24 @@
 </head>
 <body>
 <div class="row" layout:fragment="content">
-    <div id="index-banner" class="parallax-container">
-        <div class="section no-pad-bot">
-            <div class="container">
-                <br><br>
-                <h1 class="header center teal-text text-lighten-2">Parallax Template</h1>
-                <div class="row center">
-                    <h5 class="header col s12 light">A modern responsive front-end framework based on Material
-                        Design</h5>
-                </div>
-                <div class="row center">
-                    <a href="http://materializecss.com/getting-started.html" id="download-button"
-                       class="btn-large waves-effect waves-light teal lighten-1">Get Started</a>
-                </div>
-                <br><br>
-
+    <div id="slider" class="scrollspy section">
+        <div class="carousel carousel-slider center" data-indicators="true">
+            <div class="carousel-item" href="#one!">
+                <img th:src="@{/static/images/background.jpg}">
+            </div>
+            <div class="carousel-item" href="#two!">
+                <img th:src="@{/static/images/background1.jpg}">
+            </div>
+            <div class="carousel-item" href="#three!">
+                <img th:src="@{/static/images/background2.jpg}">
+            </div>
+            <div class="carousel-item" href="#four!">
+                <img th:src="@{/static/images/background3.jpg}">
             </div>
         </div>
-        <div class="parallax"><img th:src="@{/static/images/background1.jpg}" alt="Unsplashed background img 1"></div>
     </div>
 
     <div class="section">
-        <!--   Icon Section   -->
         <div>
             <div class="col s2 m2 l2">
                 <div class="collection">
@@ -60,7 +56,7 @@
                                     <div th:with="product=${productList.list[row*4+col]}">
                                         <div class="row">
                                             <div class="col s12 m12 l12">
-                                                <div class="card hoverable medium">
+                                                <div class="card hoverable">
                                                     <div class="card-image">
                                                         <img th:src="@{'/static/images/' + ${product.imgUrl}}">
                                                     </div>
@@ -90,7 +86,7 @@
                                     <div th:with="product=${productList.list[rows*4+col]}">
                                         <div class="row">
                                             <div class="col s12 m12 l12">
-                                                <div class="card hoverable medium">
+                                                <div class="card hoverable">
                                                     <div class="card-image">
                                                         <img th:src="@{'/static/images/' + ${product.imgUrl}}">
                                                     </div>
@@ -145,5 +141,10 @@
         </div>
     </div>
 </div>
+<script layout:fragment="script">
+    $(function () {
+        $('.carousel').carousel();
+    });
+</script>
 </body>
 </html>

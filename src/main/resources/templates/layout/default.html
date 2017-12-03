@@ -19,7 +19,7 @@
             <a id="logo-container" th:href="@{/}" class="brand-logo">AA电单车</a>
             <ul th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" id="nav-mobile"
                 class="right hide-on-med-and-down">
-                <li><a class="text">欢迎你，<b sec:authentication="name"/>！</a></li>
+                <li><a class="text">欢迎您，<b sec:authentication="name"/></a></li>
                 <li><a th:href="@{/user/info}">个人信息</a></li>
                 <li><a th:href="@{/user/order}">我的订单</a></li>
             </ul>

@@ -1,7 +1,11 @@
 package com.aaebike.controller.user;
 
+import java.util.List;
+
 import com.aaebike.common.utils.RandomUtils;
+import com.aaebike.model.OrderDetail;
 import com.aaebike.model.Product;
+import com.aaebike.model.SaleOrder;
 import com.aaebike.model.User;
 import com.aaebike.model.UserInfo;
 import com.aaebike.service.OrderService;
@@ -44,8 +48,16 @@ public class UserController {
     }
 
     @RequestMapping("/order")
-    public String order() {
-        return "user/order";
+    public ModelAndView order(SaleOrder saleOrder) {
+        UserInfo userInfo = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.getById(userInfo.getUserId());
+
+        saleOrder.setUserId(user.getId());
+        List<OrderDetail> orderList = orderService.getAllOrderDetail(saleOrder);
+
+        ModelAndView result = new ModelAndView("user/order");
+        result.addObject("orderList", new PageInfo<>(orderList));
+        return result;
     }
 
     @RequestMapping("/buy/{productId}")

@@ -109,31 +109,34 @@
                         </div>
                     </div>
                 </table>
-                <ul class="pagination">
-                    <li th:if="${productList.hasPreviousPage}" class="wave-effect">
-                        <a th:href="@{${'/'}(page=1,brandId=${product.brandId})}">首页</a>
-                    </li>
-                    <li th:if="${productList.hasPreviousPage}" class="wave-effect">
-                        <a th:href="@{${'/'}(page=${productList.prePage},brandId=${product.brandId})}"><i
-                                class="material-icons">chevron_left</i></a>
-                    </li>
-                    <li class="wave-effect" th:each="pageNo : ${#numbers.sequence(1, productList.pages)}">
-                        <a th:if="${productList.pageNum eq pageNo}" href="javascript:void(0);" class="active disabled">
-                            <span th:text="${pageNo}" style="font-weight: bold; font-size: 1.5rem"></span>
-                        </a>
-                        <a th:if="${not (productList.pageNum eq pageNo)}"
-                           th:href="@{${'/'}(page=${pageNo},brandId=${product.brandId})}">
-                            <span th:text="${pageNo}"></span>
-                        </a>
-                    </li>
-                    <li th:if="${productList.hasNextPage}" class="waves-effect">
-                        <a th:href="@{${'/'}(page=${productList.nextPage},brandId=${product.brandId})}">
-                            <i class="material-icons">chevron_right</i></a>
-                    </li>
-                    <li th:if="${productList.hasNextPage}" class="waves-effect">
-                        <a th:href="@{${'/'}(page=${productList.pages},brandId=${product.brandId})}">尾页</a>
-                    </li>
-                </ul>
+                <div class="center">
+                    <ul class="pagination">
+                        <li th:if="${productList.hasPreviousPage}" class="wave-effect">
+                            <a th:href="@{${'/'}(page=1,brandId=${product.brandId})}">首页</a>
+                        </li>
+                        <li th:if="${productList.hasPreviousPage}" class="wave-effect">
+                            <a th:href="@{${'/'}(page=${productList.prePage},brandId=${product.brandId})}"><i
+                                    class="material-icons">chevron_left</i></a>
+                        </li>
+                        <li class="wave-effect" th:each="pageNo : ${#numbers.sequence(1, productList.pages)}">
+                            <a th:if="${productList.pageNum eq pageNo}" href="javascript:void(0);"
+                               class="active disabled">
+                                <span th:text="${pageNo}" style="font-weight: bold; font-size: 1.5rem"></span>
+                            </a>
+                            <a th:if="${not (productList.pageNum eq pageNo)}"
+                               th:href="@{${'/'}(page=${pageNo},brandId=${product.brandId})}">
+                                <span th:text="${pageNo}"></span>
+                            </a>
+                        </li>
+                        <li th:if="${productList.hasNextPage}" class="waves-effect">
+                            <a th:href="@{${'/'}(page=${productList.nextPage},brandId=${product.brandId})}">
+                                <i class="material-icons">chevron_right</i></a>
+                        </li>
+                        <li th:if="${productList.hasNextPage}" class="waves-effect">
+                            <a th:href="@{${'/'}(page=${productList.pages},brandId=${product.brandId})}">尾页</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

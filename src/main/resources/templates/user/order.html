@@ -11,7 +11,9 @@
             <div class="container">
                 <div class="col s12 m12 l12">
                     <div th:if="${#lists.size(orderList.list)} == 0">
-                        <span>您还没有下单记录哦，快去看看商品吧！</span>
+                        <div class="container">
+                            <span>您还没有下单记录哦，快去看看商品吧！</span>
+                        </div>
                     </div>
                     <div th:if="${#lists.size(orderList.list)} != 0">
                         <table class="bordered striped highlight centered responsive-table">

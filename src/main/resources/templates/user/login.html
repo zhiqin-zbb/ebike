@@ -10,7 +10,8 @@
         <div class="section no-pad-bot">
             <div class="container">
                 <br><br>
-                <h4 class="header center teal-text text-lighten-2"><i class="material-icons prefix small">assignment_ind</i>个人信息
+                <h4 class="header center teal-text text-lighten-2"><i
+                        class="material-icons prefix small">assignment_ind</i>个人信息
                 </h4>
                 <div class="row center">
                     <form th:object="${user}" method="post" class="col s12">
@@ -26,6 +27,8 @@
                                 <i class="material-icons prefix">dialpad</i>
                                 <label for="password">密码</label>
                                 <input id="password" type="password" class="validate" th:field="*{password}"/>
+                                <span class="help-block" style="color: red;" th:if="${param.error}"
+                                      th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}">用户名或密码错误</span>
                             </div>
                         </div>
                         <div class="row center">

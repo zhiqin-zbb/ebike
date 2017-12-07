@@ -22,7 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userService.findByUsername(username);
         if (user == null) {
-            throw new BadCredentialsException("用户名" + username + "不存在");
+            throw new BadCredentialsException("用户名" + username + "不存在!");
         }
 
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();

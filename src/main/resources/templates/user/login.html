@@ -14,21 +14,42 @@
                         class="material-icons prefix small">assignment_ind</i>个人信息
                 </h4>
                 <div class="row center">
-                    <form th:object="${user}" method="post" class="col s12">
+                    <form th:object="${loginForm}" method="post" class="col s12">
                         <div class="row center">
                             <div class="input-field col s6 offset-s3">
                                 <i class="material-icons prefix">account_circle</i>
+                                <input id="username" type="text" class="validate" th:field="*{username}"
+                                       required="required" th:errorclass="invalid" th:placeholder="请输入6-20位字母或数字的用户名"/>
                                 <label for="username">用户名</label>
-                                <input id="username" type="text" class="validate" th:field="*{username}"/>
+                                <div th:errors="*{username}" class="red-text">Error</div>
                             </div>
                         </div>
                         <div class="row center">
                             <div class="input-field col s6 offset-s3">
                                 <i class="material-icons prefix">dialpad</i>
+                                <input id="password" type="password" class="validate" th:field="*{password}"
+                                       required="required" th:errorclass="invalid" th:placeholder="请输入8位以上字母或数字的密码"/>
                                 <label for="password">密码</label>
-                                <input id="password" type="password" class="validate" th:field="*{password}"/>
-                                <span class="help-block" style="color: red;" th:if="${param.error}"
-                                      th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}">用户名或密码错误</span>
+                                <div th:errors="*{password}" class="red-text">Error</div>
+                            </div>
+                        </div>
+                        <div class="row center">
+                            <div class="input-field col s6 offset-s3">
+                                <div class="input-field col s8">
+                                    <i class="material-icons prefix">textsms</i>
+                                    <label for="kaptcha">验证码</label>
+                                    <input id="kaptcha" type="text" class="validate" required="required"
+                                           th:field="*{kaptcha}"/>
+                                </div>
+                                <div class="input-field col s4">
+                                    <img th:src="@{/kaptcha/image}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row center">
+                            <div class="input-field col s6 offset-s3">
+                        <span class="help-block" style="color: red;" th:if="${param.error}"
+                              th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}">错误信息</span>
                             </div>
                         </div>
                         <div class="row center">

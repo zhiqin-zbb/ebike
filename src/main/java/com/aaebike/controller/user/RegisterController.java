@@ -3,18 +3,21 @@ package com.aaebike.controller.user;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.aaebike.common.kaptcha.ValidateCodeHandle;
 import com.aaebike.model.RegisterForm;
 import com.aaebike.model.User;
 import com.aaebike.service.UserService;
 
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /**
@@ -37,14 +40,20 @@ public class RegisterController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String register(@Valid RegisterForm registerForm, BindingResult bindingResult) {
+    public String register(HttpServletRequest request, @Valid RegisterForm registerForm, BindingResult bindingResult) {
+        // 校验验证码
+        String kaptcha = request.getParameter("kaptcha");
+        if (!ValidateCodeHandle.matchCode(request.getSession().getId(), kaptcha)) {
+            bindingResult.rejectValue("kaptcha","misFormat", "验证码错误!");
+        }
+
         if (!registerForm.getPasswordRepeat().equals(registerForm.getPassword())) {
-            bindingResult.rejectValue("passwordRepeat","misFormat", "两次输入的密码不一致！");
+            bindingResult.rejectValue("passwordRepeat","misFormat", "两次输入的密码不一致!");
         }
 
         User byUsername = userService.findByUsername(registerForm.getUsername());
         if (byUsername != null) {
-            bindingResult.rejectValue("username","misFormat", "该用户名已存在！");
+            bindingResult.rejectValue("username","misFormat", "该用户名已存在!");
         }
 
         if (bindingResult.hasErrors()) {
@@ -60,6 +69,6 @@ public class RegisterController {
         user.setCreateTime(new Date());
         userService.save(user);
 
-        return "index";
+        return "redirect:/";
     }
 }

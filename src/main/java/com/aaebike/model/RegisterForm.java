@@ -29,4 +29,6 @@ public class RegisterForm {
 
     @Pattern(regexp = "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\\d{8}$", message = "请输入正确格式的手机号！")
     private String tel;
+
+    private String kaptcha;
 }

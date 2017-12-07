@@ -109,7 +109,7 @@
                         </div>
                     </div>
                 </table>
-                <div class="center">
+                <div class="center" th:if="${productList.pages} gt 1">
                     <ul class="pagination">
                         <li th:if="${productList.hasPreviousPage}" class="wave-effect">
                             <a th:href="@{${'/'}(page=1,brandId=${product.brandId})}">首页</a>

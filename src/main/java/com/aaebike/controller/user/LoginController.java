@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.aaebike.model.LoginForm;
 import com.aaebike.model.User;
 import com.aaebike.service.UserService;
 
@@ -25,8 +26,8 @@ public class LoginController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String showLoginPage(Model model) {
-        User user = new User();
-        model.addAttribute("user", user);
+        LoginForm loginForm = new LoginForm();
+        model.addAttribute("loginForm", loginForm);
         return "user/login";
     }
 }

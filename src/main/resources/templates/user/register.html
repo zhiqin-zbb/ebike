@@ -71,6 +71,20 @@
                         </div>
                         <div class="row center">
                             <div class="input-field col s6 offset-s3">
+                                <div class="input-field col s8">
+                                    <i class="material-icons prefix">textsms</i>
+                                    <label for="kaptcha">验证码</label>
+                                    <input id="kaptcha" type="text" class="validate" required="required"
+                                           th:field="*{kaptcha}"/>
+                                </div>
+                                <div class="input-field col s4">
+                                    <img th:src="@{/kaptcha/image}">
+                                </div>
+                                <div th:errors="*{kaptcha}" class="red-text">Error</div>
+                            </div>
+                        </div>
+                        <div class="row center">
+                            <div class="input-field col s6 offset-s3">
                                 <button class="btn waves-effect waves-light" type="submit" id="save" name="save">提交
                                     <i class="material-icons right">send</i>
                                 </button>

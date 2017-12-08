@@ -30,7 +30,7 @@
                             <tbody>
                             <tr th:each="order : ${orderList.list}">
                                 <td th:text="${order.brandName}"></td>
-                                <td><a th:href="@{'/product/' + ${order.productId}}"
+                                <td><a th:href="@{'/product/detail/' + ${order.productId}}"
                                        th:text="${order.productName}"></a></td>
                                 <td th:text="${order.marketPrice}"></td>
                                 <td th:text="${order.price}"></td>

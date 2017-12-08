@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
+<head lang="en">
+    <title>产品详情</title>
+</head>
+<body>
+<div class="row" layout:fragment="content">
+    <div id="index-banner">
+        <div class="section no-pad-bot">
+            <div class="container">
+                <div class="col s4 m4 l4">
+                    <div id="slider" class="scrollspy section">
+                        <div class="carousel carousel-slider center" data-indicators="true">
+                            <div class="carousel-item" th:each="imgUrl : ${productDetail.imgUrlList}">
+                                <img th:src="@{'/static/images/' + ${imgUrl}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s8 m8 l8">
+                    <div class="container">
+                        <span th:text="${productDetail.description}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script layout:fragment="script">
+    $(function () {
+        $('.carousel').carousel();
+    });
+</script>
+</body>
+</html>

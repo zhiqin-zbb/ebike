@@ -1,16 +1,19 @@
 package com.aaebike.controller;
 
 import com.aaebike.model.Product;
+import com.aaebike.model.ProductDetail;
 import com.aaebike.service.ProductService;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -30,6 +33,15 @@ public class ProductController {
         result.addObject("queryParam", product);
         result.addObject("page", product.getPage());
         result.addObject("rows", product.getRows());
+        return result;
+    }
+
+    @RequestMapping(value = "/detail/{productId}")
+    public ModelAndView getProductDetail(@PathVariable Integer productId) {
+        ProductDetail productDetail = productService.getProductDetailById(productId);
+
+        ModelAndView result = new ModelAndView("product/detail");
+        result.addObject("productDetail", productDetail);
         return result;
     }
 }

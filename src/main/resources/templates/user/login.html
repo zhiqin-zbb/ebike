@@ -42,7 +42,7 @@
                                            th:field="*{kaptcha}"/>
                                 </div>
                                 <div class="input-field col s4">
-                                    <img th:src="@{/kaptcha/image}">
+                                    <img th:src="@{/kaptcha/image}" onclick="this.src=this.src+'?'">
                                 </div>
                             </div>
                         </div>

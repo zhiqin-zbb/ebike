@@ -30,6 +30,10 @@ public class ProductService {
         product.setId(productId);
         ProductDetail productDetail = productMapper.getProductDetailById(product);
 
+        if (productDetail == null) {
+            return null;
+        }
+
         if (StringUtils.isNotEmpty(productDetail.getImgUrl())) {
             productDetail.setImgUrlList(Arrays.asList(productDetail.getImgUrl().split(StringConstants.SEMICOLON)));
         }
@@ -41,15 +45,6 @@ public class ProductService {
         if (product.getPage() != null && product.getRows() != null) {
             PageHelper.startPage(product.getPage(), product.getRows());
         }
-        Example example = new Example(Product.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("delFlag", 0);
-
-        if (product.getBrandId() != null && product.getBrandId() > 0) {
-            criteria.andEqualTo("brandId", product.getBrandId());
-        }
-
-        example.orderBy("updateTime").desc();
-        return productMapper.selectByExample(example);
+        return productMapper.getProductList(product);
     }
 }

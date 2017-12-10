@@ -93,7 +93,7 @@ public class UserController {
     public String update(User user) {
         UserInfo userInfo = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         user.setId(userInfo.getUserId());
-        int result = userService.update(user);
+        userService.update(user);
         return "redirect:/user/info";
     }
 }

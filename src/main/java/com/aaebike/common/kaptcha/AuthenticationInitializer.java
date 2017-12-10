@@ -54,7 +54,6 @@ public class AuthenticationInitializer extends AbstractSecurityWebApplicationIni
     public DefaultAuthenticationFilter loginFilter(AuthenticationManager authenticationManager) {
         DefaultAuthenticationFilter filter = new DefaultAuthenticationFilter(new AntPathRequestMatcher("/login", "POST"));
         filter.setAuthenticationManager(authenticationManager);
-        filter.setAuthenticationSuccessHandler(new SimpleUrlAuthenticationSuccessHandler("/"));
         filter.setAuthenticationFailureHandler(new SimpleUrlAuthenticationFailureHandler("/login?error=true"));
         return filter;
     }

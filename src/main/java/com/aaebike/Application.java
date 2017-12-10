@@ -2,6 +2,7 @@ package com.aaebike;
 
 import com.aaebike.model.Brand;
 import com.aaebike.model.Product;
+import com.aaebike.service.AdvertisementService;
 import com.aaebike.service.BrandService;
 import com.aaebike.service.ProductService;
 import com.github.pagehelper.PageInfo;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 @Controller
@@ -34,8 +36,16 @@ public class Application extends WebMvcConfigurerAdapter {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private AdvertisementService advertisementService;
+
     @RequestMapping("/")
     public ModelAndView greeting(Product product) {
+        /**
+         * 广告图片链接
+         */
+        List<String> adImgUrlList = advertisementService.getAllAdImgUrlList();
+
         /**
          * 品牌列表
          */
@@ -47,6 +57,7 @@ public class Application extends WebMvcConfigurerAdapter {
         List<Product> productList = productService.getProductList(product);
 
         ModelAndView result = new ModelAndView("index");
+        result.addObject("adImgUrlList", adImgUrlList);
         result.addObject("brandList", activeBrandList);
         result.addObject("productList", new PageInfo<>(productList));
         result.addObject("product", product);

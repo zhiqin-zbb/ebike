@@ -6,18 +6,12 @@
 </head>
 <body>
 <div class="row" layout:fragment="content">
-    <div id="slider" class="scrollspy section">
-        <div class="carousel carousel-slider center" data-indicators="true" style="height:570px;">
-            <div class="carousel-item" href="#one!">
-                <img th:src="@{/static/images/ad1.png}" style="width:85%;">
-            </div>
-            <div class="carousel-item" href="#two!">
-                <img th:src="@{/static/images/background1.jpg}" style="width:85%;">
-            </div>
-            <div class="carousel-item" href="#three!">
-                <img th:src="@{/static/images/ad3.png}" style="width:85%;">
-            </div>
-        </div>
+    <div class="slider" th:if="${#lists.size(adImgUrlList)} != 0">
+        <ul class="slides">
+            <li th:each="imgUrl : ${adImgUrlList}">
+                <img th:src="@{'/static/images/' + ${imgUrl}}">
+            </li>
+        </ul>
     </div>
 
     <div class="section">
@@ -43,13 +37,13 @@
             <div class="col s10 m10 l10">
                 <table>
                     <div th:if="${#lists.size(productList.list)} == 0">
-                        <span>抱歉，没有找到相关商品</span>
+                        <span>抱歉，没有找到相关商品！</span>
                     </div>
                     <div th:if="${#lists.size(productList.list)} != 0"
                          th:with="size=${#lists.size(productList.list)}, rows=${size/4}, remain=${size-rows*4}">
                         <div th:if="${rows} gt 0">
                             <tr th:each="row : ${#numbers.sequence(0, rows - 1, 1)}">
-                                <td th:each="col : ${#numbers.sequence(0, 3, 1)}" class="col s3 m3 l3">
+                                <td th:each="col : ${#numbers.sequence(0, 3, 1)}" class="col s12 m12 l3">
                                     <div th:with="product=${productList.list[row*4+col]}">
                                         <div class="row">
                                             <div class="col s12 m12 l12">
@@ -59,15 +53,15 @@
                                                     </div>
                                                     <div class="card-content">
                                                         <a style="font-size: 14px;"
-                                                           th:href="@{'/product/' + ${product.id}}"
+                                                           th:href="@{'/product/detail/' + ${product.id}}"
                                                            th:text="${product.name}">商品名称</a>
                                                     </div>
                                                     <div class="card-action">
-                                                <span style="color: #C5C1AA;font-size: 12px;">市场价<del
+                                                <span style="color: #C5C1AA;font-size: 12px;">市场价:<del
                                                         th:text="${product.marketPrice}"></del></span>
                                                         &nbsp;&nbsp;&nbsp;&nbsp;<span
                                                             style="color: #CD0000;font-size: 12px;"
-                                                            th:text="'特价' + ${product.salePrice}"></span><br/>
+                                                            th:text="'特价:' + ${product.salePrice}"></span><br/>
                                                         <a th:href="@{'/user/buy/' + ${product.id}}">立即购买</a>
                                                     </div>
                                                 </div>
@@ -79,7 +73,7 @@
                         </div>
                         <div th:if="${remain} gt 0">
                             <tr>
-                                <td th:each="col : ${#numbers.sequence(0, remain - 1, 1)}" class="col s3 m3 l3">
+                                <td th:each="col : ${#numbers.sequence(0, remain - 1, 1)}" class="col s12 m12 l3">
                                     <div th:with="product=${productList.list[rows*4+col]}">
                                         <div class="row">
                                             <div class="col s12 m12 l12">
@@ -93,11 +87,11 @@
                                                            th:text="${product.name}">商品名称</a>
                                                     </div>
                                                     <div class="card-action">
-                                                <span style="color: #C5C1AA;font-size: 12px;">市场价<del
+                                                <span style="color: #C5C1AA;font-size: 12px;">市场价:<del
                                                         th:text="${product.marketPrice}"></del></span>
                                                         &nbsp;&nbsp;&nbsp;&nbsp;<span
                                                             style="color: #CD0000;font-size: 12px;"
-                                                            th:text="'特价' + ${product.salePrice}"></span><br/>
+                                                            th:text="'特价:' + ${product.salePrice}"></span><br/>
                                                         <a th:href="@{'/user/buy/' + ${product.id}}">立即购买</a>
                                                     </div>
                                                 </div>
@@ -143,7 +137,13 @@
 </div>
 <script layout:fragment="script">
     $(function () {
-        $('.carousel').carousel();
+        $('.slider').slider({
+            full_width: true,
+            height: 600,
+            interval: 2000,
+            transition: 1000,
+            indicators: true
+        });
     });
 </script>
 </body>

@@ -24,21 +24,24 @@
                         <div class="row center">
                             <div class="input-field col s6 offset-s3">
                                 <i class="material-icons prefix">assignment_ind</i>
-                                <input id="name" type="text" class="validate" th:field="*{name}"/>
-                                <label for="name">姓名</label>
+                                <input id="name" type="text" class="validate" th:field="*{name}" required="required"
+                                       th:errorclass="invalid"/>
+                                <label for="name">真实姓名</label>
                             </div>
                         </div>
                         <div class="row center">
                             <div class="input-field col s6 offset-s3">
                                 <i class="material-icons prefix">email</i>
-                                <input id="email" type="email" class="validate" th:field="*{email}"/>
+                                <input id="email" type="email" class="validate" th:field="*{email}" required="required"
+                                       th:errorclass="invalid"/>
                                 <label for="email" data-error="请输入正确的邮箱">邮箱</label>
                             </div>
                         </div>
                         <div class="row center">
                             <div class="input-field inline col s6 offset-s3">
                                 <i class="material-icons prefix">phone</i>
-                                <input id="tel" type="tel" class="validate" th:field="*{tel}"/>
+                                <input id="tel" type="tel" class="validate" th:field="*{tel}" required="required"
+                                       th:errorclass="invalid"/>
                                 <label for="tel">手机号</label>
                             </div>
                         </div>

@@ -19,11 +19,26 @@
         id, name, create_time, update_time, del_flag
     </sql>
 
+    <select id="getProductList" resultMap="ProductDetail" parameterType="com.aaebike.model.Product">
+        select product.*, brand.name as brand_name
+        from product
+        left join brand
+        on product.brand_id = brand.id
+        where product.del_flag = 0
+        <if test="brandId != null">
+            and product.brand_id = #{brandId,jdbcType=INTEGER}
+        </if>
+        and brand.del_flag = 0
+        order by product.update_time
+    </select>
+
     <select id="getProductDetailById" resultMap="ProductDetail" parameterType="com.aaebike.model.Product">
-        select product.*, brand.name
+        select product.*, brand.name as brand_name
         from product
         left join brand
         on product.brand_id = brand.id
         where product.id = #{id}
+        and product.del_flag = 0
+        and brand.del_flag = 0
     </select>
 </mapper>

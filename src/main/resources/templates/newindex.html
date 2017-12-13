@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layout/layout">
+<head>
+    <link th:href="@{/static/css/new/justified-nav.css}" rel="stylesheet"/>
+    <title>Justified Nav Template for Bootstrap</title>
+</head>
+<body>
+<main layout:fragment="content" role="main" class="container">
+    <header class="masthead">
+        <nav class="navbar navbar-expand-md navbar-light bg-light rounded mb-3">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav text-md-center nav-justified w-100">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">首页<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">活动特惠</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">信用卡</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">二手车回收</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">学生兼职</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div id="carousel" class="carousel slide" data-ride="carousel">
+        <!-- 指示符 -->
+        <ul class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active"></li>
+            <li data-target="#demo" data-slide-to="1"></li>
+            <li data-target="#demo" data-slide-to="2"></li>
+        </ul>
+
+        <!-- 轮播图片 -->
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img th:src="@{/static/images/background1.jpg}" style="width: 100%">
+            </div>
+            <div class="carousel-item">
+                <img th:src="@{/static/images/ad2.png}" style="width: 100%">
+            </div>
+            <div class="carousel-item">
+                <img th:src="@{/static/images/ad3.png}" style="width: 100%">
+            </div>
+        </div>
+
+        <!-- 左右切换按钮 -->
+        <a class="carousel-control-prev" href="#carousel" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#carousel" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-6 col-md-3 col-lg-2 sidebar-offcanvas" id="sidebar">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+            </ul>
+        </div><!--/span-->
+
+        <!-- Example row of columns -->
+        <div class="row col-12 col-md-9 col-lg-10">
+            <div class="card col-lg-3">
+                <img class="card-img-top" th:src="@{/static/images/3812b31bb051f819b32bfd73d1b44aed2e73e7f9.jpg}"
+                     alt="Card image" style="width:100%">
+                <div class="card-body">
+                    <h4 class="card-title">John Doe</h4>
+                    <p class="card-text">Some example</p>
+                    <a href="#" class="btn btn-primary">See Profile</a>
+                </div>
+            </div>
+            <div class="card col-lg-3">
+                <img class="card-img-top" th:src="@{/static/images/2013529134747.jpg}" alt="Card image"
+                     style="width:100%">
+                <div class="card-body">
+                    <h4 class="card-title">John Doe</h4>
+                    <p class="card-text">Some example</p>
+                    <a href="#" class="btn btn-primary">See Profile</a>
+                </div>
+            </div>
+            <div class="card col-lg-3">
+                <img class="card-img-top" th:src="@{/static/images/20110319104850.jpg}" alt="Card image"
+                     style="width:100%">
+                <div class="card-body">
+                    <h4 class="card-title">John Doe</h4>
+                    <p class="card-text">Some example</p>
+                    <a href="#" class="btn btn-primary">See Profile</a>
+                </div>
+            </div>
+        </div>
+    </div><!--/row-->
+</main>
+</body>
+</html>

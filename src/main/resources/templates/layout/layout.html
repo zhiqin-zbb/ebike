@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>AA电动车</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link th:href="@{/webjars/bootstrap/4.0.0-beta.2/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet">
+    <link th:href="@{/static/css/new/navbar.css}" rel="stylesheet"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">AA电动车</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar"
+                aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <span class="navbar-text" style="color:red">让出行充满便捷！&nbsp;&nbsp;</span>
+
+            <div>
+                <i class="fa fa-map-marker"></i>
+                <span class="navbar-text">南京&nbsp;&nbsp;</span>
+            </div>
+
+            <div>
+                <i class="fa fa-phone"></i>
+                <span class="navbar-text">400-8888-888&nbsp;&nbsp;</span>
+            </div>
+
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+                    <a class="nav-link dropdown-toggle" href="http://www.aaebike.com" id="dropdown-user"
+                       data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false"><b sec:authentication="name"/></a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown-user">
+                        <a class="dropdown-item" th:href="@{/user/info}">个人信息</a>
+                        <a class="dropdown-item" th:href="@{/user/order}">我的订单</a>
+                        <a class="dropdown-item" th:href="@{/logout}">退出</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown" th:if="${not (#authorization.expression('hasRole(''ROLE_USER'')'))}">
+                    <a class="nav-link dropdown-toggle" href="http://www.aaebike.com" id="dropdown-tourist"
+                       data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">会员中心</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown-tourist">
+                        <a class="dropdown-item" th:href="@{/register}">注册</a>
+                        <a class="dropdown-item" th:href="@{/login}">登录</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-md-0">
+                <input class="form-control" type="text" placeholder="根据商品名称进行搜索" aria-label="Search">
+                <button type="submit" class="btn btn-default">搜索</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<section layout:fragment="content">
+    <p>Page content goes here</p>
+</section>
+<footer class="footer">
+    <div class="container">
+        <p>&copy; Company 2017</p>
+    </div>
+</footer>
+<!--  Scripts-->
+<script th:src="@{/static/js/new/popper.min.js}"></script>
+<script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.0.0-beta.2/js/bootstrap.min.js}"></script>
+<script type="text/javascript" layout:fragment="script">
+</script>
+</body>
+</html>

@@ -2,6 +2,7 @@ package com.aaebike.controller;
 
 import com.aaebike.model.Product;
 import com.aaebike.model.ProductDetail;
+import com.aaebike.model.User;
 import com.aaebike.service.ProductService;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
@@ -11,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,6 +26,13 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @RequestMapping(value = "/data", method = RequestMethod.GET)
+    @ResponseBody
+    public PageInfo<Product> data(Product product) {
+        List<Product> productList = productService.getProductList(product);
+        return new PageInfo<>(productList);
+    }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ModelAndView getProductList(Product product) {

@@ -1,63 +1,83 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout/default">
+      layout:decorator="layout/layout">
 <head lang="en">
     <title>个人信息</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link th:href="@{/static/css/register.css}" type="text/css" rel="stylesheet"/>
+    <style type="text/css">
+        .input-group {
+            width: 78%;
+            float: right;
+        }
+    </style>
 </head>
 <body>
-<div class="row" layout:fragment="content">
-    <div id="index-banner">
-        <div class="section no-pad-bot">
-            <div class="container">
-                <br><br>
-                <h4 class="header center teal-text text-lighten-2"><i class="material-icons prefix small">assignment_ind</i>个人信息
-                </h4>
-                <div class="row center">
-                    <form th:object="${user}" th:action="@{/user/info/update}" method="post" class="col s12">
-                        <div class="row center">
-                            <div class="input-field col s6 offset-s3">
-                                <i class="material-icons prefix">account_circle</i>
-                                <input disabled id="username" type="text" class="validate" th:field="*{username}"/>
-                                <label for="username">用户名</label>
-                            </div>
-                        </div>
-                        <div class="row center">
-                            <div class="input-field col s6 offset-s3">
-                                <i class="material-icons prefix">assignment_ind</i>
-                                <input id="name" type="text" class="validate" th:field="*{name}" required="required"
-                                       th:errorclass="invalid"/>
-                                <label for="name">真实姓名</label>
-                            </div>
-                        </div>
-                        <div class="row center">
-                            <div class="input-field col s6 offset-s3">
-                                <i class="material-icons prefix">email</i>
-                                <input id="email" type="email" class="validate" th:field="*{email}" required="required"
-                                       th:errorclass="invalid"/>
-                                <label for="email" data-error="请输入正确的邮箱">邮箱</label>
-                            </div>
-                        </div>
-                        <div class="row center">
-                            <div class="input-field inline col s6 offset-s3">
-                                <i class="material-icons prefix">phone</i>
-                                <input id="tel" type="tel" class="validate" th:field="*{tel}" required="required"
-                                       th:errorclass="invalid"/>
-                                <label for="tel">手机号</label>
-                            </div>
-                        </div>
-                        <div class="row center">
-                            <div class="input-field col s6 offset-s3">
-                                <button class="btn waves-effect waves-light" type="submit" name="save">更新
-                                    <i class="material-icons right">send</i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+<main layout:fragment="content" role="main" class="container">
+    <div class="col-md-5 col-md-offset-3 container">
+        <form th:object="${infoUpdateForm}" th:action="@{/user/info/update}" method="post" onsubmit="return check()">
+            <div class="form-group has-feedback">
+                <label for="username">用户名</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    <input id="username" class="form-control" type="text"
+                           th:field="*{username}" readonly unselectable="on">
                 </div>
-                <br><br>
             </div>
-        </div>
+
+            <div class="form-group has-feedback">
+                <label for="name">姓名</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user-circle-o"></i></span>
+                    <input id="name" class="form-control" placeholder="请输入姓名" type="text"
+                           th:field="*{name}" required="required">
+                </div>
+            </div>
+            <div th:errors="*{name}" style="color: red;margin-top:-8px;margin-bottom:5px;">Error</div>
+
+            <div class="form-group has-feedback">
+                <label for="email">邮箱</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+                    <input id="email" class="form-control" placeholder="请输入邮箱" type="email"
+                           th:field="*{email}" required="required">
+                </div>
+            </div>
+            <div th:errors="*{email}" style="color: red;margin-top:-8px;margin-bottom:5px;">Error</div>
+
+            <div class="form-group has-feedback">
+                <label for="tel">手机号</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                    <input id="tel" class="form-control" placeholder="请输入手机号" maxlength="11" type="text"
+                           th:field="*{tel}" required="required">
+                </div>
+            </div>
+            <div th:errors="*{tel}" style="color: red;margin-top:-8px;margin-bottom:5px;">Error</div>
+
+            <div class="row">
+                <div class="col-8">
+                    <div class="form-group has-feedback">
+                        <label for="kaptcha">验证码</label>
+                        <div class="input-group" style="width: 66%;">
+                            <span class="input-group-addon"><i class="fa fa-qrcode"></i></span>
+                            <input id="kaptcha" class="form-control" placeholder="验证码" type="text"
+                                   th:field="*{kaptcha}" required="required">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 text-right" style="padding-left: 0;">
+                    <img th:src="@{/kaptcha/image}" onclick="this.src=this.src+'?'">
+                </div>
+            </div>
+            <div th:errors="*{kaptcha}" style="color: red;margin-top:-8px;margin-bottom:5px;">Error</div>
+
+            <div style="text-align: center">
+                <input class="col-5 form-control btn btn-primary" id="submit" value="更新"
+                       type="submit">
+            </div>
+        </form>
     </div>
-</div>
+</main>
 </body>
 </html>

@@ -2,12 +2,10 @@ package com.aaebike.controller.user;
 
 import java.util.List;
 
+import com.aaebike.common.kaptcha.ValidateCodeHandle;
 import com.aaebike.common.utils.RandomUtils;
-import com.aaebike.model.OrderDetail;
-import com.aaebike.model.Product;
-import com.aaebike.model.SaleOrder;
-import com.aaebike.model.User;
-import com.aaebike.model.UserInfo;
+import com.aaebike.model.*;
+import com.aaebike.model.form.InfoUpdateForm;
 import com.aaebike.service.OrderService;
 import com.aaebike.service.ProductService;
 import com.aaebike.service.UserService;
@@ -17,9 +15,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/user")
@@ -42,22 +45,32 @@ public class UserController {
         UserInfo userInfo = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.getById(userInfo.getUserId());
 
+        InfoUpdateForm infoUpdateForm = new InfoUpdateForm();
+        infoUpdateForm.setUsername(user.getUsername());
+        infoUpdateForm.setName(user.getName());
+        infoUpdateForm.setEmail(user.getEmail());
+        infoUpdateForm.setTel(user.getTel());
+
         ModelAndView result = new ModelAndView("/user/info");
-        result.addObject("user", user);
+        result.addObject("infoUpdateForm", infoUpdateForm);
         return result;
     }
 
     @RequestMapping("/order")
-    public ModelAndView order(SaleOrder saleOrder) {
+    public String order() {
+        return "user/order";
+    }
+
+    @RequestMapping("/orderList")
+    @ResponseBody
+    public PageInfo<OrderDetail> orderList(SaleOrder saleOrder) {
         UserInfo userInfo = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.getById(userInfo.getUserId());
 
         saleOrder.setUserId(user.getId());
         List<OrderDetail> orderList = orderService.getAllOrderDetail(saleOrder);
 
-        ModelAndView result = new ModelAndView("user/order");
-        result.addObject("orderList", new PageInfo<>(orderList));
-        return result;
+        return new PageInfo<>(orderList);
     }
 
     @RequestMapping("/buy/{productId}")
@@ -90,10 +103,25 @@ public class UserController {
     }
 
     @RequestMapping("/info/update")
-    public String update(User user) {
+    public String update(HttpServletRequest request, @Valid InfoUpdateForm infoUpdateForm, BindingResult bindingResult) {// 校验验证码
+        String kaptcha = request.getParameter("kaptcha");
+        if (!ValidateCodeHandle.matchCode(request.getSession().getId(), kaptcha)) {
+            bindingResult.rejectValue("kaptcha","misFormat", "验证码错误!");
+        }
+
+        if (bindingResult.hasErrors()) {
+            return "user/info";
+        }
+
         UserInfo userInfo = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = new User();
         user.setId(userInfo.getUserId());
-        userService.update(user);
+        user.setUsername(infoUpdateForm.getUsername());
+        user.setName(infoUpdateForm.getName());
+        user.setEmail(infoUpdateForm.getEmail());
+        user.setTel(infoUpdateForm.getTel());
+
+        userService.updateUserInfo(user);
         return "redirect:/user/info";
     }
 }

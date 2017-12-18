@@ -1,0 +1,13 @@
+.mycard {
+    float: left;
+    padding: .75rem;
+    border: 0;
+}
+
+.mycard > img {
+    margin-bottom: .75rem;
+}
+
+.mycard-text {
+    font-size: 85%;
+}

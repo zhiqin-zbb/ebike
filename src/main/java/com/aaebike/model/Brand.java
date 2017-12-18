@@ -13,4 +13,11 @@ public class Brand extends BaseEntity {
     private Date updateTime;
 
     private int delFlag;
+
+    public static Brand initAllBrand() {
+        Brand allBrand = new Brand();
+        allBrand.setId(0);
+        allBrand.setName("所有品牌");
+        return allBrand;
+    }
 }

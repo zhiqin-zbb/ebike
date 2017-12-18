@@ -1,10 +1,13 @@
 package com.aaebike.controller;
 
+import com.aaebike.model.Brand;
 import com.aaebike.model.Product;
 import com.aaebike.model.ProductDetail;
-import com.aaebike.model.User;
+import com.aaebike.model.result.ProductListResult;
+import com.aaebike.service.BrandService;
 import com.aaebike.service.ProductService;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,6 +26,9 @@ import java.util.List;
 @RequestMapping("/product")
 public class ProductController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
+    @Autowired
+    private BrandService brandService;
 
     @Autowired
     private ProductService productService;
@@ -35,20 +41,30 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ModelAndView getProductList(Product product) {
+    @ResponseBody
+    public ProductListResult getProductList(Product product) {
+        List<Brand> brandList = brandService.getActiveBrandList();
+        brandList.add(0, Brand.initAllBrand());
+
         List<Product> productList = productService.getProductList(product);
 
-        ModelAndView result = new ModelAndView("index");
-        result.addObject("productList", new PageInfo<>(productList));
-        result.addObject("queryParam", product);
-        result.addObject("page", product.getPage());
-        result.addObject("rows", product.getRows());
+        ProductListResult result = new ProductListResult(brandList, new PageInfo<>(productList));
+        result.setBrandId(product.getBrandId() != null ? product.getBrandId() : 0);
         return result;
     }
 
     @RequestMapping(value = "/detail/{productId}")
     public ModelAndView getProductDetail(@PathVariable Integer productId) {
         ProductDetail productDetail = productService.getProductDetailById(productId);
+
+        if (productDetail != null) {
+            // 如果详情图片为空，则展示封面图片
+            if (StringUtils.isNotEmpty(productDetail.getImgUrl())) {
+                productDetail.setImgUrlList(Arrays.asList(productDetail.getImgUrl().split(";")));
+            } else if (StringUtils.isNotEmpty(productDetail.getCover())) {
+                productDetail.setImgUrlList(Collections.singletonList(productDetail.getCover()));
+            }
+        }
 
         ModelAndView result = new ModelAndView("product/detail");
         result.addObject("productDetail", productDetail);

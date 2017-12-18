@@ -1,60 +1,59 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout/default">
+      layout:decorator="layout/layout">
 <head lang="en">
     <title>产品详情</title>
 </head>
 <body>
-<div class="row" layout:fragment="content">
-    <div id="index-banner">
-        <div class="section no-pad-bot">
-            <div class="container">
-                <div th:if="${productDetail == null}">
-                    <div class="col s12 m12 l12">
-                        <span>该产品不存在或者已下架，快去看看其它商品吧！</span>
-                    </div>
+<main layout:fragment="content" role="main" class="container">
+    <div class="row">
+        <div class="container col-12 col-md-6 col-lg-6">
+            <div th:if="${productDetail == null}">
+                <div>
+                    <span>该产品不存在或者已下架，快去看看其它商品吧！</span>
                 </div>
-                <div th:if="${productDetail != null}">
-                    <div class="col s12 m12 l6">
-                        <div class="slider">
-                            <ul class="slides">
-                                <li th:each="imgUrl : ${productDetail.imgUrlList}">
-                                    <img th:src="@{'/static/images/' + ${imgUrl}}">
-                                </li>
-                            </ul>
+            </div>
+            <div th:if="${productDetail != null}">
+                <div id="carousel" class="carousel slide" data-ride="carousel">
+                    <!-- 指示符 -->
+                    <ul class="carousel-indicators">
+                        <li data-target="#carousel" th:each="imgUrl, imgUrlStat : ${productDetail.imgUrlList}"
+                            th:attr="data-slide-to=${imgUrlStat.index}"
+                            th:class="${imgUrlStat.index} == 0 ? 'active' : ''"></li>
+                    </ul>
+
+                    <!-- 轮播图片 -->
+                    <div class="carousel-inner">
+                        <div th:each="imgUrl, imgUrlStat : ${productDetail.imgUrlList}"
+                             th:class="${imgUrlStat.index} == 0 ? 'carousel-item active' : 'carousel-item'">
+                            <img th:src="${imgUrl}" style="width: 100%">
                         </div>
                     </div>
-                    <div class="col s12 m12 l6">
-                        <div class="container">
-                            <h5 th:text="${productDetail.name}"></h5><br/>
-                            <span style="font-size: 20px;" th:text="'品牌: ' + ${productDetail.brandName}"></span><br/>
-                            <span style="color: #C5C1AA;font-size: 18px;">市场价:<del
-                                    th:text="${productDetail.marketPrice}"></del></span>
-                            &nbsp;&nbsp;&nbsp;&nbsp;<span
-                                style="color: #CD0000; font-size: 18px;"
-                                th:text="'特价:' + ${productDetail.salePrice}"></span><br/>
-                            <a class="waves-effect waves-light btn" th:href="@{'/user/buy/' + ${productDetail.id}}"><i
-                                    class="material-icons left">cloud</i>立即购买</a>
-                        </div>
-                    </div>
-                    <div class="col s12 m12 l12">
-                        <br/>
-                        <h5 th:text="${productDetail.description}"></h5>
-                    </div>
+
+                    <!-- 左右切换按钮 -->
+                    <a class="carousel-control-prev" href="#carousel" data-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </a>
+                    <a class="carousel-control-next" href="#carousel" data-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </a>
                 </div>
             </div>
         </div>
+        <div th:if="${productDetail != null}" class="container col-12 col-md-6 col-lg-6">
+            <div class="container">
+                <h3><span class="badge badge-danger" th:text="${productDetail.brandName}"></span></h3>
+                <h5 th:text="${productDetail.name}"></h5>
+                <p th:text="${productDetail.description}"></p>
+                <p>
+                    <em style="color: grey; text-decoration: line-through;"
+                        th:text="'市场价:' + ${productDetail.marketPrice}"></em><br/>
+                    <em style="color: red; " th:text="'特价:' + ${productDetail.salePrice}"></em>
+                </p>
+                <a th:href="@{'/user/buy/' + ${productDetail.id}}" class="btn btn-primary" style="float: left">立即购买</a>
+            </div>
+        </div>
     </div>
-</div>
-<script layout:fragment="script">
-    $(function () {
-        $('.slider').slider({
-            full_width: true,
-            interval: 2000,
-            transition: 1000,
-            indicators: true
-        });
-    });
-</script>
+</main>
 </body>
 </html>

@@ -32,6 +32,11 @@ public class Product extends BaseEntity {
     private Double salePrice;
 
     /**
+     * 封面图片地址
+     */
+    private String cover;
+
+    /**
      * 图片地址
      */
     private String imgUrl;

@@ -3,8 +3,17 @@
 <mapper namespace="com.aaebike.mapper.AdvertisementMapper">
     <resultMap id="BaseResultMap" type="com.aaebike.model.Advertisement">
         <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
         <result column="img_url" property="imgUrl" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="del_flag" property="delFlag" jdbcType="INTEGER"/>
+        <result column="type_id" property="typeId" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="AdvTypeResultMap" type="com.aaebike.model.AdvertisementType">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
         <result column="del_flag" property="delFlag" jdbcType="INTEGER"/>
@@ -14,9 +23,22 @@
         id, name, img_url, create_time, update_time, del_flag
     </sql>
 
-    <select id="getAllAdImgUrlList" resultType="java.lang.String">
+    <select id="getCarouselImgUrlList" resultType="java.lang.String">
         select img_url
         from advertisement
-        where del_flag = 0
+        where type_id = 1 and del_flag = 0
+        order by update_time
+    </select>
+
+    <select id="getAdvTypeList" resultMap="AdvTypeResultMap">
+        select *
+        from advertisement_type
+        where del_flag = 0 and id != 1
+    </select>
+
+    <select id="getAdvList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select *
+        from advertisement
+        where type_id = #{typeId} and del_flag = 0
     </select>
 </mapper>

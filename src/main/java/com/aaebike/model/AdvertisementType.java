@@ -5,16 +5,12 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class Advertisement extends BaseEntity {
-    private String description;
-
-    private String imgUrl;
+public class AdvertisementType extends BaseEntity {
+    private String name;
 
     private Date createTime;
 
     private Date updateTime;
 
     private int delFlag;
-
-    private int typeId;
 }

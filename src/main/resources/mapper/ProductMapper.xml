@@ -8,6 +8,7 @@
         <result column="brand_id" property="brandId" jdbcType="INTEGER"/>
         <result column="market_price" property="marketPrice" jdbcType="DECIMAL"/>
         <result column="sale_price" property="salePrice" jdbcType="DECIMAL"/>
+        <result column="cover" property="cover" jdbcType="VARCHAR"/>
         <result column="img_url" property="imgUrl" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
@@ -25,7 +26,7 @@
         left join brand
         on product.brand_id = brand.id
         where product.del_flag = 0
-        <if test="brandId != null">
+        <if test="brandId != null and brandId != 0">
             and product.brand_id = #{brandId,jdbcType=INTEGER}
         </if>
         and brand.del_flag = 0

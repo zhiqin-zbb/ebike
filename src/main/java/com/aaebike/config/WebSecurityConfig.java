@@ -51,7 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/index", "/product/**").permitAll()
+                .antMatchers("/", "/index", "/product/**", "/error/**").permitAll()
                 .antMatchers("/user/**").hasRole("USER")
                 .and().addFilterBefore(loginFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin().loginPage("/login").failureUrl("/login?error=true")

@@ -33,7 +33,7 @@ public class UserService {
         return userMapper.selectOne(userExample);
     }
 
-    public int update(User user) {
+    public int updateUserInfo(User user) {
         return userMapper.updateByPrimaryKeySelective(user);
     }
 

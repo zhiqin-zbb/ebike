@@ -8,8 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.aaebike.model.LoginForm;
-import com.aaebike.model.User;
+import com.aaebike.model.form.LoginForm;
 import com.aaebike.service.UserService;
 
 /**

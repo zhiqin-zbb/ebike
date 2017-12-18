@@ -3,7 +3,6 @@ package com.aaebike.controller.user;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.aaebike.common.kaptcha.ValidateCodeHandle;
-import com.aaebike.model.RegisterForm;
+import com.aaebike.model.form.RegisterForm;
 import com.aaebike.model.User;
 import com.aaebike.service.UserService;
 
@@ -47,8 +46,8 @@ public class RegisterController {
             bindingResult.rejectValue("kaptcha","misFormat", "验证码错误!");
         }
 
-        if (!registerForm.getPasswordRepeat().equals(registerForm.getPassword())) {
-            bindingResult.rejectValue("passwordRepeat","misFormat", "两次输入的密码不一致!");
+        if (!registerForm.getPasswordConfirm().equals(registerForm.getPassword())) {
+            bindingResult.rejectValue("passwordConfirm","misFormat", "两次输入的密码不一致!");
         }
 
         User byUsername = userService.findByUsername(registerForm.getUsername());

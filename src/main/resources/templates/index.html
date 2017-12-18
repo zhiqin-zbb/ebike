@@ -1,150 +1,112 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout/default">
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layout/layout">
 <head>
-    <title>AA电单车</title>
+    <link th:href="@{/static/css/justified-nav.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/album.css}" rel="stylesheet"/>
+    <title>AA电动车</title>
 </head>
-<body>
-<div class="row" layout:fragment="content">
-    <div class="slider" th:if="${#lists.size(adImgUrlList)} != 0">
-        <ul class="slides">
-            <li th:each="imgUrl : ${adImgUrlList}">
-                <img th:src="@{'/static/images/' + ${imgUrl}}">
-            </li>
+<body ms-controller="index">
+<main layout:fragment="content" role="main" class="container">
+    <div id="carousel" class="carousel slide" data-ride="carousel" ms-if="@carouselImgUrlList.length != 0">
+        <!-- 指示符 -->
+        <ul class="carousel-indicators">
+            <li data-target="#carousel" ms-attr="{'data-slide-to' : $index}" ms-class="$index == 0 ? 'active' : ''"
+                ms-for="($index, el) in @carouselImgUrlList"></li>
         </ul>
+
+        <!-- 轮播图片 -->
+        <div class="carousel-inner">
+            <div class="carousel-item" ms-for="($index, el) in @carouselImgUrlList"
+                 ms-class="$index == 0 ? 'active' : ''">
+                <img ms-attr="{src : @el}" style="width: 100%">
+            </div>
+        </div>
+
+        <!-- 左右切换按钮 -->
+        <a class="carousel-control-prev" href="#carousel" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#carousel" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
     </div>
 
-    <div class="section">
-        <div>
-            <div class="col s2 m2 l2">
-                <div class="collection">
-                    <div th:if="${product.brandId == null}">
-                        <a th:href="@{${'/'}(page=1)}" class="collection-item active">所有品牌</a>
-                    </div>
-                    <div th:if="${product.brandId != null}">
-                        <a th:href="@{${'/'}(page=1)}" class="collection-item">所有品牌</a>
-                    </div>
-                    <div th:each="brand : ${brandList}">
-                        <a th:if="${product.brandId eq brand.id}"
-                           th:href="@{${'/'}(page=1,brandId=${brand.id})}"
-                           th:text="${brand.name}" class="collection-item active">品牌名称</a>
-                        <a th:if="${not (product.brandId eq brand.id)}"
-                           th:href="@{${'/'}(page=1,brandId=${brand.id})}"
-                           th:text="${brand.name}" class="collection-item">品牌名称</a>
-                    </div>
-                </div>
+    <hr>
+
+    <div class="row">
+        <div class="col-4 col-md-3 col-lg-2 sidebar-offcanvas" id="sidebar">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item" ms-for="brand in @brandList">
+                    <a href="javascript:" ms-class="@brand.id == @brandId ? 'nav-link active' : 'nav-link'"
+                       ms-click="@request(brand.id, 1)">{{brand.name}}</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="row col-12 col-md-9 col-lg-10">
+            <div class="card mycard col-md-4 col-lg-4" ms-if="@productPageInfo.size == 0">
+                抱歉，没有找到相关商品！
             </div>
-            <div class="col s10 m10 l10">
-                <table>
-                    <div th:if="${#lists.size(productList.list)} == 0">
-                        <span>抱歉，没有找到相关商品！</span>
-                    </div>
-                    <div th:if="${#lists.size(productList.list)} != 0"
-                         th:with="size=${#lists.size(productList.list)}, rows=${size/4}, remain=${size-rows*4}">
-                        <div th:if="${rows} gt 0">
-                            <tr th:each="row : ${#numbers.sequence(0, rows - 1, 1)}">
-                                <td th:each="col : ${#numbers.sequence(0, 3, 1)}" class="col s12 m12 l3">
-                                    <div th:with="product=${productList.list[row*4+col]}">
-                                        <div class="row">
-                                            <div class="col s12 m12 l12">
-                                                <div class="card hoverable">
-                                                    <div class="card-image">
-                                                        <img th:src="@{'/static/images/' + ${product.imgUrl}}">
-                                                    </div>
-                                                    <div class="card-content">
-                                                        <a style="font-size: 14px;"
-                                                           th:href="@{'/product/detail/' + ${product.id}}"
-                                                           th:text="${product.name}">商品名称</a>
-                                                    </div>
-                                                    <div class="card-action">
-                                                <span style="color: #C5C1AA;font-size: 12px;">市场价:<del
-                                                        th:text="${product.marketPrice}"></del></span>
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;<span
-                                                            style="color: #CD0000;font-size: 12px;"
-                                                            th:text="'特价:' + ${product.salePrice}"></span><br/>
-                                                        <a th:href="@{'/user/buy/' + ${product.id}}">立即购买</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </div>
-                        <div th:if="${remain} gt 0">
-                            <tr>
-                                <td th:each="col : ${#numbers.sequence(0, remain - 1, 1)}" class="col s12 m12 l3">
-                                    <div th:with="product=${productList.list[rows*4+col]}">
-                                        <div class="row">
-                                            <div class="col s12 m12 l12">
-                                                <div class="card hoverable">
-                                                    <div class="card-image">
-                                                        <img th:src="@{'/static/images/' + ${product.imgUrl}}">
-                                                    </div>
-                                                    <div class="card-content">
-                                                        <a style="font-size: 14px;"
-                                                           th:href="@{'/product/' + ${product.id}}"
-                                                           th:text="${product.name}">商品名称</a>
-                                                    </div>
-                                                    <div class="card-action">
-                                                <span style="color: #C5C1AA;font-size: 12px;">市场价:<del
-                                                        th:text="${product.marketPrice}"></del></span>
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;<span
-                                                            style="color: #CD0000;font-size: 12px;"
-                                                            th:text="'特价:' + ${product.salePrice}"></span><br/>
-                                                        <a th:href="@{'/user/buy/' + ${product.id}}">立即购买</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </div>
-                    </div>
-                </table>
-                <div class="center" th:if="${productList.pages} gt 1">
-                    <ul class="pagination">
-                        <li th:if="${productList.hasPreviousPage}" class="wave-effect">
-                            <a th:href="@{${'/'}(page=1,brandId=${product.brandId})}">首页</a>
-                        </li>
-                        <li th:if="${productList.hasPreviousPage}" class="wave-effect">
-                            <a th:href="@{${'/'}(page=${productList.prePage},brandId=${product.brandId})}"><i
-                                    class="material-icons">chevron_left</i></a>
-                        </li>
-                        <li class="wave-effect" th:each="pageNo : ${#numbers.sequence(1, productList.pages)}">
-                            <a th:if="${productList.pageNum eq pageNo}" href="javascript:void(0);"
-                               class="active disabled">
-                                <span th:text="${pageNo}" style="font-weight: bold; font-size: 1.5rem"></span>
-                            </a>
-                            <a th:if="${not (productList.pageNum eq pageNo)}"
-                               th:href="@{${'/'}(page=${pageNo},brandId=${product.brandId})}">
-                                <span th:text="${pageNo}"></span>
-                            </a>
-                        </li>
-                        <li th:if="${productList.hasNextPage}" class="waves-effect">
-                            <a th:href="@{${'/'}(page=${productList.nextPage},brandId=${product.brandId})}">
-                                <i class="material-icons">chevron_right</i></a>
-                        </li>
-                        <li th:if="${productList.hasNextPage}" class="waves-effect">
-                            <a th:href="@{${'/'}(page=${productList.pages},brandId=${product.brandId})}">尾页</a>
-                        </li>
-                    </ul>
+            <div class="card mycard col-md-4 col-lg-4" ms-if="@productPageInfo.size != 0"
+                 ms-for="el in @productPageInfo.list">
+                <img class="card-img-top" ms-attr="{src : @el.cover}"
+                     alt="Card image" style="width:100%"/>
+                <div class="card-body">
+                    <a class="card-title" style="font-size: 1.2em; font-weight: bold"
+                       ms-attr="{href: '/product/detail/' + @el.id}">{{el.name}}</a>
+                    <p class="card-text">
+                        <em style="color: grey; text-decoration: line-through; float: left;">市场价:{{el.marketPrice}}</em>
+                        <em style="color: red; float: right;">特价:{{el.salePrice}}</em>
+                    </p>
+                    <br/>
+                    <a ms-attr="{href: '/user/buy/' + @el.id}" class="btn btn-primary" style="float: right">立即购买</a>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<script layout:fragment="script">
-    $(function () {
-        $('.slider').slider({
-            full_width: true,
-            height: 600,
-            interval: 2000,
-            transition: 1000,
-            indicators: true
-        });
-    });
+
+    <div>
+        <nav aria-label="Search results pages">
+            <ul class="pagination justify-content-end">
+                <li class="page-item" ms-class="@productPageInfo.hasPreviousPage ? '' : 'disabled'">
+                    <a class="page-link" href="javascript:" aria-label="Previous"
+                       ms-click="@request(brandId, productPageInfo.prePage)">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                <li class="page-item" ms-for="pageNum in @productPageInfo.navigatepageNums"
+                    ms-class="@pageNum == @productPageInfo.pageNum ? 'active' : ''" ms-html="@showPageNav(@pageNum)">
+                </li>
+                <li class="page-item" ms-class="@productPageInfo.hasNextPage ? '' : 'disabled'">
+                    <a class="page-link" href="javascript:" aria-label="Next"
+                       ms-click="@request(brandId, productPageInfo.nextPage)">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div ms-if="@advertisementList.length != 0" ms-for="advertisement in @advertisementList">
+        <hr>
+
+        <h3><span class="badge badge-danger">{{advertisement.typeName}}</span></h3>
+        <div class="text-muted">
+            <div class="container">
+                <div class="row">
+                    <div class="card mycard col-md-4 col-lg-4" ms-for="adv in @advertisement.advertisementList">
+                        <img ms-attr="{src : @adv.imgUrl}" alt="Card image cap" style="width:100%">
+                        <p class="mycard-text">{{adv.description}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script layout:fragment="script" th:src="@{/static/js/index.js}">
 </script>
 </body>
 </html>

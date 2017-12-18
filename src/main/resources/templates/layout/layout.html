@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link th:href="@{/webjars/bootstrap/4.0.0-beta.2/css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet">
-    <link th:href="@{/static/css/new/navbar.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/navbar.css}" rel="stylesheet"/>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
@@ -34,7 +34,7 @@
                     <i class="fa fa-phone"></i>
                     <span class="navbar-text">400-8888-888&nbsp;&nbsp;</span>
                 </li>
-                <li class="nav-item dropdown" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+                <li sec:authorize="hasRole('ROLE_USER')" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="http://www.aaebike.com" id="dropdown-user"
                        data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false"><b sec:authentication="name"/></a>
@@ -44,7 +44,7 @@
                         <a class="dropdown-item" th:href="@{/logout}">退出</a>
                     </div>
                 </li>
-                <li class="nav-item dropdown" th:if="${not (#authorization.expression('hasRole(''ROLE_USER'')'))}">
+                <li sec:authorize="!hasRole('ROLE_USER')" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="http://www.aaebike.com" id="dropdown-tourist"
                        data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">会员中心</a>
@@ -61,18 +61,47 @@
         </div>
     </div>
 </nav>
+<header class="masthead container">
+    <nav class="navbar navbar-expand-md navbar-light bg-light rounded mb-3">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav text-md-center nav-justified w-100">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">首页<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">活动特惠</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">信用卡</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">二手车回收</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">学生兼职</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
 <section layout:fragment="content">
     <p>Page content goes here</p>
 </section>
 <footer class="footer">
     <div class="container">
-        <p>&copy; Company 2017</p>
+        <p>&copy;南京基汇信息科技有限公司 2017</p>
     </div>
 </footer>
 <!--  Scripts-->
-<script th:src="@{/static/js/new/popper.min.js}"></script>
+<script th:src="@{/static/js/popper.min.js}"></script>
 <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/4.0.0-beta.2/js/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/avalon.min.js}"></script>
+<script th:src="@{/static/js/holder.min.js}"></script>
 <script type="text/javascript" layout:fragment="script">
 </script>
 </body>

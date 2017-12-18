@@ -1,78 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout/default">
+      layout:decorator="layout/layout">
 <head lang="en">
     <title>我的订单</title>
 </head>
-<body>
-<div class="row" layout:fragment="content">
-    <div id="index-banner">
-        <div class="section no-pad-bot">
-            <div class="container">
-                <div class="col s12 m12 l12">
-                    <div th:if="${#lists.size(orderList.list)} == 0">
-                        <div class="container">
-                            <span>您还没有下单记录哦，快去看看商品吧！</span>
-                        </div>
-                    </div>
-                    <div th:if="${#lists.size(orderList.list)} != 0">
-                        <table class="bordered striped highlight centered responsive-table">
-                            <thead>
-                            <tr>
-                                <th>品牌</th>
-                                <th>产品</th>
-                                <th>市场价</th>
-                                <th>下单价格</th>
-                                <th>验证码</th>
-                                <th>下单时间</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="order : ${orderList.list}">
-                                <td th:text="${order.brandName}"></td>
-                                <td><a th:href="@{'/product/detail/' + ${order.productId}}"
-                                       th:text="${order.productName}"></a></td>
-                                <td th:text="${order.marketPrice}"></td>
-                                <td th:text="${order.price}"></td>
-                                <td th:text="${order.randomCode}"></td>
-                                <td th:text="${#dates.format(order.createTime,'yyyy-MM-dd HH:mm:ss')}">
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <div class="center" th:if="${orderList.pages} gt 1">
-                            <ul class="pagination">
-                                <li th:if="${orderList.hasPreviousPage}" class="wave-effect">
-                                    <a th:href="@{${'/user/order'}(page=1)}">首页</a>
-                                </li>
-                                <li th:if="${orderList.hasPreviousPage}" class="wave-effect">
-                                    <a th:href="@{${'/user/order'}(page=${orderList.prePage})}"><i
-                                            class="material-icons">chevron_left</i></a>
-                                </li>
-                                <li class="wave-effect" th:each="pageNo : ${#numbers.sequence(1, orderList.pages)}">
-                                    <a th:if="${orderList.pageNum eq pageNo}" href="javascript:void(0);"
-                                       class="active disabled">
-                                        <span th:text="${pageNo}" style="font-weight: bold; font-size: 1.5rem"></span>
-                                    </a>
-                                    <a th:if="${not (orderList.pageNum eq pageNo)}"
-                                       th:href="@{${'/user/order'}(page=${pageNo})}">
-                                        <span th:text="${pageNo}"></span>
-                                    </a>
-                                </li>
-                                <li th:if="${orderList.hasNextPage}" class="waves-effect">
-                                    <a th:href="@{${'/user/order'}(page=${orderList.nextPage})}">
-                                        <i class="material-icons">chevron_right</i></a>
-                                </li>
-                                <li th:if="${orderList.hasNextPage}" class="waves-effect">
-                                    <a th:href="@{${'/user/order'}(page=${orderList.pages})}">尾页</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<body ms-controller="order">
+<main role="main" class="container" layout:fragment="content">
+    <div class="col-12 col-lg-offset-3 container">
+        <div ms-if="@orderPageInfo.size == 0">
+            <span>您还没有下单记录哦，快去看看商品吧！</span>
+        </div>
+        <div ms-if="@orderPageInfo.size != 0" class="table-responsive">
+            <table class="table table-striped table-hover text-center">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">品牌</th>
+                    <th scope="col">产品</th>
+                    <th scope="col">市场价</th>
+                    <th scope="col">下单价格</th>
+                    <th scope="col">验证码</th>
+                    <th scope="col">下单时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ms-for="order in @orderPageInfo.list">
+                    <td>{{order.brandName}}</td>
+                    <td><a ms-attr="{href: '/product/detail/' + @order.productId}">{{order.productName}}</a></td>
+                    <td>{{order.marketPrice}}</td>
+                    <td>{{order.price}}</td>
+                    <td>{{order.randomCode}}</td>
+                    <td>{{@order.createTime | date("yyyy-MM-dd HH:mm:ss")}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <nav aria-label="Search results pages">
+                <ul class="pagination justify-content-end">
+                    <li class="page-item" ms-class="@orderPageInfo.hasPreviousPage ? '' : 'disabled'">
+                        <a class="page-link" href="javascript:" aria-label="Previous"
+                           ms-click="@request(orderPageInfo.prePage)">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item" ms-for="pageNum in @orderPageInfo.navigatepageNums"
+                        ms-class="@pageNum == @orderPageInfo.pageNum ? 'active' : ''" ms-html="@showPageNav(@pageNum)">
+                    </li>
+                    <li class="page-item" ms-class="@orderPageInfo.hasNextPage ? '' : 'disabled'">
+                        <a class="page-link" href="javascript:" aria-label="Next"
+                           ms-click="@request(orderPageInfo.nextPage)">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
-</div>
+</main>
+<script layout:fragment="script" th:src="@{/static/js/order.js}">
+</script>
 </body>
 </html>

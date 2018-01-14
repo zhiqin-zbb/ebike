@@ -47,4 +47,11 @@ public class ProductService {
         }
         return productMapper.getProductList(product);
     }
+
+    public List<Product> search(Product product) {
+        if (product.getPage() != null && product.getRows() != null) {
+            PageHelper.startPage(product.getPage(), product.getRows());
+        }
+        return productMapper.search(product);
+    }
 }

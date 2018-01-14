@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<head lang="en">
+    <link th:href="@{/static/css/justified-nav.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/album.css}" rel="stylesheet"/>
+    <title>搜索结果</title>
+</head>
+<body ms-controller="search">
+<main layout:fragment="content" role="main" class="container">
+    <label id="name" style="color: red;" th:text="${name}"></label>的搜索结果：
+    <div class="row col-12 col-md-12 col-lg-12">
+        <div class="card mycard col-md-4 col-lg-4" ms-if="@productPageInfo.size == 0">
+            抱歉，没有找到相关商品！
+        </div>
+        <div class="card mycard col-md-4 col-lg-4" ms-if="@productPageInfo.size != 0"
+             ms-for="el in @productPageInfo.list">
+            <a ms-attr="{href: '/product/detail/' + @el.id}">
+                <img class="card-img-top" ms-attr="{src : @el.cover}" alt="Card image" style="width:100%"/>
+            </a>
+            <div class="card-body">
+                <h6 class="card-subtitle"><span class="badge badge-danger">{{el.brandName}}</span></h6>
+                <a class="card-title" style="font-size: 1.2em; font-weight: bold; color: #00ceff;"
+                   ms-attr="{href: '/product/detail/' + @el.id}">{{el.name}}</a>
+                <p class="card-text">
+                    <em style="color: grey; text-decoration: line-through; float: left;">市场价:{{el.marketPrice}}</em>
+                    <em style="color: red; float: right;">特价:{{el.salePrice}}</em>
+                </p>
+                <br/>
+                <a ms-attr="{href: '/user/buy/' + @el.id}" class="btn btn-primary"
+                   style="float: right; color: #fff; background-color: #007bff; border-color: #ffd800; padding: 0.25rem 0.75rem;">立即购买</a>
+            </div>
+        </div>
+    </div>
+    <div>
+        <nav aria-label="Search results pages">
+            <ul class="pagination justify-content-end">
+                <li class="page-item" ms-class="@productPageInfo.hasPreviousPage ? '' : 'disabled'">
+                    <a class="page-link" href="javascript:" aria-label="Previous"
+                       ms-click="@search(productPageInfo.prePage)">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                <li class="page-item" ms-for="pageNum in @productPageInfo.navigatepageNums"
+                    ms-class="@pageNum == @productPageInfo.pageNum ? 'active' : ''" ms-html="@showPageNav(@pageNum)">
+                </li>
+                <li class="page-item" ms-class="@productPageInfo.hasNextPage ? '' : 'disabled'">
+                    <a class="page-link" href="javascript:" aria-label="Next"
+                       ms-click="@search(productPageInfo.nextPage)">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</main>
+<script layout:fragment="script" th:src="@{/static/js/search.js}">
+</script>
+</body>
+</html>

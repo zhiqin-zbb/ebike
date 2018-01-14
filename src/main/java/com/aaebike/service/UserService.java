@@ -17,13 +17,13 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public void save(User user) {
+    public int save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         if (user.getId() != null) {
-            userMapper.updateByPrimaryKey(user);
+            return userMapper.updateByPrimaryKey(user);
         } else {
-            userMapper.insert(user);
+            return userMapper.insert(user);
         }
     }
 
@@ -45,7 +45,7 @@ public class UserService {
     }
 
     public User getById(Integer id) {
-        return userMapper.selectByPrimaryKey(id);
+        return userMapper.getUserById(id);
     }
 
     public void deleteById(Integer id) {

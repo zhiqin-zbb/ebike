@@ -2,6 +2,7 @@ package com.aaebike.service;
 
 import com.aaebike.mapper.BrandMapper;
 import com.aaebike.model.Brand;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
@@ -21,6 +22,14 @@ public class BrandService {
     }
 
     public List<Brand> getActiveBrandList() {
+        return brandMapper.getActiveBrandList();
+    }
+
+    public List<Brand> getBrandList(Brand brand) {
+        if (brand.getPage() != null && brand.getRows() != null) {
+            PageHelper.startPage(brand.getPage(), brand.getRows());
+        }
+
         return brandMapper.getActiveBrandList();
     }
 }

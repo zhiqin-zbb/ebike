@@ -70,4 +70,18 @@ public class ProductController {
         result.addObject("productDetail", productDetail);
         return result;
     }
+
+    @RequestMapping(value = "/searchResult", method = RequestMethod.GET)
+    public ModelAndView searchResult(String name) {
+        ModelAndView result = new ModelAndView("product/searchResult");
+        result.addObject("name", name);
+        return result;
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    @ResponseBody
+    public PageInfo<Product> search(Product product) {
+        List<Product> productList = productService.search(product);
+        return new PageInfo<>(productList);
+    }
 }

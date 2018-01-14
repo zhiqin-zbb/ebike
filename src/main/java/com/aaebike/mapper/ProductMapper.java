@@ -10,4 +10,6 @@ public interface ProductMapper extends MyMapper<Product> {
     List<Product> getProductList(Product product);
 
     ProductDetail getProductDetailById(Product product);
+
+    List<Product> search(Product product);
 }

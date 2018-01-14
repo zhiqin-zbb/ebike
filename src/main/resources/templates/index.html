@@ -5,6 +5,15 @@
     <link th:href="@{/static/css/justified-nav.css}" rel="stylesheet"/>
     <link th:href="@{/static/css/album.css}" rel="stylesheet"/>
     <title>AA电动车</title>
+    <style type="text/css">
+        .carousel-control-prev-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23111' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+        }
+
+        .carousel-control-next-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23111' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+        }
+    </style>
 </head>
 <body ms-controller="index">
 <main layout:fragment="content" role="main" class="container">
@@ -50,17 +59,20 @@
             </div>
             <div class="card mycard col-md-4 col-lg-4" ms-if="@productPageInfo.size != 0"
                  ms-for="el in @productPageInfo.list">
-                <img class="card-img-top" ms-attr="{src : @el.cover}"
-                     alt="Card image" style="width:100%"/>
+                <a ms-attr="{href: '/product/detail/' + @el.id}">
+                    <img class="card-img-top" ms-attr="{src : @el.cover}" alt="Card image" style="width:100%"/>
+                </a>
                 <div class="card-body">
-                    <a class="card-title" style="font-size: 1.2em; font-weight: bold"
+                    <h6 class="card-subtitle"><span class="badge badge-danger">{{el.brandName}}</span></h6>
+                    <a class="card-title" style="font-size: 1.2em; font-weight: bold; color: #00ceff;"
                        ms-attr="{href: '/product/detail/' + @el.id}">{{el.name}}</a>
                     <p class="card-text">
-                        <em style="color: grey; text-decoration: line-through; float: left;">市场价:{{el.marketPrice}}</em>
-                        <em style="color: red; float: right;">特价:{{el.salePrice}}</em>
+                        <em style="color: grey; text-decoration: line-through; float: left;">市场价:￥{{el.marketPrice}}</em>
+                        <span style="color: red; float: right; font-size: 17px;">特价:￥{{el.salePrice}}</span>
                     </p>
                     <br/>
-                    <a ms-attr="{href: '/user/buy/' + @el.id}" class="btn btn-primary" style="float: right">立即购买</a>
+                    <a ms-attr="{href: '/user/buy/' + @el.id}" class="btn btn-primary"
+                       style="float: right; color: #fff; background-color: #007bff; border-color: #ffd800; padding: 0.25rem 0.75rem;">立即购买</a>
                 </div>
             </div>
         </div>

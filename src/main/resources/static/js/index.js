@@ -6,7 +6,7 @@ var index = avalon.define({
     carouselImgUrlList: {},
     advertisementList: {},
 
-    init: function() {
+    init: function () {
         // 图片轮播
         $.ajax({
             type: "get",

@@ -4,6 +4,11 @@ import org.springframework.util.ClassUtils;
 
 public class Constants {
     /**
+     * 下单随机码长度
+     */
+    public static final int CODE_LENGTH = 6;
+
+    /**
      * 文件分隔符
      */
     public static final String SF_FILE_SEPARATOR = System.getProperty("file.separator");

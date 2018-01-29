@@ -12,25 +12,27 @@ public enum ErrorConstants {
 
     USER_REGISTER_ERROR(4, "用户注册失败"),
 
-    USER_PASSWORD_ERROR(5, "密码错误"),
+    KAPTCHA_ERROR(5, "验证码错误"),
 
-    ORDER_NOT_FOUND(6, "订单不存在"),
+    USER_PASSWORD_ERROR(6, "密码错误"),
 
-    PRODUCT_NOT_FOUND(7, "产品不存在"),
+    ORDER_NOT_FOUND(7, "订单不存在"),
 
-    CREATE_ORDER_FAILED(8, "下单失败"),
+    PRODUCT_NOT_FOUND(8, "产品不存在"),
 
-    UPDATE_USER_INFO_FAILED(9, "更新用户信息失败"),
+    CREATE_ORDER_FAILED(9, "下单失败"),
 
-    ORIGINAL_PASSWORD_ERROR(10, "原密码错误"),
+    UPDATE_USER_INFO_FAILED(10, "更新用户信息失败"),
 
-    UPDATE_USER_PASSWORD_FAILED(11, "更新用户密码失败"),
+    ORIGINAL_PASSWORD_ERROR(11, "原密码错误"),
 
-    BRAND_NOT_FOUND(12, "品牌不存在"),
+    UPDATE_USER_PASSWORD_FAILED(12, "更新用户密码失败"),
 
-    CAROUSEL_NOT_FOUND(13, "图片轮播不存在"),
+    BRAND_NOT_FOUND(13, "品牌不存在"),
 
-    ADVERTISEMENT_NOT_FOUND(14, "广告不存在");
+    CAROUSEL_NOT_FOUND(14, "图片轮播不存在"),
+
+    ADVERTISEMENT_NOT_FOUND(15, "广告不存在");
 
     @Getter
     @Setter

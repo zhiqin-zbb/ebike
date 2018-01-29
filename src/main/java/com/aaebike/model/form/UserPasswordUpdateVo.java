@@ -9,4 +9,6 @@ public class UserPasswordUpdateVo {
     private String originalPassword;
 
     private String newPassword;
+
+    private String kaptcha;
 }

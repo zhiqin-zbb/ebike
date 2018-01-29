@@ -15,4 +15,6 @@ public class UserRegisterVo {
     private String email;
 
     private String tel;
+
+    private String kaptcha;
 }

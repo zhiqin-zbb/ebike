@@ -11,4 +11,6 @@ public class UserInfoUpdateVo {
     private String email;
 
     private String tel;
+
+    private String kaptcha;
 }

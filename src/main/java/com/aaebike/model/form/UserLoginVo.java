@@ -7,4 +7,6 @@ public class UserLoginVo {
     private String username;
 
     private String password;
+
+    private String kaptcha;
 }

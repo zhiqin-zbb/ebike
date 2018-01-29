@@ -2,6 +2,7 @@ package com.aaebike.controller.api;
 
 import com.aaebike.common.constants.Constants;
 import com.aaebike.common.constants.ErrorConstants;
+import com.aaebike.common.kaptcha.ValidateCodeHandle;
 import com.aaebike.common.utils.RandomUtils;
 import com.aaebike.model.*;
 import com.aaebike.model.form.UserInfoUpdateVo;
@@ -25,6 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/api")
 public class UserApiController {
@@ -43,9 +46,14 @@ public class UserApiController {
     private ProductService productService;
 
     @RequestMapping(value = "/user/login", method = RequestMethod.POST)
-    public ResponseVo login(UserLoginVo userLoginVo) {
-        if (userLoginVo == null || StringUtils.isEmpty(userLoginVo.getUsername()) || StringUtils.isEmpty(userLoginVo.getPassword())) {
+    public ResponseVo login(HttpServletRequest request, UserLoginVo userLoginVo) {
+        if (userLoginVo == null || StringUtils.isEmpty(userLoginVo.getUsername()) || StringUtils.isEmpty(userLoginVo.getPassword()) || StringUtils.isEmpty(request.getParameter("kaptcha"))) {
             return ResponseVo.valueOf(false, null, ErrorConstants.REQUEST_PARAM_INVALID);
+        }
+
+        String kaptcha = request.getParameter("kaptcha");
+        if (!ValidateCodeHandle.matchCode(request.getSession().getId(), kaptcha)) {
+            return ResponseVo.valueOf(false, null, ErrorConstants.KAPTCHA_ERROR);
         }
 
         User user = userService.findByUsername(userLoginVo.getUsername());
@@ -54,16 +62,26 @@ public class UserApiController {
             return ResponseVo.valueOf(false, null, ErrorConstants.USER_NOT_FOUND);
         }
 
-        return ResponseVo.valueOf(passwordEncoder.matches(userLoginVo.getPassword(), user.getPassword()), null, ErrorConstants.USER_PASSWORD_ERROR);
+        if (passwordEncoder.matches(userLoginVo.getPassword(), user.getPassword())) {
+            user.setPassword(null);
+            return ResponseVo.valueOf(true, user, null);
+        } else {
+            return ResponseVo.valueOf(false, null, ErrorConstants.USER_PASSWORD_ERROR);
+        }
     }
 
     @RequestMapping(value = "/user/register", method = RequestMethod.POST)
-    public ResponseVo register(UserRegisterVo userRegisterVo) {
+    public ResponseVo register(HttpServletRequest request, UserRegisterVo userRegisterVo) {
         if (userRegisterVo == null || StringUtils.isEmpty(userRegisterVo.getUsername()) || StringUtils.isEmpty(userRegisterVo.getPassword()) ||
                 StringUtils.isEmpty(userRegisterVo.getPasswordConfirm()) || StringUtils.isEmpty(userRegisterVo.getName()) ||
                 StringUtils.isEmpty(userRegisterVo.getEmail()) || StringUtils.isEmpty(userRegisterVo.getTel()) ||
-                !userRegisterVo.getPassword().equals(userRegisterVo.getPasswordConfirm())) {
+                !userRegisterVo.getPassword().equals(userRegisterVo.getPasswordConfirm()) || StringUtils.isEmpty(request.getParameter("kaptcha"))) {
             return ResponseVo.valueOf(false, null, ErrorConstants.REQUEST_PARAM_INVALID);
+        }
+
+        String kaptcha = request.getParameter("kaptcha");
+        if (!ValidateCodeHandle.matchCode(request.getSession().getId(), kaptcha)) {
+            return ResponseVo.valueOf(false, null, ErrorConstants.KAPTCHA_ERROR);
         }
 
         User findByUsername = userService.findByUsername(userRegisterVo.getUsername());
@@ -101,11 +119,16 @@ public class UserApiController {
     }
 
     @RequestMapping(value = "/user/info/update", method = RequestMethod.POST)
-    public ResponseVo updateUserInfo(UserInfoUpdateVo userInfoUpdateVo) {
+    public ResponseVo updateUserInfo(HttpServletRequest request, UserInfoUpdateVo userInfoUpdateVo) {
         if (userInfoUpdateVo == null || userInfoUpdateVo.getUserId() == null || userInfoUpdateVo.getUserId() == 0
                 || StringUtils.isEmpty(userInfoUpdateVo.getName()) || StringUtils.isEmpty(userInfoUpdateVo.getEmail()) ||
-                StringUtils.isEmpty(userInfoUpdateVo.getTel())) {
+                StringUtils.isEmpty(userInfoUpdateVo.getTel()) || StringUtils.isEmpty(request.getParameter("kaptcha"))) {
             return ResponseVo.valueOf(false, null, ErrorConstants.REQUEST_PARAM_INVALID);
+        }
+
+        String kaptcha = request.getParameter("kaptcha");
+        if (!ValidateCodeHandle.matchCode(request.getSession().getId(), kaptcha)) {
+            return ResponseVo.valueOf(false, null, ErrorConstants.KAPTCHA_ERROR);
         }
 
         User user = userService.getById(userInfoUpdateVo.getUserId());
@@ -126,10 +149,16 @@ public class UserApiController {
     }
 
     @RequestMapping(value = "/user/password/update", method = RequestMethod.POST)
-    public ResponseVo updateUserPassword(UserPasswordUpdateVo userPasswordUpdateVo) {
+    public ResponseVo updateUserPassword(HttpServletRequest request, UserPasswordUpdateVo userPasswordUpdateVo) {
         if (userPasswordUpdateVo == null || userPasswordUpdateVo.getUserId() == null || userPasswordUpdateVo.getUserId() == 0
-                || StringUtils.isEmpty(userPasswordUpdateVo.getOriginalPassword()) || StringUtils.isEmpty(userPasswordUpdateVo.getNewPassword())) {
+                || StringUtils.isEmpty(userPasswordUpdateVo.getOriginalPassword()) || StringUtils.isEmpty(userPasswordUpdateVo.getNewPassword()) ||
+                StringUtils.isEmpty(request.getParameter("kaptcha"))) {
             return ResponseVo.valueOf(false, null, ErrorConstants.REQUEST_PARAM_INVALID);
+        }
+
+        String kaptcha = request.getParameter("kaptcha");
+        if (!ValidateCodeHandle.matchCode(request.getSession().getId(), kaptcha)) {
+            return ResponseVo.valueOf(false, null, ErrorConstants.KAPTCHA_ERROR);
         }
 
         User user = userService.getById(userPasswordUpdateVo.getUserId());

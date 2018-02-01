@@ -32,7 +32,13 @@ public enum ErrorConstants {
 
     CAROUSEL_NOT_FOUND(14, "图片轮播不存在"),
 
-    ADVERTISEMENT_NOT_FOUND(15, "广告不存在");
+    ADVERTISEMENT_NOT_FOUND(15, "广告不存在"),
+
+    NOT_IMAGE_FILE_ERROR(16, "上传的不是图片文件"),
+
+    FILE_SIZE_EXCEEDED_EXCEPTION(17, "文件大小超出限制"),
+
+    FILE_IO_EXCEPTION(18, "上传时发生错误");
 
     @Getter
     @Setter

@@ -38,7 +38,13 @@ public enum ErrorConstants {
 
     FILE_SIZE_EXCEEDED_EXCEPTION(17, "文件大小超出限制"),
 
-    FILE_IO_EXCEPTION(18, "上传时发生错误");
+    FILE_IO_EXCEPTION(18, "上传时发生错误"),
+
+    CREDIT_ALREADY_SAVED(19, "该用户已经上传过信用卡信息"),
+
+    CREDIT_NOT_FOUND(20, "该用户的信用卡信息不存在"),
+
+    SAVE_CREDIT_ERROR(21, "保存信用卡失败");
 
     @Getter
     @Setter

@@ -15,11 +15,13 @@ public class CorsConfig {
     private CorsConfiguration buildConfig() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         // 设置访问源地址
-        corsConfiguration.addAllowedOrigin("*");
+        corsConfiguration.addAllowedOrigin("http://localhost:9999");
         // 设置访问源请求头
         corsConfiguration.addAllowedHeader("*");
         // 设置访问源请求方法
         corsConfiguration.addAllowedMethod("*");
+
+        corsConfiguration.setAllowCredentials(true);
         return corsConfiguration;
     }
 

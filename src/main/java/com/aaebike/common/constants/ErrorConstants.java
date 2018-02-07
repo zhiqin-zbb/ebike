@@ -44,7 +44,11 @@ public enum ErrorConstants {
 
     CREDIT_NOT_FOUND(20, "该用户的信用卡信息不存在"),
 
-    SAVE_CREDIT_ERROR(21, "保存信用卡失败");
+    SAVE_CREDIT_ERROR(21, "保存信用卡失败"),
+
+    SAVE_EXPRESS_ERROR(22, "保存快递失败"),
+
+    EXPRESS_NOT_FOUND(23, "快递信息不存在");
 
     @Getter
     @Setter

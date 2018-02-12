@@ -7,8 +7,17 @@
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="tel" property="tel" jdbcType="VARCHAR"/>
         <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="default_flag" property="defaultFlag" jdbcType="INTEGER"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
         <result column="del_flag" property="delFlag" jdbcType="INTEGER"/>
     </resultMap>
+
+    <update id="cancelDefaultByUserId" parameterType="java.lang.Integer">
+        UPDATE express SET default_flag = 0 WHERE user_id = #{userId} and del_flag = 0;
+    </update>
+
+    <update id="cancelDefaultByExpressId" parameterType="java.lang.Integer">
+        UPDATE express SET default_flag = 0 WHERE id = #{expressId} and del_flag = 0;
+    </update>
 </mapper>

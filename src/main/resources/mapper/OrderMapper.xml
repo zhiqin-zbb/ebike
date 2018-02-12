@@ -4,7 +4,7 @@
     <resultMap id="BaseResultMap" type="com.aaebike.model.SaleOrder">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="user_id" property="userId" jdbcType="INTEGER"/>
-        <result column="product_id" property="productId" jdbcType="INTEGER"/>
+        <result column="express_id" property="expressId" jdbcType="INTEGER"/>
         <result column="price" property="price" jdbcType="DECIMAL"/>
         <result column="random_code" property="randomCode" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
@@ -15,30 +15,23 @@
     <resultMap id="OrderDetail" type="com.aaebike.model.OrderDetail">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="user_id" property="userId" jdbcType="INTEGER"/>
-        <result column="product_id" property="productId" jdbcType="INTEGER"/>
+        <result column="express_id" property="expressId" jdbcType="INTEGER"/>
         <result column="price" property="price" jdbcType="DECIMAL"/>
         <result column="random_code" property="randomCode" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
         <result column="del_flag" property="delFlag" jdbcType="INTEGER"/>
-        <result column="product_name" property="productName" jdbcType="VARCHAR"/>
-        <result column="market_price" property="marketPrice" jdbcType="DECIMAL"/>
-        <result column="brand_name" property="brandName" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, user_id, product_id, price, random_code, create_time, update_time, del_flag
+        id, user_id, express_id, price, random_code, create_time, update_time, del_flag
     </sql>
 
-    <select id="getAllOrderDetail" resultMap="OrderDetail" parameterType="com.aaebike.model.SaleOrder">
-        select sale_order.*, product.name as product_name, product.market_price, brand.name as brand_name
+    <select id="getOrderList" resultMap="OrderDetail" parameterType="com.aaebike.model.SaleOrder">
+        select *
         from sale_order
-        left join product
-        on sale_order.product_id = product.id
-        left join brand
-        on product.brand_id = brand.id
-        where sale_order.user_id = #{userId,jdbcType=INTEGER}
-        and sale_order.del_flag = 0
-        order by sale_order.create_time desc
+        where user_id = #{userId,jdbcType=INTEGER}
+        and del_flag = 0
+        order by create_time desc
     </select>
 </mapper>

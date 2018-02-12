@@ -68,7 +68,7 @@ public class UserController {
         User user = userService.getById(userInfo.getUserId());
 
         saleOrder.setUserId(user.getId());
-        List<OrderDetail> orderList = orderService.getAllOrderDetail(saleOrder);
+        List<OrderDetail> orderList = orderService.getOrderList(saleOrder);
 
         return new PageInfo<>(orderList);
     }

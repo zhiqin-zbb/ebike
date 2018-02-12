@@ -1,9 +1,11 @@
 package com.aaebike.service;
 
+import com.aaebike.mapper.OrderItemMapper;
 import com.aaebike.mapper.OrderMapper;
 import com.aaebike.model.OrderDetail;
+import com.aaebike.model.OrderItem;
+import com.aaebike.model.OrderItemDetail;
 import com.aaebike.model.SaleOrder;
-import com.aaebike.model.User;
 import com.github.pagehelper.PageHelper;
 
 import org.slf4j.Logger;
@@ -21,10 +23,13 @@ public class OrderService {
     @Autowired
     private OrderMapper orderMapper;
 
-    public Boolean createOrder(Integer userId, Integer productId, Double price, String randomCode) {
+    @Autowired
+    private OrderItemMapper orderItemMapper;
+
+    public Boolean createOrder(Integer userId, Integer expressId, Double price, String randomCode) {
         SaleOrder saleOrder = new SaleOrder();
         saleOrder.setUserId(userId);
-        saleOrder.setProductId(productId);
+        saleOrder.setExpressId(expressId);
         saleOrder.setPrice(price);
         saleOrder.setRandomCode(randomCode);
         saleOrder.setCreateTime(new Date());
@@ -33,15 +38,25 @@ public class OrderService {
         return orderMapper.insert(saleOrder) != 0;
     }
 
-    public List<OrderDetail> getAllOrderDetail(SaleOrder saleOrder) {
+    public List<OrderDetail> getOrderList(SaleOrder saleOrder) {
         if (saleOrder.getPage() != null && saleOrder.getRows() != null) {
             PageHelper.startPage(saleOrder.getPage(), saleOrder.getRows());
         }
-        return orderMapper.getAllOrderDetail(saleOrder);
+        return orderMapper.getOrderList(saleOrder);
     }
 
     public Boolean createOrder(SaleOrder saleOrder) {
         int result = orderMapper.insert(saleOrder);
         return result != 0;
+    }
+
+    public Boolean saveOrderDetail(OrderItem orderItem) {
+        orderItem.setCreateTime(new Date());
+        orderItem.setUpdateTime(new Date());
+        return orderItemMapper.insert(orderItem) != 0;
+    }
+
+    public List<OrderItemDetail> getOrderItemList(Integer orderId) {
+        return orderItemMapper.getOrderItemList(orderId);
     }
 }

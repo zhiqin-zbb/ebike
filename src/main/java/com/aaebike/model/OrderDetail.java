@@ -1,21 +1,10 @@
 package com.aaebike.model;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
 public class OrderDetail extends SaleOrder {
-    /**
-     * 品牌
-     */
-    private String brandName;
-
-    /**
-     * 产品名称
-     */
-    private String productName;
-
-    /**
-     * 市场价
-     */
-    private Double marketPrice;
+    private List<OrderItemDetail> productList;
 }

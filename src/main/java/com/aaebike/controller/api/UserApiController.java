@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -199,32 +200,70 @@ public class UserApiController {
         saleOrder.setPage(page);
         saleOrder.setRows(rows);
 
-        List<OrderDetail> orderList = orderService.getAllOrderDetail(saleOrder);
+        List<OrderDetail> orderList = orderService.getOrderList(saleOrder);
+        if (CollectionUtils.isNotEmpty(orderList)) {
+            for (OrderDetail order : orderList) {
+                List<OrderItemDetail> orderItemDetailList = orderService.getOrderItemList(order.getId());
+                order.setProductList(orderItemDetailList);
+            }
+        }
         return ResponseVo.valueOf(CollectionUtils.isNotEmpty(orderList), new PageInfo<>(orderList), ErrorConstants.ORDER_NOT_FOUND);
     }
 
-    @RequestMapping(value = "/user/buy", method = RequestMethod.GET)
-    public ResponseVo buy(Integer userId, Integer productId) {
-        if (userId == null || userId == 0 || productId == null || productId == 0) {
-            logger.error("[用户下单]入参userId或productId为空或0");
+    @RequestMapping(value = "/user/buy", method = RequestMethod.POST)
+    public ResponseVo buy(@RequestBody BuyRequest request) {
+        if (request == null || request.getUserId() == null || request.getUserId() == 0 || request.getExpressId() == null || request.getExpressId() == 0 || CollectionUtils.isEmpty(request.getProductList())) {
+            logger.error("[用户下单]入参userId、expresstId或productList为空或0");
             return ResponseVo.valueOf(false, null, ErrorConstants.REQUEST_PARAM_INVALID);
         }
 
-        User user = userService.getById(userId);
+        User user = userService.getById(request.getUserId());
         if (user == null) {
-            logger.error("[下单]userId:{}下单，该用户不存在", userId);
+            logger.error("[下单]userId:{}下单，该用户不存在", request.getUserId());
             return ResponseVo.valueOf(false, null, ErrorConstants.USER_NOT_FOUND);
         }
 
-        Product product = productService.getProductById(productId);
-        if (product == null) {
-            logger.error("[下单]userId:{}下单入参productId:{}，该产品不存在", userId, productId);
-            return ResponseVo.valueOf(false, null, ErrorConstants.PRODUCT_NOT_FOUND);
+        Double totalAmount = 0D;
+        for (OrderItem product : request.getProductList()) {
+            if (product.getProductId() == null || product.getProductId() == 0 || product.getCount() == null || product.getCount() == 0) {
+                logger.error("[用户下单]userId:{}下单，入参productList中productId、count为空或0:{}", request.getUserId(), product);
+                return ResponseVo.valueOf(false, null, ErrorConstants.REQUEST_PARAM_INVALID);
+            }
+
+            Product productById = productService.getProductById(product.getProductId());
+            if (productById == null) {
+                logger.error("[下单]userId:{}下单入参productId:{}，该产品不存在", request.getUserId(), product.getProductId());
+                return ResponseVo.valueOf(false, null, ErrorConstants.PRODUCT_NOT_FOUND);
+            }
+
+            totalAmount += (productById.getSalePrice() * product.getCount());
         }
 
         String randomCode = RandomUtils.getRandomCode(Constants.CODE_LENGTH);
-        logger.info("[下单][入参]userId:{},productId:{},price:{},randomCode:{}", userId, productId, product.getSalePrice(), randomCode);
+        logger.info("[下单][入参]userId:{},,price:{},randomCode:{}", request.getUserId(), totalAmount, randomCode);
 
-        return ResponseVo.valueOf(orderService.createOrder(userId, productId, product.getSalePrice(), randomCode), randomCode, ErrorConstants.CREATE_ORDER_FAILED);
+
+        SaleOrder saleOrder = new SaleOrder();
+        saleOrder.setUserId(request.getUserId());
+        saleOrder.setExpressId(request.getExpressId());
+        saleOrder.setPrice(totalAmount);
+        saleOrder.setRandomCode(randomCode);
+        saleOrder.setCreateTime(new Date());
+        saleOrder.setUpdateTime(new Date());
+        Boolean successFlag = orderService.createOrder(saleOrder);
+
+        if (!successFlag) {
+            logger.error("[下单]下单失败，入参:{}", request);
+            return ResponseVo.valueOf(false, null, ErrorConstants.CREATE_ORDER_FAILED);
+        } else {
+            for (OrderItem product : request.getProductList()) {
+                product.setOrderId(saleOrder.getId());
+                if (!orderService.saveOrderDetail(product)) {
+                    logger.error("[下单]下单失败，入参:{}", request);
+                    return ResponseVo.valueOf(false, null, ErrorConstants.CREATE_ORDER_FAILED);
+                }
+            }
+        }
+        return ResponseVo.valueOf(true, randomCode, ErrorConstants.CREATE_ORDER_FAILED);
     }
 }

@@ -27,6 +27,11 @@ public class Express extends BaseEntity {
      */
     private String address;
 
+    /**
+     * 是否默认地址，0-否，1-是
+     */
+    private Integer defaultFlag;
+
     private Date createTime;
 
     private Date updateTime;

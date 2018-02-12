@@ -7,5 +7,5 @@ import com.aaebike.model.OrderDetail;
 import com.aaebike.model.SaleOrder;
 
 public interface OrderMapper extends MyMapper<SaleOrder> {
-    List<OrderDetail> getAllOrderDetail(SaleOrder saleOrder);
+    List<OrderDetail> getOrderList(SaleOrder saleOrder);
 }

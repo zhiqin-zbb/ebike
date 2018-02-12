@@ -4,35 +4,32 @@ import java.util.Date;
 
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import com.aaebike.common.date.format.JackJsonDateTimeFormat;
 import com.aaebike.common.date.format.JackJsonDateTimeParse;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
+/**
+ * @author zhangbinbin
+ * @version 2018/2/12
+ */
 @Data
-public class SaleOrder extends BaseEntity {
+public class OrderItem extends BaseEntity {
     /**
-     * 用户ID
+     * 订单ID
      */
-    private Integer userId;
+    private Integer orderId;
 
     /**
-     * 快递地址ID
+     * 产品ID
      */
-    private Integer expressId;
+    private Integer productId;
 
     /**
-     * 下单价格
+     * 数量
      */
-    private Double price;
-
-    /**
-     * 随机码
-     */
-    private String randomCode;
+    private Integer count;
 
     @JsonDeserialize(using = JackJsonDateTimeParse.class)
     @JsonSerialize(using = JackJsonDateTimeFormat.class)

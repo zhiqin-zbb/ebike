@@ -18,6 +18,10 @@ public class ExpressService {
     private ExpressMapper expressMapper;
 
     public int save(Express express) {
+        // 新增时设为默认，需要取消之前的默认项
+        if (express.getDefaultFlag() != null && express.getDefaultFlag() == 1) {
+            expressMapper.cancelDefaultByUserId(express.getUserId());
+        }
         return expressMapper.insert(express);
     }
 
@@ -36,6 +40,11 @@ public class ExpressService {
     }
 
     public int updateById(Express express) {
+        // 更新时设为默认，需要取消之前的默认项
+        if (express.getDefaultFlag() != null && express.getDefaultFlag() == 1) {
+            expressMapper.cancelDefaultByUserId(express.getUserId());
+        }
+
         return expressMapper.updateByPrimaryKeySelective(express);
     }
 }

@@ -67,6 +67,7 @@ public class ExpressApiController {
         if (byId == null) {
             return ResponseVo.valueOf(false, null, ErrorConstants.EXPRESS_NOT_FOUND);
         } else {
+            express.setUserId(byId.getUserId());
             return ResponseVo.valueOf(expressService.updateById(express) != 0, null, ErrorConstants.SAVE_EXPRESS_ERROR);
         }
     }

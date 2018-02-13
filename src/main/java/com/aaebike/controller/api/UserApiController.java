@@ -240,7 +240,7 @@ public class UserApiController {
         }
 
         String randomCode = RandomUtils.getRandomCode(Constants.CODE_LENGTH);
-        logger.info("[下单][入参]userId:{},,price:{},randomCode:{}", request.getUserId(), totalAmount, randomCode);
+        logger.info("[下单][入参]userId:{},price:{},randomCode:{}", request.getUserId(), totalAmount, randomCode);
 
 
         SaleOrder saleOrder = new SaleOrder();

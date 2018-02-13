@@ -32,4 +32,9 @@ public class OrderItemDetail {
      * 市场价
      */
     private Double marketPrice;
+
+    /**
+     * 商品封面
+     */
+    private String cover;
 }

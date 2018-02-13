@@ -17,10 +17,11 @@
         <result column="brand_name" property="brandName" jdbcType="VARCHAR"/>
         <result column="product_name" property="productName" jdbcType="VARCHAR"/>
         <result column="market_price" property="marketPrice" jdbcType="VARCHAR"/>
+        <result column="cover" property="cover" jdbcType="VARCHAR"/>
     </resultMap>
 
     <select id="getOrderItemList" resultMap="OrderDetail" parameterType="Integer">
-        select item.*, product.name as product_name, product.market_price, brand.name as brand_name
+        select item.*, product.name as product_name, product.market_price, brand.name as brand_name, product.cover as cover
         from order_item item
         left join product
         on item.product_id = product.id

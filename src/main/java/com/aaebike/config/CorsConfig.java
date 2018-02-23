@@ -16,6 +16,7 @@ public class CorsConfig {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         // 设置访问源地址
         corsConfiguration.addAllowedOrigin("http://localhost:9999");
+        corsConfiguration.addAllowedOrigin("http://aaebike.com");
         // 设置访问源请求头
         corsConfiguration.addAllowedHeader("*");
         // 设置访问源请求方法

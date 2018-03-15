@@ -1,20 +1,20 @@
 package com.aaebike.service;
 
-import com.aaebike.mapper.OrderItemMapper;
-import com.aaebike.mapper.OrderMapper;
-import com.aaebike.model.OrderDetail;
-import com.aaebike.model.OrderItem;
-import com.aaebike.model.OrderItemDetail;
-import com.aaebike.model.SaleOrder;
-import com.github.pagehelper.PageHelper;
+import java.util.Date;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
+import com.aaebike.entity.detail.OrderDetail;
+import com.aaebike.entity.detail.OrderItemDetail;
+import com.aaebike.entity.table.Order;
+import com.aaebike.entity.table.OrderItem;
+import com.aaebike.mapper.OrderItemMapper;
+import com.aaebike.mapper.OrderMapper;
+import com.github.pagehelper.PageHelper;
 
 @Service
 public class OrderService {
@@ -27,26 +27,26 @@ public class OrderService {
     private OrderItemMapper orderItemMapper;
 
     public Boolean createOrder(Integer userId, Integer expressId, Double price, String randomCode) {
-        SaleOrder saleOrder = new SaleOrder();
-        saleOrder.setUserId(userId);
-        saleOrder.setExpressId(expressId);
-        saleOrder.setPrice(price);
-        saleOrder.setRandomCode(randomCode);
-        saleOrder.setCreateTime(new Date());
-        saleOrder.setUpdateTime(new Date());
+        Order order = new Order();
+        order.setUserId(userId);
+        order.setExpressId(expressId);
+        order.setPrice(price);
+        order.setRandomCode(randomCode);
+        order.setCreateTime(new Date());
+        order.setUpdateTime(new Date());
 
-        return orderMapper.insert(saleOrder) != 0;
+        return orderMapper.insert(order) != 0;
     }
 
-    public List<OrderDetail> getOrderList(SaleOrder saleOrder) {
-        if (saleOrder.getPage() != null && saleOrder.getRows() != null) {
-            PageHelper.startPage(saleOrder.getPage(), saleOrder.getRows());
+    public List<OrderDetail> getOrderList(Order order) {
+        if (order.getPage() != null && order.getRows() != null) {
+            PageHelper.startPage(order.getPage(), order.getRows());
         }
-        return orderMapper.getOrderList(saleOrder);
+        return orderMapper.getOrderList(order);
     }
 
-    public Boolean createOrder(SaleOrder saleOrder) {
-        int result = orderMapper.insert(saleOrder);
+    public Boolean createOrder(Order order) {
+        int result = orderMapper.insert(order);
         return result != 0;
     }
 

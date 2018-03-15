@@ -1,15 +1,14 @@
 package com.aaebike.service;
 
 import com.aaebike.common.constants.StringConstants;
+import com.aaebike.entity.detail.ProductDetail;
+import com.aaebike.entity.table.Product;
 import com.aaebike.mapper.ProductMapper;
-import com.aaebike.model.Product;
-import com.aaebike.model.ProductDetail;
 import com.github.pagehelper.PageHelper;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.entity.Example;
 
 import java.util.Arrays;
 import java.util.List;

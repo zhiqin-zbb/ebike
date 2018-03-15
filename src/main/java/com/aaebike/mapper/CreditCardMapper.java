@@ -1,11 +1,10 @@
 package com.aaebike.mapper;
 
-import com.aaebike.common.utils.MyMapper;
-import com.aaebike.model.CreditCard;
+import org.springframework.stereotype.Repository;
 
-/**
- * @author zhangbinbin
- * @version 2018/2/3
- */
+import com.aaebike.common.utils.MyMapper;
+import com.aaebike.entity.table.CreditCard;
+
+@Repository
 public interface CreditCardMapper extends MyMapper<CreditCard> {
 }

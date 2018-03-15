@@ -2,10 +2,13 @@ package com.aaebike.mapper;
 
 import java.util.List;
 
-import com.aaebike.common.utils.MyMapper;
-import com.aaebike.model.OrderDetail;
-import com.aaebike.model.SaleOrder;
+import org.springframework.stereotype.Repository;
 
-public interface OrderMapper extends MyMapper<SaleOrder> {
-    List<OrderDetail> getOrderList(SaleOrder saleOrder);
+import com.aaebike.common.utils.MyMapper;
+import com.aaebike.entity.detail.OrderDetail;
+import com.aaebike.entity.table.Order;
+
+@Repository
+public interface OrderMapper extends MyMapper<Order> {
+    List<OrderDetail> getOrderList(Order saleOrder);
 }

@@ -8,7 +8,7 @@ public enum ErrorConstants {
 
     USER_NOT_FOUND(2, "用户不存在"),
 
-    USER_ALREADY_EXIST(3, "用户已存在"),
+    USERNAME_ALREADY_EXIST(3, "用户名已存在"),
 
     USER_REGISTER_ERROR(4, "用户注册失败"),
 
@@ -48,7 +48,11 @@ public enum ErrorConstants {
 
     SAVE_EXPRESS_ERROR(22, "保存快递失败"),
 
-    EXPRESS_NOT_FOUND(23, "快递信息不存在");
+    EXPRESS_NOT_FOUND(23, "快递信息不存在"),
+
+    NICKNAME_ALREADY_EXIST(24, "用户昵称已存在"),
+
+    USERNAME_NICKNAME_CONFLICT(25, "用户名、昵称冲突");
 
     @Getter
     @Setter

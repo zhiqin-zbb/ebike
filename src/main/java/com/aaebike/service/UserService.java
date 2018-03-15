@@ -1,7 +1,7 @@
 package com.aaebike.service;
 
+import com.aaebike.entity.table.User;
 import com.aaebike.mapper.UserMapper;
-import com.aaebike.model.User;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,6 +30,12 @@ public class UserService {
     public User findByUsername(String username) {
         User userExample = new User();
         userExample.setUsername(username);
+        return userMapper.selectOne(userExample);
+    }
+
+    public User findByNickname(String nickname) {
+        User userExample = new User();
+        userExample.setNickname(nickname);
         return userMapper.selectOne(userExample);
     }
 

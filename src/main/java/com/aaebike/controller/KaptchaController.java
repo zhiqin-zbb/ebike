@@ -13,13 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.aaebike.common.kaptcha.ValidateCodeHandle;
-import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 
-/**
- * @author zhangbinbin
- * @version 2017/12/5
- */
 @Controller
 @RequestMapping("/kaptcha")
 public class KaptchaController {

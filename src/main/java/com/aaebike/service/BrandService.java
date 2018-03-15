@@ -1,13 +1,15 @@
 package com.aaebike.service;
 
-import com.aaebike.mapper.BrandMapper;
-import com.aaebike.model.Brand;
-import com.github.pagehelper.PageHelper;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.entity.Example;
 
-import java.util.List;
+import com.aaebike.entity.table.Brand;
+import com.aaebike.mapper.BrandMapper;
+import com.github.pagehelper.PageHelper;
+
+import tk.mybatis.mapper.entity.Example;
 
 @Service
 public class BrandService {

@@ -3,13 +3,9 @@ package com.aaebike.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aaebike.entity.table.CreditCard;
 import com.aaebike.mapper.CreditCardMapper;
-import com.aaebike.model.CreditCard;
 
-/**
- * @author zhangbinbin
- * @version 2018/2/3
- */
 @Service
 public class CreditCardService {
     @Autowired

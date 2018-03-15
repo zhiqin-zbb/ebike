@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.aaebike.mapper.ProductMapper">
-    <resultMap id="ProductDetail" type="com.aaebike.model.ProductDetail">
+    <resultMap id="ProductDetail" type="com.aaebike.entity.detail.ProductDetail">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="description" property="description" jdbcType="VARCHAR"/>
@@ -20,7 +20,7 @@
         id, name, create_time, update_time, del_flag
     </sql>
 
-    <select id="getProductList" resultMap="ProductDetail" parameterType="com.aaebike.model.Product">
+    <select id="getProductList" resultMap="ProductDetail" parameterType="com.aaebike.entity.table.Product">
         select product.*, brand.name as brand_name
         from product
         left join brand
@@ -33,7 +33,7 @@
         order by product.update_time
     </select>
 
-    <select id="getProductDetailById" resultMap="ProductDetail" parameterType="com.aaebike.model.Product">
+    <select id="getProductDetailById" resultMap="ProductDetail" parameterType="com.aaebike.entity.table.Product">
         select product.*, brand.name as brand_name
         from product
         left join brand
@@ -43,7 +43,7 @@
         and brand.del_flag = 0
     </select>
 
-    <select id="search" resultMap="ProductDetail" parameterType="com.aaebike.model.Product">
+    <select id="search" resultMap="ProductDetail" parameterType="com.aaebike.entity.table.Product">
         select product.*, brand.name as brand_name
         from product
         left join brand

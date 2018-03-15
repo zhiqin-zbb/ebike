@@ -9,10 +9,6 @@ import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
 
-/**
- * @author zhangbinbin
- * @version 2017/12/5
- */
 @Configuration
 public class KaptchaConfig {
     @Bean(name = "kaptchaProducer")

@@ -2,14 +2,13 @@ package com.aaebike.mapper;
 
 import java.util.List;
 
-import com.aaebike.common.utils.MyMapper;
-import com.aaebike.model.OrderItem;
-import com.aaebike.model.OrderItemDetail;
+import org.springframework.stereotype.Repository;
 
-/**
- * @author zhangbinbin
- * @version 2018/2/12
- */
+import com.aaebike.common.utils.MyMapper;
+import com.aaebike.entity.detail.OrderItemDetail;
+import com.aaebike.entity.table.OrderItem;
+
+@Repository
 public interface OrderItemMapper extends MyMapper<OrderItem> {
     List<OrderItemDetail> getOrderItemList(Integer orderId);
 }

@@ -5,13 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aaebike.entity.table.Express;
 import com.aaebike.mapper.ExpressMapper;
-import com.aaebike.model.Express;
 
-/**
- * @author zhangbinbin
- * @version 2018/2/5
- */
 @Service
 public class ExpressService {
     @Autowired

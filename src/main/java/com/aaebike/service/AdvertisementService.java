@@ -1,15 +1,16 @@
 package com.aaebike.service;
 
-import com.aaebike.mapper.AdvertisementMapper;
-import com.aaebike.model.Advertisement;
-import com.aaebike.model.AdvertisementType;
-import com.aaebike.model.result.AdvertisementResult;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
-import java.util.List;
+import com.aaebike.entity.result.AdvertisementResult;
+import com.aaebike.entity.table.Advertisement;
+import com.aaebike.entity.table.AdvertisementType;
+import com.aaebike.mapper.AdvertisementMapper;
 
 @Service
 public class AdvertisementService {
